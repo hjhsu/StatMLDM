@@ -697,7 +697,7 @@ population.src <- local({
 
 - 我們自內政部資料開放平台下載了個村（里）戶籍人口統計月報表，依據這份資料，建構了全金門縣人民的年齡母體
 
-```{r population-Kinmen, dependson="taiwan-population", results = "figure"}
+```{r population-Kinmen, dependson="taiwan-population", results = "figure", cache = FALSE}
 population.Kinmen <- population.src %>%
   dplyr::filter(city == "金門縣") %>%
   dplyr::group_by(city, age, sex) %>%
