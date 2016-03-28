@@ -19,7 +19,7 @@ Pt.arr <- apply(Rt.arr, 2, function(Rt)  P0*exp(cumsum(Rt)))
 matplot(Pt.arr, type="l", col="grey", lty=1) # 畫出 runs 次模擬
 lines(rowMeans(Pt.arr), type="l", lwd=1.5)   # 畫出平均模擬結果
 
-stopifnot(round(rowMeans(Pt.arr)[1],4) == 105.3824)
-stopifnot(round(rowMeans(Pt.arr)[N],4) == 119.1921)
+stopifnot(round(rowMeans(Pt.arr)[1],4) == 106.1569)
+stopifnot(round(rowMeans(Pt.arr)[N],4) == 111.7722)
 
 # 本檔案為範例頁面，請直接存檔並回到console輸入`submit()`

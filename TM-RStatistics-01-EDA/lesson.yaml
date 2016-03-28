@@ -110,7 +110,7 @@
   Output: |
     請同學利用`prod` (連乘) 與 `^` (開根號) 兩個數學算子計算 x1 的幾何平均數。
   AnswerTests: omnitest('exp(mean(log(x1)))')
-  Hint: prod(x1)^(length(x1))
+  Hint: exp(mean(log(x1)))
 - Class: text
   Output: |
     計算幾何平均數還有一個小技巧：`exp(mean(log(x1)))`。因為 log 與 exp 互為反函數，
