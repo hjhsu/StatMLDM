@@ -84,3 +84,4 @@ get_lecture_note <- function(course, out_dir = tempdir()) {
 
 
 get_lecture_note("TM-RStatistics-01-EDA/lesson.yaml", "./note")
+get_lecture_note("TM-RStatistics-02-MonteCarlo/lesson.yaml", "./note")

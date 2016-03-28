@@ -1,6 +1,10 @@
 .Rproj.user
 .Rhistory
 .RData
+<<<<<<< HEAD
 .DS_Store
 .Rbuildognore
 ^.*\.Rproj$
+=======
+.Ruserdata
+>>>>>>> 14dd75f65ee780349380496650c917ab69fd1b4c
