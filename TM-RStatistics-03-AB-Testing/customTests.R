@@ -51,7 +51,7 @@ rstatistics_03_01_01 <- function(){
   })
 }
 
-rstatistics_03_01_01 <- function(){
+rstatistics_03_02_01 <- function(){
   tryCatch({
     e <- script_test_prefix()
     e2 <- new.env()
@@ -100,35 +100,34 @@ rstatistics_03_01_01 <- function(){
   })
 }
 
-rstatistics_02_02_01 <- function(){
+rstatistics_03_03_01 <- function(){
   tryCatch({
     e <- script_test_prefix()
     e2 <- new.env()
     cat("Generating your result...\n")
     set.seed(1)
+    library(dplyr)
     source(e$script_temp_path, local = e2, encoding = "UTF-8")
-    cat("Generating expected result of mc.pvalue ...\n")
-    set.seed(1)    # 給定亂數生成種子
-    runs <- 100000   # 模擬次數
+    cat("Generating expected result of AB Testing ...\n")
 
-    n_a <- 2981 # 請填入版本A的瀏覽次數
-    k_a <- 343  # 請填入版本A的註冊次數
+    # 請練習使用 dplyr::filter
+    # 選出時間介於 2015-05-24到2015-08-23的資料
+    # Hint: as.Date(date) >= as.Date("2015-05-24)
+    game1 <- filter(game, as.Date(date) >= as.Date("2015-05-24"),
+                    as.Date(date) <= as.Date("2015-08-23"))
 
-    n_b <- 2945 # 請填入版本B的瀏覽次數
-    k_b <- 403  # 請填入版本B的註冊次數
+    # 執行兩方案對value的A/B測試
+    # 請修改formula成適當內容
+    # Note: alternative="less" 表示單尾檢定，請見help(t.test)
+    test3 <- t.test(value~method, data=game1, alternative="less")
+    test3
 
-    # 生成版本A與B的隨機變數
-    a.samples <- rbeta(runs, k_a+1, n_a-k_a+1)
-    b.samples <- rbeta(runs, k_b+1, n_b-k_b+1)
-
-    mc.pvalue <- sum(a.samples > b.samples)/runs
-
-    stopifnot(class(mc.pvalue) == "numeric")
+    stopifnot(round(test3$p.value,5)==0.0016)
     # 完成後，請存檔並回到console輸入`submit()`
 
-    cat("mc.pvalue =", mc.pvalue, "\n")
-    if (!isTRUE(all.equal(mc.pvalue, e2$mc.pvalue ))) {
-      stop("The generation of mc.pvalue is unexpected")
+
+    if (!isTRUE(all.equal(test3, e2$test3))) {
+      stop("The generation of AB Testing is unexpected")
     }
     TRUE
   }, error = function(e) {
@@ -137,41 +136,34 @@ rstatistics_02_02_01 <- function(){
   })
 }
 
-rstatistics_02_03_01 <- function(){
+rstatistics_03_03_02 <- function(){
   tryCatch({
     e <- script_test_prefix()
     e2 <- new.env()
     cat("Generating your result...\n")
     set.seed(1)
+    library(dplyr)
     source(e$script_temp_path, local = e2, encoding = "UTF-8")
-    cat("Generating expected result of Pt ...\n")
-    set.seed(1)    # 給定亂數生成種子
-    N    <- 30     # 模擬時間長度
-    mR   <- mean(AAPL.returns)    # 修改xxx, 計算AAPL.returns的平均數
-    sdR  <- sd(AAPL.returns)    # 修改xxx, 計算AAPL.returns的標準差
+    cat("Generating expected result of AB Testing ...\n")
 
-    # 請執行股價的蒙地卡羅模擬
-    # Hint: P_t = P_t−1 * exp(R_t)
-    #       P_t = P_0 * prod(exp(R_t))
-    #       P_t = P_0 * exp(cumsum(R_t))
+    # 請練習使用 dplyr::filter
+    # 選出時間介於 2015-05-24到2015-11-22的資料
+    # Hint: as.Date(date) >= as.Date("2015-05-24)
+    game2 <- filter(game, as.Date(date) >= as.Date("2015-05-24"),
+                    as.Date(date) <= as.Date("2015-11-22"))
 
-    P0 <- tail(AAPL.price,1) # 設定模擬起始時間，為最後一筆股價
-    Rt <- rnorm(n=N, mean=mR, sd=sdR) # 修改xxx, 生成AAPL.returns的常態分佈隨機變數
-    Pt <- P0*exp(cumsum(Rt)) # 請同學依照Hint生成股價模擬數據
+    # 執行兩方案對value的A/B測試
+    # 請修改formula成適當內容
+    # Note: alternative="less" 表示單尾檢定，請見help(t.test)
+    test4 <- t.test(value~method, data=game2, alternative="greater")
+    test4
 
-    plot(Pt, type="l")     # 畫出預測結果
-
-    # 請注意保持起始亂數種子 set.seed(1)，已通過syopifnot的驗證
-    stopifnot(length(Rt) == N)
-    stopifnot(class(Pt) == "numeric")
-    stopifnot(round(Pt[1],4) == 104.3704)
-    stopifnot(round(Pt[N],4) == 114.6805)
-
+    stopifnot(round(test4$p.value,5)==0.09505)
     # 完成後，請存檔並回到console輸入`submit()`
 
-    cat("Pt =", Pt, "\n")
-    if (!isTRUE(all.equal(Pt, e2$Pt))) {
-      stop("The generation of Pt is unexpected")
+
+    if (!isTRUE(all.equal(test4, e2$test4))) {
+      stop("The generation of AB Testing is unexpected")
     }
     TRUE
   }, error = function(e) {

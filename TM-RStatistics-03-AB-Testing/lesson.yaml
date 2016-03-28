@@ -95,3 +95,88 @@
     完成後，請存檔並回到console輸入`submit()`
   Script: rstatistics-03-02-01.R
   AnswerTests: rstatistics_03_02_01()
+
+- Class: text
+  Output: |
+    範例3. 手機遊戲的儲值AB測試，這筆資料的單位已經被模糊化。
+    這個範例將說明AB測試一個很重要的議題，不能夠隨意停止實驗。
+
+- Class: cmd_question
+  Output: |
+    這筆資料已經被預載到`game`這個變數中，請同學輸入`summary(game)`來觀察這筆資料。
+  CorrectAnswer: summary(game)
+  AnswerTests: omnitest('summary(game)')
+  Hint: summary(game)
+- Class: text
+  Output: |
+    這份資料從2015-03-01開始，每一個禮拜記錄一次；method=A/B 表示兩群會員；
+    value表示這群會員的儲值量；cumvalue則為累進儲值量。
+    在2015-05-24之前，A/B兩組會員是使用相同促銷方案，此後開始區分不同方案。
+
+- Class: cmd_question
+  Output: |
+    請使用R套件 `ggplot2` 對這筆資料做基本的視覺化，
+    請同學輸入以下指令載入套件：`library(ggplot2)`
+  CorrectAnswer: library(ggplot2)
+  AnswerTests: omnitest('library(ggplot2)')
+  Hint: library(ggplot2)
+
+- Class: cmd_question
+  Output: |
+    請使用ggplot2繪製line cahrt，
+    請同學輸入以下指令：`ggplot(game, aes(x=as.Date(date), y=value, colour=method)) + geom_line()`
+  CorrectAnswer: ggplot(game, aes(x=as.Date(date), y=value, colour=method)) + geom_line()
+  AnswerTests: omnitest('ggplot(game, aes(x=as.Date(date), y=value, colour=method)) + geom_line()')
+  Hint: ggplot(game, aes(x=as.Date(date), y=value, colour=method)) + geom_line()
+
+- Class: cmd_question
+  Output: |
+    請同學輸入以下指令，將`ggplot`存入變數`g`：`g <- ggplot(game, aes(x=as.Date(date), y=value, colour=method)) + geom_line()`
+  CorrectAnswer: g <- ggplot(game, aes(x=as.Date(date), y=value, colour=method)) + geom_line()
+  AnswerTests: omnitest('g <- ggplot(game, aes(x=as.Date(date), y=value, colour=method)) + geom_line()')
+  Hint: g <- ggplot(game, aes(x=as.Date(date), y=value, colour=method)) + geom_line()
+
+- Class: cmd_question
+  Output: |
+    經查我們知道2015-05-24才開始實驗，而A/B方案在2015-08-30產生黃金交叉。
+    請同學輸入以下指令，對兩個日期做註記：`node <- as.numeric(as.Date(c("2015-05-24", "2015-08-30")))`
+  CorrectAnswer: node <- as.numeric(as.Date(c("2015-05-24", "2015-08-30")))
+  AnswerTests: omnitest('node <- as.numeric(as.Date(c("2015-05-24", "2015-08-30")))')
+  Hint: node <- as.numeric(as.Date(c("2015-05-24", "2015-08-30")))
+
+- Class: cmd_question
+  Output: |
+    請同學輸入以下指令，將兩個日期劃到ggplot上：`g + geom_vline(xintercept = node, lty=2)`
+  CorrectAnswer: g + geom_vline(xintercept = node, lty=2)
+  AnswerTests: omnitest('g + geom_vline(xintercept = node, lty=2)')
+  Hint: g + geom_vline(xintercept = node, lty=2)
+
+- Class: script
+  Output: |
+    假設自2015-05-24起，做三個月的A/B測試，即2015-05-24至2015-08-23。
+    請同學在 rstatistics-03-03-01.R 裡面進行作答，
+    完成後，請存檔並回到console輸入`submit()`
+  Script: rstatistics-03-03-01.R
+  AnswerTests: rstatistics_03_03_01()
+
+- Class: mult_question
+  Output: |
+    請問同學，在上例中哪種方案表現較佳？
+  AnswerChoices: A;B
+  CorrectAnswer: 'B'
+  AnswerTests: omnitest(correctVal = "B")
+
+- Class: script
+  Output: |
+    假設自2015-05-24起，做六個月的A/B測試，即2015-05-24至2015-11-22。
+    請同學在 rstatistics-03-03-02.R 裡面進行作答，
+    完成後，請存檔並回到console輸入`submit()`
+  Script: rstatistics-03-03-02.R
+  AnswerTests: rstatistics_03_03_02()
+
+- Class: mult_question
+  Output: |
+    請問同學，在上例中哪種方案表現較佳？
+  AnswerChoices: A;B
+  CorrectAnswer: 'A'
+  AnswerTests: omnitest(correctVal = "A")
