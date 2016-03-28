@@ -5,3 +5,5 @@
 .Rbuildognore
 ^.*\.Rproj$
 .Ruserdata
+.DS_Store
+.Ruserdata
