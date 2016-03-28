@@ -24,7 +24,7 @@
   AnswerTests: omnitest('mean(x1)')
   Hint: mean(x1)
 - Class: cmd_question
-  Output: 請同學輸入`median(x1)`計算 x1 的平均數
+  Output: 請同學輸入`median(x1)`計算 x1 的中位數
   CorrectAnswer: median(x1)
   AnswerTests: omnitest('median(x1)')
   Hint: median(x1)
@@ -76,7 +76,7 @@
   AnswerChoices: mean;median;mode;none
   CorrectAnswer: mean
   AnswerTests: omnitest(correctVal = "mean")
-- Class: text
+- Class: cmd_question
   Output: |
     由於平均數容易受到極端值所影響，實務上可以使用修剪平均 (trimmed mean)，
     譬如跳水比賽，有五個評審，最終評分會先刪除最高與最低的分數，再從三個實得分中取得平均。
@@ -106,7 +106,7 @@
     並不是所有度量資料中心的指標，經過線性轉換後都能夠保有相同結果。
     譬如冪平均 (power mean) 即是反例。我們熟知的調和平均數、幾何平均數就是冪平均的特例。
     有興趣的同學請參考：<https://en.wikipedia.org/wiki/Generalized_mean>
-- Class: text
+- Class: cmd_question
   Output: |
     請同學利用`prod` (連乘) 與 `^` (開根號) 兩個數學算子計算 x1 的幾何平均數。
   AnswerTests: omnitest('exp(mean(log(x1)))')
