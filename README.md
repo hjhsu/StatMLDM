@@ -20,12 +20,5 @@ tryCatch({
 
 2. 載入swirl，並且安裝課程
 
-```
 library(swirl)
-<<<<<<< HEAD
-install_course_github("wush978", "StatMLDM", "course")
-```
-=======
 install_course_github("JohnsonHsieh", "StatMLDM", "tm")
-```
->>>>>>> tm
