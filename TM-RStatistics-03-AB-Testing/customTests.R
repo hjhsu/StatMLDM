@@ -18,24 +18,30 @@ script_test_prefix <- function(n = 2) {
   e
 }
 
-rstatistics_02_01_01 <- function(){
+rstatistics_03_01_01 <- function(){
   tryCatch({
     e <- script_test_prefix()
     e2 <- new.env()
     cat("Generating your result...\n")
     set.seed(1)
     source(e$script_temp_path, local = e2, encoding = "UTF-8")
-    cat("Generating expected result of mc.integral ...\n")
-    set.seed(1) # 給定亂數生成種子
-    runs <- 1000   # 模擬次數
+    cat("Generating expected result of out1 ...\n")
+    library(dplyr) # 載入套件
 
-    # 請同學修改 xx 成適當的參數，以生成平均數=0, 標準差=10的常態分佈隨機變數
-    sims <- rnorm(runs, mean=0, sd=10)
+    # 請修改xxx, yyy 以計算 cricket_color 這筆資料，
+    # 對不同板球顏色 (color) 分別計算移動初速 (speed) 的
+    # 平均數 (mean) 與標準差 (sd)
+    # 並將結果指向 out
+    out1 <- group_by(cricket_color, color) %>%
+      summarise(mean=mean(speed), sd=sd(speed))
 
-    # 請同學修改 yy 成適當的參數，以計算介於 (-10, 10)的機率總和
-    mc.integral <- sum(sims >= -10 & sims <= 10)/runs
-    cat("mc.integral =", mc.integral, "\n")
-    if (!isTRUE(all.equal(mc.integral, e2$mc.integral ))) {
+    stopifnot("data.frame" %in% class(out))
+    stopifnot(round(out1[1,2],4) == 156.6667)
+    stopifnot(round(out1[2,2],4) == 111.0000)
+    # 完成後，請存檔並回到console輸入`submit()`
+
+    out1
+    if (!isTRUE(all.equal(out1, e2$out1))) {
       stop("The generation of mc.integral  is unexpected")
     }
     TRUE
@@ -45,31 +51,47 @@ rstatistics_02_01_01 <- function(){
   })
 }
 
-rstatistics_02_01_02 <- function(){
+rstatistics_03_01_01 <- function(){
   tryCatch({
     e <- script_test_prefix()
     e2 <- new.env()
     cat("Generating your result...\n")
     set.seed(1)
     source(e$script_temp_path, local = e2, encoding = "UTF-8")
-    cat("Generating expected result of mc.integral.seq ...\n")
-    set.seed(1)    # 給定亂數生成種子
-    runs <- 10^(3:6)   # 模擬次數
+    cat("Generating expected result of AB Testing ...\n")
+    # 範例2. 計算A/B測試的p值。
+    # 考慮A、B兩種網頁排版方案，比較會員註冊的成效。
+    # 在同一時間內隨機分派訪客進入A、B兩種排版的網頁，
+    # A版本在2,981個瀏覽數中有343個註冊數；
+    # B版本在2,945個瀏覽數中有403個註冊數。
+    # A版本的轉換率為11.5%；B版本為13.7% 。
 
-    # 這是一個給定參數 runs=模擬次數，即執行MC積分演算法的函數
-    mcFun01 <- function(runs){
-      # 生成平均數=0, 標準差=10的常態分佈隨機變數
-      sims <- rnorm(runs, mean=0, sd=10)
-      # 計算介於 (-10, 10)的機率總和
-      mc.integral <- sum(sims >= -10 & sims <= 10)/runs
-      mc.integral
-    }
+    # 生成 web log data
+    a <- rep(c(1,0), c(343, 2981-343))
+    b <- rep(c(1,0), c(403, 2945-403))
+    out2 <- data.frame(method=rep(c("A","B"), c(2981,2945)),
+                       value=c(a,b))
 
-    # 請同學修改 xx 與 yy 成適當的參數，計算不同模擬次數的MC積分結果
-    mc.integral.seq <- sapply(X=runs, FUN=mcFun01)
-    cat("mc.integral.seq =", mc.integral.seq, "\n")
-    if (!isTRUE(all.equal(mc.integral.seq, e2$mc.integral.seq))) {
-      stop("The generation of mc.integral.seq is unexpected")
+    tab <- table(out2)  # 印出交叉表
+    tab
+
+    # 請使用 t.test 執行轉換率A/B測試
+    # 將 formula 修改成適當格式 xxx ~ yyy
+    test1 <- t.test(value~method, data=out2)
+    test1
+
+    # 請使用 prop.test 執行轉換率A/B測試
+    # 請將xxx, yyy修改後，執行prop.test
+    test2 <- prop.test(x=c(343,403), n=c(2981,2945), correct=FALSE)
+    test2
+
+    stopifnot(round(test1$p.value,4) == 0.0115)
+    stopifnot(round(test2$p.value,4) == 0.0115)
+
+    # 完成後，請存檔並回到console輸入`submit()`
+
+    if (!isTRUE(all.equal(test1, e2$test1))) {
+      stop("The generation of AB Testing is unexpected")
     }
     TRUE
   }, error = function(e) {

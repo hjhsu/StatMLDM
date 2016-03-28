@@ -3,9 +3,11 @@
 # the user's working directory and thus be accessible to them
 # throughout the lesson.
 
+
+.get_path <- function(fname) {
+  normalizePath(file.path(find.package("swirl", quiet = TRUE), sprintf("Courses/StatMLDM/TM-RStatistics-02-MonteCarlo/%s", fname)), mustWork = TRUE)
+}
+
 assign("AAPL", 
-       local({
-         readRDS("TM-RStatistics-02-MonteCarlo/AAPL.rds")
-       }), envir = globalenv())
-
-
+       read.csv(.get_path("AAPL.csv")), 
+       envir = globalenv())
