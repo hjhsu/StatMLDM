@@ -26,6 +26,8 @@ library(xgboost)
 library(e1071)
 library(plotmo)
 library(rpart.plot)
+library(ggplot2)
+library(gridExtra)
 
 opts_chunk$set(echo = FALSE, cache=TRUE, comment="",
                cache.path = "cache-MachineLearning/",
@@ -276,32 +278,206 @@ sys_encode <- c("utf8", "utf8", "big5")[pmatch(sys_name, c("linux", "darwin", "w
 
 --- &vcenter .largecontent
 
-## 點擊率預測
-
-- 評分： $l(y, \hat{y})$
-    - 點擊預測： $l(y, \hat{y}) = \left\{\begin{array}{lc}  0 & \text{if } y = \hat{y} \\  1 & \text{if } y \neq \hat{y} \end{array}\right.$
-
---- &vcenter .largecontent
-
 ## 機器如何學習
 
+- 尋找訊號
 - 評分（Loss Function）
+    - 評量預測結果
+    - 調整預測的方向
+    - 常常牽涉到統計模型
+    - 實務上努力的方向
 - 優化
+    - 找出合理的方法讓預測越來越準
+    - 常常牽涉到數值方法
+    - 實務上，交給套件去處理
 
 --- &vcenter .largecontent
 
-## 評分
+## 範例
 
-- 評量預測結果
-- 調整預測的方向
-- 常常牽涉到統計模型
+- $y = 3 tan^{-1}(5 x) + z + \varepsilon$
+- $\varepsilon \sim N(0, 0.01)$
+
+```{r ml-principle1}
+set.seed(1)
+.x <- rnorm(50)
+.z <- rnorm(50)
+df <- data.frame(x = .x, z = .z)
+df$y <- 3 * atan(5 * df$x) + df$z + rnorm(50, 0, 0.1)
+df <- df[,c(3,1,2)]
+df$type <- rep(c("1", "2"), 25)
+knitr::kable(local({
+  .df <- head(df, 10)
+  .df$y <- format(.df$y)
+  .df$y[.df$type == "1"] <- sprintf('<font color = "red">%s</font>', .df$y[.df$type == "1"])
+  .df[,1:3]
+}))
+df.train <- dplyr::filter(df, type == "2")
+df.test <- dplyr::filter(df, type == "1")
+```
 
 --- &vcenter .largecontent
 
-## 優化
+## 用平均數猜
 
-- 找出合理的方法讓預測越來越準
-- 常常牽涉到數值方法
+```{r ml-principle-avg, dependson="ml-principle1"}
+thm <- theme(legend.position = "none", plot.title = element_text(size=22),
+        axis.title.x = element_text(size = 20), axis.title.y = element_text(size = 20),
+        axis.text.x = element_text(size = 20), axis.text.y = element_text(size = 20))
+g <- 
+  ggplot(df.train, aes(x = y)) + 
+  geom_histogram() + 
+  theme_bw() + 
+  guides(fill=FALSE) + 
+  ggtitle(label = sprintf("Training Loss: %0.4f Testing Loss: %0.4f", 
+                          mean(abs(df.train$y - mean(df.train$y))),
+                          mean(abs(df.test$y - mean(df.train$y)))
+                          )) +
+  thm
+suppressMessages(print(g))
+```
+
+--- &vcenter .largecontent
+
+## 機器學習的原理 - 只看到x
+
+```{r ml-principle-x, dependson="ml-principle-avg"}
+f2 <- local({
+  m <- lm(y ~ x, df.train)
+  function(x) {
+    coef(m)[1] + coef(m)[2] * x
+  }
+})
+result_x_y <- function(.f, print = TRUE) {
+  g <- 
+    ggplot(df.train, aes(x = x, y = y)) + 
+    geom_point(size = 4) + 
+    geom_point(aes(x = x, y = y), data = df.test, size = 4, color = "red") +
+    theme_bw() + 
+    stat_function(fun = .f, colour = "gray", lwd = 2) +
+    guides(fill=FALSE) + 
+    ggtitle(label = sprintf("Training Loss: %0.4f Testing Loss: %0.4f", 
+                            mean(abs(df.train$y - .f(df.train$x))),
+                            mean(abs(df.test$y - .f(df.test$x)))
+                            )) +
+    thm  
+  if (print) suppressMessages(print(g))
+  invisible(g)
+}
+result_x_y(f2)
+```
+
+--- &vcenter .largecontent
+
+## 機器學習的原理 - 只看到x - 複雜化
+
+```{r ml-principle-smooth.x, dependson="ml-principle-x"}
+f3 <- local({
+  .x <- seq(min(df.train$y) - 1, max(df.train$y) + 1, length.out = 1000)
+  m <- smooth.spline(df.train$x, df.train$y)
+  approxfun(.x, predict(m, .x)$y)
+})
+result_x_y(f3)
+```
+
+--- &vcenter .largecontent
+
+## 機器學習的原理 - 只看到x - 過度複雜化
+
+```{r ml-principle-interp.x, dependson="ml-principle-smooth.x"}
+f4 <- local({
+  splinefun(df.train$x, df.train$y, "monoH.FC")
+})
+result_x_y(f4)
+```
+
+--- &vcenter .largecontent
+
+## 機器學習的原理 - 只看到z
+
+```{r ml-principle-z, dependson="ml-principle-avg"}
+g1 <- local({
+  m <- lm(y ~ z, df.train)
+  function(x) {
+    coef(m)[1] + coef(m)[2] * x
+  }
+})
+result_z_y <- function(.f) {
+  g <- 
+    ggplot(df.train, aes(x = z, y = y)) + 
+    geom_point(size = 4) + 
+    geom_point(aes(x = z, y = y), data = df.test, size = 4, color = "red") +
+    theme_bw() + 
+    stat_function(fun = .f, colour = "gray", lwd = 2) +
+    guides(fill=FALSE) + 
+    ggtitle(label = sprintf("Training Loss: %0.4f Testing Loss: %0.4f", 
+                            mean(abs(df.train$y - .f(df.train$z))),
+                            mean(abs(df.test$y - .f(df.test$z)))
+                            )) +
+    thm  
+  suppressMessages(print(g))
+}
+result_z_y(g1)
+```
+
+--- &vcenter .largecontent
+
+## 機器學習的原理 - 看到x與z
+
+```{r ml-principle-xz, dependson="ml-principle-smooth.x"}
+i1 <- result_x_y(f3, FALSE)
+df5 <- data.frame(res = df.train$y - f3(df.train$x), z = df.train$z)
+f5.1 <- local({
+  .m <- lm(res ~ z, df5)
+  function(x) coef(.m)[1] + coef(.m)[2] * x
+})
+f5.2 <- local({
+  function(x, z) {
+    f3(x) + f5.1(z)
+  }
+})
+i2 <- 
+  local({
+    ggplot(df5, aes(x = z, y = res)) +
+      geom_point(size = 4) +
+      stat_function(fun = f5.1, colour = "gray", lwd = 2) + 
+      ggtitle(label = sprintf("Training Loss: %0.4f Testing Loss: %0.4f", 
+                              mean(abs(df.train$y - f5.2(df.train$x, df.train$z))),
+                              mean(abs(df.test$y - f5.2(df.test$x, df.test$z)))
+                              )) +
+      thm
+  })
+grid.arrange(i1, i2)
+```
+
+--- &vcenter .largecontent
+
+## 機器學習的原理 - Training v.s. Testing(Validating)
+
+```{r ml-principle-summary, dependson=c("ml-principle-interp.x", "ml-principle-z", "principle-xz")}
+result <- data.frame(
+  "Type" = c("Average", "Line-x", "Smooth-x", "Interpolation-x", "Line-z", "Smooth-x-Line-z"),
+  "Training Loss" = c(
+    mean(abs(df.train$y - mean(df.train$y))), 
+    mean(abs(df.train$y - f2(df.train$x))),
+    mean(abs(df.train$y - f3(df.train$x))),
+    mean(abs(df.train$y - f4(df.train$x))),
+    mean(abs(df.train$y - g1(df.train$z))),
+    mean(abs(df.train$y - f5.2(df.train$x, df.train$z)))
+    ),
+  "Testing Loss" = c(
+    mean(abs(df.test$y - mean(df.train$y))),
+    mean(abs(df.test$y - f2(df.test$x))),
+    mean(abs(df.test$y - f3(df.test$x))),
+    mean(abs(df.test$y - f4(df.test$x))),
+    mean(abs(df.test$y - g1(df.test$z))),
+    mean(abs(df.test$y - f5.2(df.test$x, df.test$z)))
+  )
+)
+knitr::kable(result)
+```
+
+<http://lossfunctions.tumblr.com/>
 
 --- &vcenter .largecontent
 

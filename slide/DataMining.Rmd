@@ -1,13 +1,13 @@
 ---
-title       : "Data Mining"
-author      : "Wush Wu"
-job         : 國立台灣大學
+title       : Data Mining
+author      : Wush Wu
 framework   : io2012-wush
 highlighter : highlight.js
 hitheme     : zenburn
 widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
 knit        : slidify::knit2slides
+geometry: margin=0in
 --- .largecontent &vcenter
 
 ```{r setup, include=FALSE, cache=FALSE}
