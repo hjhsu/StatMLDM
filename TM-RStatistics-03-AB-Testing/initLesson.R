@@ -3,9 +3,7 @@
 # the user's working directory and thus be accessible to them
 # throughout the lesson.
 
-assign("AAPL", 
+assign("cricket_color",
        local({
-         readRDS("TM-RStatistics-02-MonteCarlo/AAPL.rds")
+         read.csv("TM-RStatistics-03-AB-Testing/cricket_color.csv")
        }), envir = globalenv())
-
-

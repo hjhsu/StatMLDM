@@ -5,7 +5,7 @@
 
 assign("AAPL", 
        local({
-         readRDS("TM-RStatistics-02-MonteCarlo/AAPL.rds")
+         read.csv("TM-RStatistics-02-MonteCarlo/AAPL.csv")
        }), envir = globalenv())
 
 
