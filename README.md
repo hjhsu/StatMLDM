@@ -4,7 +4,7 @@
 
 ## 安裝Swirl課程
 
-1. 請檢查是否使用`http://wush978.github.io`上的swirl套件：
+- 請檢查是否使用`http://wush978.github.io`上的swirl套件：
 
 ```
 tryCatch({
@@ -18,7 +18,21 @@ tryCatch({
 })
 ```
 
-2. 載入swirl，並且安裝課程
-
+- 載入swirl，並且安裝課程
+```
 library(swirl)
 install_course_github("JohnsonHsieh", "StatMLDM", "tm")
+```
+
+- 如果安裝有問題，請清空過往課程
+```
+library(swirl)
+delete_progress("user_name") # 修該user_name成為同學的暱稱
+uninstall_all_courses() # 移除所有舊課程
+install_course_github("JohnsonHsieh", "StatMLDM", "tm")
+```
+
+## 課程筆記
+- [TM-RStatistics-01-EDA](https://JohnsonHsieh.github.io/StatMLDM/note/TM-RStatistics-01-EDA.html)
+- [TM-RStatistics-02-MonteCarlo](https://JohnsonHsieh.github.io/StatMLDM/note/TM-RStatistics-02-MonteCarlo.html)
+- [TM-RStatistics-03-AB-Testing](https://JohnsonHsieh.github.io/StatMLDM/note/TM-RStatistics-03-AB-Testing.html)
