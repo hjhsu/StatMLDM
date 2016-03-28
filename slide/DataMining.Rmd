@@ -60,7 +60,7 @@ sys_encode <- c("utf8", "utf8", "big5")[pmatch(sys_name, c("linux", "darwin", "w
 
 Source: <http://gold.sarwatch.org/reports/gold-mining-orientale-province>
 
---- &fullimg bg:url(assets/img/dm.gif)
+--- &fullimg `r bg("dm.gif")`
 
 Source: <http://www.laits.utexas.edu/~anorman/BUS.FOR/course.mat/Alex>
 
@@ -97,6 +97,13 @@ Source: <http://www.laits.utexas.edu/~anorman/BUS.FOR/course.mat/Alex>
     - 一名顧客所購買的物品清單：\{milk, bread\}
 - Item
     - 可購買的物品：milk、break、beer...
+- Itemset
+    - 可購買的物品集合，例如：\{milk, break\}
+
+--- &vcenter .largecontent
+
+## Frequency Pattern Mining
+
 - Rule
     - 物品之間的關聯：$X$ ==> $Y$（$X$, $Y$又被稱為itemset）
     - $X$(LHS itemset) 和 $Y$(RHS itemset) 不能包含相同的物品
@@ -181,7 +188,7 @@ Source: <http://www.laits.utexas.edu/~anorman/BUS.FOR/course.mat/Alex>
 
 ## Lift
 
-- $Lift(X \Rightarrow Y) = \frac{Supp(X \cup Y)}{Supp(X) \times Supp(Y)}$
+- $Lift(X \Rightarrow Y) = \frac{Supp(X \cup Y)}{Supp(X) \times Supp(Y)} = \frac{Conf(X \Rightarrow Y)}{Supp(Y)}$
 - 交易紀錄
     - \{milk, bread\}
     - \{milk\}
@@ -195,7 +202,7 @@ Source: <http://www.laits.utexas.edu/~anorman/BUS.FOR/course.mat/Alex>
 
 - 規則的Confidence要明顯 => 準
 - 規則的Support要高 => 有影響
-- 規則的Lift要高 => 與背景比較
+- 規則的Lift要高 => 與背景比較後提升的程度
 
 --- &vcenter .largecontent
 
@@ -239,19 +246,11 @@ Source: <http://www.laits.utexas.edu/~anorman/BUS.FOR/course.mat/Alex>
 
 ## 二元類別型變數
 
-- $p = (1, 0, 0, 0, 0)$, q = (1, 1, 0, 1, 0)$
+- $p = (1, 0, 0, 0, 0)$, q = $(1, 1, 0, 1, 0)$
     - $M_{11} = 1, M_{00} = 2$
     - $M_{10} = 0, M_{01} = 2$
 - Simple Matching Coefficient(SMC): $\frac{M_{11} + M_{00}}{M_{01} + M_{10} + M_{11} + M_{00}}$
 - Jaccard Index: $\frac{M_{11}}{M_{01} + M_{10} + M_{11}}$
-
---- &vcenter .largecontent
-
-## 類別型變數 ==> Simple Matching Coefficient
-
-- 使用者A：年齡：中年、職業：公務員、教育：大學、婚姻：未婚
-- 使用者B：年齡：高齡、職業：自由業、教育：大學、婚姻：已婚
-- SMC： $\frac{相同的屬性個數}{常數} \propto 相同的屬性個數$
 
 --- &vcenter .largecontent
 
@@ -261,10 +260,50 @@ Source: <http://www.laits.utexas.edu/~anorman/BUS.FOR/course.mat/Alex>
 - 使用者B : \{男性、旅遊、電玩、學生\}
 - Jaccard Index: $\frac{\left| A \cap B \right|}{\left| A \cup B \right|}$
     - J(使用者A, 使用者B) ： $\frac{2}{6}$
+    - $v := \{i_{男性}, i_{單身}, i_{電玩}, i_{上班族}, i_{旅遊}, i_{學生}, i_{女性}, ...\}$
+    - $v_A = \{1, 1, 1, 1, 0, 0, 0, ...\}$
+    - $v_B = \{1, 0, 1, 0, 1, 1, 0, ...\}$
 
 --- &fullimg `r bg("709544_0.jpg")`
 
 <http://www.twwiki.com/wiki/%E6%8B%9B%E6%A8%99>
+
+--- &vcenter .largecontent
+
+## 利用爬蟲技術收集決標資料
+
+- <http://web.pcc.gov.tw/tps/main/pms/tps/atm/atmAwardAction.do?newEdit=false&searchMode=common&method=inquiryForPublic&pkAtmMain=1126170&tenderCaseNo=931116-2>
+- <http://web.pcc.gov.tw/tps/main/pms/tps/atm/atmAwardAction.do?newEdit=false&searchMode=common&method=inquiryForPublic&pkAtmMain=1495141&tenderCaseNo=CG590C>
+- <http://web.pcc.gov.tw/tps/main/pms/tps/atm/atmAwardAction.do?newEdit=false&searchMode=common&method=inquiryForPublic&pkAtmMain=1501992&tenderCaseNo=EA95029M008>
+- <http://web.pcc.gov.tw/tps/main/pms/tps/atm/atmAwardAction.do?newEdit=false&searchMode=common&method=inquiryForPublic&pkAtmMain=1518749&tenderCaseNo=KHC1521-9515>
+- <http://web.pcc.gov.tw/tps/main/pms/tps/atm/atmAwardAction.do?newEdit=false&searchMode=common&method=inquiryForPublic&pkAtmMain=1799822&tenderCaseNo=TPC-MS-FAB-S2>
+- <http://web.pcc.gov.tw/tps/main/pms/tps/atm/atmAwardAction.do?newEdit=false&searchMode=common&method=inquiryForPublic&pkAtmMain=1854786&tenderCaseNo=960625>
+
+--- &vcenter .largecontent
+
+## 利用爬蟲技術取得公司董監事名單
+
+|id       |name                             |parent |birthday   |magnate                       |
+|:--------|:--------------------------------|:------|:----------|:-----------------------------|
+|00000000 |復華廣告有限公司                 |NA     |1976-05-24 |                              |
+|00000016 |富台機械開發建設有限公司         |NA     |1979-04-30 |王振林                        |
+|00000022 |泰煜建材股份有限公司             |NA     |NA         |                              |
+|00000037 |茂盛工程有限公司（同名）         |NA     |1978-07-08 |                              |
+|00000043 |啟猛股份有限公司（無統編）       |NA     |1984-05-22 |鄭添發                        |
+|00000058 |詠詳鐵工廠股份有限公司（無統蝙） |NA     |1984-03-07 |吳秋進,吳戴麗珍,謝素梅,吳秋龍 |
+
+--- &vcenter .largecontent
+
+## 利用Jaccard Index 計算公司董監事相似度
+
+- <http://web.pcc.gov.tw/tps/main/pms/tps/atm/atmAwardAction.do?newEdit=false&searchMode=common&method=inquiryForPublic&pkAtmMain=51493408&tenderCaseNo=GF4-103122>
+
+|        |id       |name                     |parent |birthday   |magnate                     |
+|:-------|:--------|:------------------------|:------|:----------|:---------------------------|
+|555426  |27229231 |尚達塩業股份有限公司     |NA     |2005-05-30 |吳秀里,周永紹,周博元,周碩良 |
+|1067348 |70794974 |上達糧業國際股份有限公司 |NA     |2002-01-08 |吳秀里,周永紹,周博元,周碩良 |
+
+- Jaccard Index 為 1
 
 --- &vcenter .largecontent
 
@@ -274,6 +313,12 @@ Source: <http://www.laits.utexas.edu/~anorman/BUS.FOR/course.mat/Alex>
 - Cosine Similarity： $\frac {X_1 \cdot X_2}{\left\lVert X_1 \right\rVert \left\lVert X_2 \right\rVert}$
 - `r fig("unit_circle.gif")`
     - <small style="font-size: 50%"><https://www.math.hmc.edu/calculus/tutorials/reviewtriglogexp/></small>
+
+--- &vcenter .largecontent
+
+## 範例：Word2Vec
+
+
 
 --- &vcenter .largecontent
 
