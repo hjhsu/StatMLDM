@@ -22,5 +22,10 @@ tryCatch({
 
 ```
 library(swirl)
+<<<<<<< HEAD
 install_course_github("wush978", "StatMLDM", "course")
 ```
+=======
+install_course_github("JohnsonHsieh", "StatMLDM", "tm")
+```
+>>>>>>> tm
