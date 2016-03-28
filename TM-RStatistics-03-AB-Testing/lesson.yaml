@@ -1,7 +1,7 @@
 - Class: meta
-  Course: DataScienceAndR
-  Lesson: TM-RStatistics-02-MonteCarlo
-  Author: Wush Wu
+  Course: StatMLDM
+  Lesson: TM-RStatistics-03-AB-Testing
+  Author: Johnson Hsieh
   Type: Standard
   Organization: Taiwan R User Group
   Version: 2.3.1.2
