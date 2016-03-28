@@ -3,7 +3,6 @@
 # the user's working directory and thus be accessible to them
 # throughout the lesson.
 
-
 .get_path <- function(fname) {
   normalizePath(file.path(find.package("swirl", quiet = TRUE), sprintf("Courses/StatMLDM/TM-RStatistics-02-MonteCarlo/%s", fname)), mustWork = TRUE)
 }
