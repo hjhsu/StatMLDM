@@ -10,5 +10,5 @@ game1 <- filter(game, xxx, xxx)
 test3 <- t.test(formula, data=game1, alternative="less")
 test3
 
-stopifnot(round(test3$p.value,5)==0.0016)
+stopifnot(round(test3$p.value,5)==0.00016)
 # 完成後，請存檔並回到console輸入`submit()`

@@ -18,7 +18,5 @@ plot(Pt, type="l")     # 畫出預測結果
 # 請注意保持起始亂數種子 set.seed(1)，已通過syopifnot的驗證
 stopifnot(length(Rt) == N)
 stopifnot(class(Pt) == "numeric")
-stopifnot(round(Pt[1],4) == 104.3704)
-stopifnot(round(Pt[N],4) == 114.6805)
-
+stopifnot(length(Pt) == N)
 # 完成後，請存檔並回到console輸入`submit()`

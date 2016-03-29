@@ -10,6 +10,6 @@ game1 <- filter(game, as.Date(date) >= as.Date("2015-05-24"),
 test3 <- t.test(value~method, data=game1, alternative="less")
 test3
 
-stopifnot(round(test3$p.value,5)==0.0016)
+stopifnot(round(test3$p.value,5)==0.00016)
 # 完成後，請存檔並回到console輸入`submit()`
 
