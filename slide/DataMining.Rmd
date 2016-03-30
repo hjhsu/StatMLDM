@@ -316,12 +316,6 @@ Source: <http://www.laits.utexas.edu/~anorman/BUS.FOR/course.mat/Alex>
 
 --- &vcenter .largecontent
 
-## 範例：Word2Vec
-
-
-
---- &vcenter .largecontent
-
 ## 數值型變數：Correlation
 
 - $X_1, X_2 \in \mathbb{R}^d$
