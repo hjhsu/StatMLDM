@@ -35,7 +35,7 @@ rstatistics_03_01_01 <- function(){
     out1 <- group_by(cricket_color, color) %>%
       summarise(mean=mean(speed), sd=sd(speed))
 
-    stopifnot("data.frame" %in% class(out))
+    stopifnot("data.frame" %in% class(out1))
     stopifnot(round(out1[1,2],4) == 156.6667)
     stopifnot(round(out1[2,2],4) == 111.0000)
     # 完成後，請存檔並回到console輸入`submit()`

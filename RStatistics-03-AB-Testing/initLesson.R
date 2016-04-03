@@ -3,10 +3,6 @@
 # the user's working directory and thus be accessible to them
 # throughout the lesson.
 
-.get_path <- function(fname) {
-  normalizePath(file.path(get_swirl_option("courses_dir"), sprintf("StatMLDM/TM-RStatistics-03-AB-Testing/%s", fname)), mustWork = TRUE)
-}
-
 assign("cricket_color",
        read.csv(.get_path("cricket_color.csv")),
        envir = globalenv())

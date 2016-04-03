@@ -1,6 +1,6 @@
 - Class: meta
   Course: StatMLDM
-  Lesson: TM-RStatistics-01-EDA
+  Lesson: RStatistics-01-EDA
   Author: Wush Wu, Johnson Hsieh
   Type: Standard
   Organization: Taiwan R User Group
@@ -82,9 +82,9 @@
     譬如跳水比賽，有五個評審，最終評分會先刪除最高與最低的分數，再從三個實得分中取得平均。
     在R中可以這樣實現：`mean(x, trim=0.1)`，其中參數`trim`表示欲刪除數值的比例。
     請同學輸入以下程式碼練習修剪平均 `mean(x1, trim=0.1)`
+  CorrectAnswer: mean(x1, trim=0.1)
   AnswerTests: omnitest('mean(x1, trim=0.1)')
   Hint: mean(x1, trim=0.1)
-
 - Class: mult_question
   Output: |
     請問資料變成原本的100倍後，平均數(mean)、中位數(median)和眾數(mode)，
@@ -109,13 +109,13 @@
 - Class: cmd_question
   Output: |
     請同學利用`prod` (連乘) 與 `^` (開根號) 兩個數學算子計算 x1 的幾何平均數。
+  CorrectAnswer: exp(mean(log(x1)))
   AnswerTests: omnitest('exp(mean(log(x1)))')
   Hint: exp(mean(log(x1)))
 - Class: text
   Output: |
     計算幾何平均數還有一個小技巧：`exp(mean(log(x1)))`。因為 log 與 exp 互為反函數，
     所以我們可以聯想到廣義平均：F_inv(mean(F(x1)))，其中 F_inv 是 F 的反函數。
-
 - Class: text
   Output: |
     接下來，我們介紹描述數值型變數分散程度的函數。
@@ -481,7 +481,8 @@
   CorrectAnswer: 'No'
   AnswerTests: omnitest(correctVal = "No")
 - Class: mult_question
-  Output: 請問同學，在資料放大100倍後，Quartile coefficient of dispersion的值不會變成原來的100倍？ （比較 x1 與 x3 的結果）
+  Output: 請問同學，在資料放大100倍後，Quartile coefficient of dispersion的值不會變成原來的100倍？ （比較 x1
+    與 x3 的結果）
   AnswerChoices: Yes;No
   CorrectAnswer: 'No'
   AnswerTests: omnitest(correctVal = "No")
@@ -499,3 +500,4 @@
   CorrectAnswer: answer
   AnswerTests: omnitest('answer')
   Hint: answer
+

@@ -1,6 +1,6 @@
 - Class: meta
   Course: StatMLDM
-  Lesson: TM-RStatistics-03-AB-Testing
+  Lesson: RStatistics-03-AB-Testing
   Author: Johnson Hsieh
   Type: Standard
   Organization: Taiwan R User Group
@@ -25,9 +25,15 @@
 
 - Class: cmd_question
   Output: |
-    練習使用R 套件 `dplyr` 對 `cricket_color` 做敘述統計，請同學先輸入`library(dplyr)`載入套件。
+    練習使用R 套件 `dplyr` 對 `cricket_color` 做敘述統計，請同學先輸入`skip()`檢查有無安裝dplyr套件。
+  CorrectAnswer: check_then_install("dplyr", "0.4.3")
+  AnswerTests: test_package_version("dplyr", "0.4.3")
+
+- Class: cmd_question
+  Output: |
+    接著請同學載入dplyr套件
   CorrectAnswer: library(dplyr)
-  AnswerTests: omnitest('library(dplyr)')
+  AnswerTests: test_search_path("dplyr")
   Hint: library(dplyr)
 
 - Class: script
@@ -116,9 +122,15 @@
 - Class: cmd_question
   Output: |
     請使用R套件 `ggplot2` 對這筆資料做基本的視覺化，
-    請同學輸入以下指令載入套件：`library(ggplot2)`
+    請同學輸入以下指令檢查套件ggplot2：`skip()`
+  CorrectAnswer: check_then_install("ggplot2", "2.0.0")
+  AnswerTests: test_package_version("ggplot2", "2.0.0")
+
+- Class: cmd_question
+  Output: |
+    接著請同學載入ggplot2套件
   CorrectAnswer: library(ggplot2)
-  AnswerTests: omnitest('library(ggplot2)')
+  AnswerTests: test_search_path("ggplot2")
   Hint: library(ggplot2)
 
 - Class: cmd_question
