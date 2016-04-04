@@ -1,4 +1,5 @@
 check_then_install("dplyr", "0.4.3")
+library(dplyr)
 
 # 請計算出iris的三種花的種類，所帶有的平均Sepal.Length
 answer_01 <- local({
