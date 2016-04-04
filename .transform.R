@@ -1,4 +1,5 @@
 cat("Loading transform\n")
+library(swirlify)
 transform <- function() {
   path <- getOption("swirlify_lesson_file_path")
   src.path <- gsub("yaml", "src.yaml", path)

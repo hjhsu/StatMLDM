@@ -1,0 +1,240 @@
+- Class: meta
+  Course: StatMLDM
+  Lesson: RStatistics-02-MonteCarlo
+  Author: Johnson Hsieh
+  Type: Standard
+  Organization: Taiwan R User Group
+  Version: 2.3.1.2
+- Class: text
+  Output: |
+    蒙地卡羅方法 (Monte Carlo method)，是一種以機率與統計理論出發的數值計算方法，
+    這門課程將透過幾個範例介紹如何在R 環境中用蒙地卡羅方法解決問題。
+- Class: text
+  Output: |
+    蒙地卡羅方法主要能處理兩類問題：
+    (1). 所求解問題可以轉化為某種隨機分佈的特徵數，譬如隨機事件出現的概率，或者隨機變數的期望值。
+    (2). 所求解的問題本身具有內在的隨機性，藉助電腦直接模擬這種隨機的過程，譬如分析中子在核反應堆中的傳輸過程。
+- Class: text
+  Output: |
+    範例1. 蒙地卡羅積分。給定母體平均數 mean = 0, 標準差 sd = 10 的常態分佈，
+    計算函數定義域介於 (-10, 10) 之間的面積。
+    積分結果為 0.682689，可以參考這個網址 <http://goo.gl/T62O4W>
+- Class: script
+  Output: |
+    請同學依照註解上的指示修改參數xx, yy以計算蒙地卡羅積分，
+    完成後，請存檔並回到console輸入`submit()`
+  Script: rstatistics-02-01-01.R
+  AnswerTests: rstatistics_02_01_01()
+- Class: cmd_question
+  Output: |
+    同學利用蒙地卡羅法所計算出來的積分結果已經被存到 `mc.integral` 這個變數，
+    請同學輸入該變數以觀察成果
+  CorrectAnswer: mc.integral
+  AnswerTests: omnitest('mc.integral')
+  Hint: mc.integral
+- Class: text
+  Output: |
+    透過 wolframalpha 得到積分結果為 0.682689，與我們僅模擬1000次的結果仍有差距，
+    積分結果可以參考這個網址 <http://goo.gl/T62O4W>
+- Class: script
+  Output: |
+    試著增加模擬次數，我們透過函數與向量運算計算蒙地卡羅積分在模擬次數一千次到一百萬次的結果，
+    完成後，請存檔並回到console輸入`submit()`
+  Script: rstatistics-02-01-02.R
+  AnswerTests: rstatistics_02_01_02()
+- Class: cmd_question
+  Output: |
+    請同學對 runs 與 mc.integral.seq 作圖，觀察模擬次數與積分結果的關係，
+    請輸入以下程式碼`plot(log(runs,10), mc.integral.seq, type="l")`
+  CorrectAnswer: plot(log(runs,10), mc.integral.seq, type="l", ylim=c(0.67,0.69))
+  AnswerTests: omnitest('plot(log(runs,10), mc.integral.seq, type="l", ylim=c(0.67,0.69))')
+  Hint: plot(log(runs,10), mc.integral.seq, type="l", ylim=c(0.67,0.69))
+- Class: cmd_question
+  Output: |
+    請同學在圖片加上真實的積分結果，
+    請輸入以下程式碼`abline(h=0.682689)`
+  CorrectAnswer: abline(h=0.682689)
+  AnswerTests: omnitest('abline(h=0.682689)')
+  Hint: abline(h=0.682689)
+- Class: mult_question
+  Output: |
+    請問同學，增加模擬次數是不是會讓蒙地卡羅積分更準確？
+  AnswerChoices: Yes;No
+  CorrectAnswer: 'Yes'
+  AnswerTests: omnitest(correctVal = "Yes")
+- Class: text
+  Output: |
+    範例2. 計算A/B測試的p值。考慮A、B兩種網頁排版方案，比較會員註冊的成效。
+    在同一時間內隨機分派訪客進入A、B兩種排版的網頁，其中A版本在2,981個瀏覽數中有343個註冊數；
+    B版本在2,945個瀏覽數中有403個註冊數。A版本的轉換率為11.5%；B版本為13.7%，
+- Class: text
+  Output: |
+    練習用統計檢定的方式驗證A/B版本是否ㄧ具有統計上的顯著差異。
+    實務上，我們會假設轉換率滿足分佈 beta(k+1, n-k+1)，其中k=註冊數, n=瀏覽數，
+    欲了解分佈假設的理論可參考這個網址 <http://goo.gl/yK6h3P>
+- Class: script
+  Output: |
+    請同學依註解的指示生成 beta 分佈之隨機變數，並計算版本A大於版本B的相對比率。
+    該比率即蒙地卡羅的近似p值。完成後，請存檔並回到console輸入`submit()`
+  Script: rstatistics-02-02-01.R
+  AnswerTests: rstatistics_02_02_01()
+- Class: cmd_question
+  Output: |
+    同學利用蒙地卡羅法所計算出來的積分結果已經被存到 `mc.pvalue` 這個變數，
+    請同學輸入該變數以觀察成果
+  CorrectAnswer: mc.pvalue
+  AnswerTests: omnitest('mc.pvalue')
+  Hint: mc.pvalue
+- Class: cmd_question
+  Output: |
+    更直覺比較AB版本轉換率差異的方式是做圖，請輸入以下程式碼`hist(b.samples-a.samples)`，
+    畫出透過蒙地卡羅法生成AB版本差異隨機變數的直方圖
+  CorrectAnswer: hist(b.samples-a.samples)
+  AnswerTests: omnitest('hist(b.samples-a.samples)')
+  Hint: hist(b.samples-a.samples)
+- Class: cmd_question
+  Output: |
+    再加上分隔線，請輸入以下程式碼`abline(v=0, col=2)`
+  CorrectAnswer: abline(v=0, col=2)
+  AnswerTests: omnitest('abline(v=0, col=2)')
+  Hint: abline(v=0, col=2)
+- Class: text
+  Output: |
+    從圖中可以發現，分隔線(a - b = 0) 左邊的面積幾乎可略，其面積正好是 mc.pvalue，
+    P值可以解釋成AB版本沒有差異的假設下，落在拒絕域的最小機率。
+    欲了解P值的定義請參考這個網址 <https://en.wikipedia.org/wiki/P-value>
+- Class: text
+  Output: |
+    範例3. 預測股價。我們將利用蒙地卡羅方法進行一個預測蘋果股價的實作。
+- Class: text
+  Output: |
+    在介紹這個範例前需要先了解布朗運動 (Brownian motion)，又稱 Wiener過程。
+    對於理論部分想要深入了解的同學請參考黃文璋教授的專文 <http://goo.gl/0yPrt6>。
+- Class: cmd_question
+  Output: |
+    請依照指示生成一個布朗運動的隨機過程，
+    step1. 生成1000筆標準常態分配的隨機變數：`x <- rnorm(1000, 0, 1)`，
+    其中這1000筆隨機變數是彼此獨立的 (i.i.d.)。
+  CorrectAnswer: x <- rnorm(1000, 0, 1)
+  AnswerTests: omnitest('x <- rnorm(1000, 0, 1)')
+  Hint: x <- rnorm(1000, 0, 1)
+- Class: cmd_question
+  Output: |
+    step2. 建構布朗運動的隨機過程：`bm <- cumsum(x)`，其中`cumsum`是向量的累加函數。
+  CorrectAnswer: bm <- cumsum(x)
+  AnswerTests: omnitest('bm <- cumsum(x)')
+  Hint: bm <- cumsum(x)
+- Class: cmd_question
+  Output: |
+    step3. 畫出布朗運動的結果：`plot(bm, type="l")`，其中`cumsum`是向量的累加函數。
+  CorrectAnswer: plot(bm, type="l")
+  AnswerTests: omnitest('plot(bm, type="l")')
+  Hint: plot(bm, type="l")
+- Class: text
+  Output: |
+    bm變數是透過彼此獨立的常態分佈隨機變數累加而成，所以它有一個明顯的特徵，
+    就是不重複間隔的兩兩差值是獨立的，即 d[s]=bm[s+1]-bm[s] 與 d[t]=bm[t+1]-bm[t]，在s < t時彼此獨立。
+- Class: cmd_question
+  Output: |
+    step4. 利用自相關函數 (Autocorrelation, 一個訊號在兩次觀察之間的相關程度)，可以檢驗這個特徵，
+    請同學輸入：`acf(diff(bm))`，其中`diff`是差值函數(後減前)， `acf`是自相關函數。
+  CorrectAnswer: acf(diff(bm))
+  AnswerTests: omnitest('acf(diff(bm))')
+  Hint: acf(diff(bm))
+- Class: text
+  Output: |
+    從自相關的圖形中可以發現，在`diff(bm)`只跟自己有關 (Lag=0, Cor=1)，跟其他時間無關 (Lag!=0, Cor=0)。
+    關於自相關的說明請參考 <https://en.wikipedia.org/wiki/Autocorrelation>
+- Class: cmd_question
+  Output: |
+    step5. 檢驗`diff(bm)`呈現標準常態分佈，請同學輸入`hist(diff(bm))`觀察直方圖的趨勢。
+  CorrectAnswer: hist(diff(bm))
+  AnswerTests: omnitest('hist(diff(bm))')
+  Hint: hist(diff(bm))
+- Class: cmd_question
+  Output: |
+    接下來我們正是進入蘋果股價的實作，我們預先準備好一份取自Yahoo finance的蘋果歷史股價數據，
+    請同學輸入 `head(AAPL)` 印出前6筆數據，資料包含6個欄位：
+    每天開盤價(AAPL.Open)、最高價(AAPL.High)、最低價(AAPL.Low)、收盤價(AAPL.Close)、成交量(AAPL.Volume)、(還原權值)AAPL.Adjusted
+  CorrectAnswer: head(AAPL)
+  AnswerTests: omnitest('head(AAPL)')
+  Hint: head(AAPL)
+- Class: text
+  Output: |
+    如果像自行抓取股價歷史資料的同學，可以使用`quantmod`這個R 套件，我們提供的蘋果股價數據是用下面這段指令取得的：
+    `quantmod::getSymbols("AAPL")`，
+    關於 quantmod 的運用，可以參考吳牧恩教授的文章<http://www.bituzi.com/2014/12/Rbacktest6mins.html>
+- Class: cmd_question
+  Output: |
+    step1. 請同學輸入以下指令：`AAPL.price <- AAPL[,6]`，以擷取還原權值 AAPL.Adjusted
+  CorrectAnswer: AAPL.price <- AAPL[,6]
+  AnswerTests: omnitest('AAPL.price <- AAPL[,6]')
+  Hint: AAPL.price <- AAPL[,6]
+- Class: cmd_question
+  Output: |
+    step2. 請同學輸入以下指令：`plot(AAPL.price, type="l")`，畫出蘋果的歷史股價
+  CorrectAnswer: plot(AAPL.price, type="l")
+  AnswerTests: omnitest('plot(AAPL.price, type="l")')
+  Hint: plot(AAPL.price, type="l")
+- Class: text
+  Output: |
+    從圖中可以發現，股價並非一個平穩的狀態 (stationary)，改從回報率著手，
+    我們使用log price returns公式，對這種回報率指標有興趣的同學請參考 <http://goo.gl/tB7vnJ>
+- Class: cmd_question
+  Output: |
+    step3. 請同學輸入以下指令：`AAPL.returns <- diff(log(AAPL.price))`，計算回報率
+  CorrectAnswer: AAPL.returns <- diff(log(AAPL.price))
+  AnswerTests: omnitest('AAPL.returns <- diff(log(AAPL.price))')
+  Hint: AAPL.returns <- diff(log(AAPL.price))
+- Class: cmd_question
+  Output: |
+    step4. 檢驗回報率的時間序列，請同學輸入以下指令：`plot(AAPL.returns, type="l")`
+  CorrectAnswer: plot(AAPL.returns, type="l")
+  AnswerTests: omnitest('plot(AAPL.returns, type="l")')
+  Hint: plot(AAPL.returns, type="l")
+- Class: text
+  Output: |
+    回報率的時間序列有呈現水平震盪的趨勢。
+- Class: cmd_question
+  Output: |
+    step5. 檢驗回報率的分佈，請同學輸入`hist(AAPL.returns, breaks=40)`觀察直方圖的趨勢，
+    其中參數`breaks`表示切割直方圖區間的份數。
+  CorrectAnswer: hist(AAPL.returns, breaks=40)
+  AnswerTests: omnitest('hist(AAPL.returns, breaks=40)')
+  Hint: hist(AAPL.returns, breaks=40)
+- Class: text
+  Output: |
+    觀察直方圖可以發現，回報率`AAPL.returns`呈現對稱分佈，扣除極端值後還滿像常態分佈的。
+- Class: cmd_question
+  Output: |
+    step6. 檢驗回報率的自相關，請同學輸入`acf(AAPL.returns)`。
+  CorrectAnswer: acf(AAPL.returns)
+  AnswerTests: omnitest('acf(AAPL.returns)')
+  Hint: acf(AAPL.returns)
+- Class: mult_question
+  Output: |
+    請問同學，自相關的結果是不是顯示不同時段的回報率彼此獨立？
+  AnswerChoices: Yes;No
+  CorrectAnswer: 'Yes'
+  AnswerTests: omnitest(correctVal = "Yes")
+- Class: text
+  Output: |
+    我們的目的是利用蒙地卡羅方法模擬蘋果的股價，進而做到股價預測。
+    我們也發現股價與布朗運動的行為很類似。
+- Class: text
+  Output: |
+    第t期的回報率 R_t = log(P_t / P_t−1)，透過轉換可得第t期的股價 P_t = P_t−1 * exp(R_t)。
+- Class: script
+  Output: |
+    step8. 請同學依註解的指示生成一次股價模擬數據。
+    完成後，請存檔並回到console輸入`submit()`
+  Script: rstatistics-02-03-01.R
+  AnswerTests: rstatistics_02_03_01()
+- Class: script
+  Output: |
+    最後，我們展示生成多次股價模擬數據以進行預測的方法。
+    請同學直接執行rstatistics-02-03-02.R的範例碼，
+    看完結果後回到 console 輸入`submit()`已完成本次課程。
+  Script: rstatistics-02-03-02.R
+  AnswerTests: rstatistics_02_03_02()
+
