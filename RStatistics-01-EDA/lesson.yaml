@@ -80,11 +80,11 @@
   Output: |
     由於平均數容易受到極端值所影響，實務上可以使用修剪平均 (trimmed mean)，
     譬如跳水比賽，有五個評審，最終評分會先刪除最高與最低的分數，再從三個實得分中取得平均。
-    在R中可以這樣實現：`mean(x, trim=0.1)`，其中參數`trim`表示欲刪除數值的比例。
-    請同學輸入以下程式碼練習修剪平均 `mean(x1, trim=0.1)`
-  CorrectAnswer: mean(x1, trim=0.1)
-  AnswerTests: omnitest('mean(x1, trim=0.1)')
-  Hint: mean(x1, trim=0.1)
+    在R中可以使用參數trim來指定要刪減的資料比率。舉例來說，trim = 0.2就會刪除前後20%的資料
+    請同學輸入以下程式碼練習修剪平均 `mean(x2, trim=0.2)`
+  CorrectAnswer: mean(x2, trim=0.2)
+  AnswerTests: omnitest('mean(x2, trim=0.2)')
+  Hint: mean(x2, trim=0.2)
 - Class: mult_question
   Output: |
     請問資料變成原本的100倍後，平均數(mean)、中位數(median)和眾數(mode)，
@@ -109,9 +109,9 @@
 - Class: cmd_question
   Output: |
     請同學利用`prod` (連乘) 與 `^` (開根號) 兩個數學算子計算 x1 的幾何平均數。
-  CorrectAnswer: exp(mean(log(x1)))
-  AnswerTests: omnitest('exp(mean(log(x1)))')
-  Hint: exp(mean(log(x1)))
+  CorrectAnswer: prod(x1)^(1/length(x1))
+  AnswerTests: val_is(prod(x1)^(1/length(x1)))
+  Hint: prod(x1)^(1/length(x1))
 - Class: text
   Output: |
     計算幾何平均數還有一個小技巧：`exp(mean(log(x1)))`。因為 log 與 exp 互為反函數，
