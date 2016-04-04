@@ -8,6 +8,7 @@ transform <- function() {
     if (parsed[[i]]$Class == "cmd_question") {
       if (is.null(parsed[[i]]$CorrectAnswer)) {
         .output <- parsed[[i]]$Output
+        Encoding(.output) <- "UTF-8"
         .is_valid <- local({
           sum(strsplit(.output, "")[[1]] == "`") == 2
         })
