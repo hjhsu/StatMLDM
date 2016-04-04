@@ -5,14 +5,6 @@
   Type: Standard
   Organization: Taiwan R User Group
   Version: 2.3.1.2
-- Class: cmd_question
-  Output: |
-    這裡複習一下`seq`函數。請問同學，`seq(0, 1, 0.25)`的長度會是多少？
-  CorrectAnswer: 5
-  AnswerTests: |
-    test_all(omnitest('length(seq(0, 1, 0.25))', '5'),
-      val_is(5))
-  Hint: 5
 - Class: text
   Output: |
     探索性資料分析 (Exploratory Data Analysis, EDA) 是資料分析的第一步，
@@ -309,7 +301,6 @@
   AnswerTests: |
     test_all(omnitest('length(seq(0, 1, 0.25))', '5'),
       val_is(5))
-  Hint: 5
 - Class: text
   Output: |
     由上述的說明，我們可以意識到，如果把一個向量放入`probs`參數，
