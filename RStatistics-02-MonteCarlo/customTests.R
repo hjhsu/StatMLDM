@@ -121,7 +121,7 @@ rstatistics_02_03_01 <- function(){
     e2 <- new.env()
     cat("Generating your result...\n")
     set.seed(1)
-    source(e$script_temp_path, local = e2, encoding = "UTF-8")
+    source(e$script_temp_path, local = e2)
     cat("Generating expected result of Pt ...\n")
     set.seed(1)    # 給定亂數生成種子
     N    <- 30     # 模擬時間長度
@@ -135,6 +135,9 @@ rstatistics_02_03_01 <- function(){
 
     P0 <- tail(AAPL.price,1) # 設定模擬起始時間，為最後一筆股價
     Rt <- rnorm(n=N, mean=mR, sd=sdR) # 修改xxx, 生成AAPL.returns的常態分佈隨機變數
+    if (!isTRUE(all.equal(Rt, e2$Rt))) {
+      stop("The generation of Rt is unexpected")
+    }
     Pt <- P0*exp(cumsum(Rt)) # 請同學依照Hint生成股價模擬數據
 
     plot(Pt, type="l")     # 畫出預測結果
@@ -163,7 +166,7 @@ rstatistics_02_03_02 <- function(){
     e2 <- new.env()
     cat("Generating your result...\n")
     set.seed(1)
-    source(e$script_temp_path, local = e2, encoding = "UTF-8")
+    source(e$script_temp_path, local = e2)
     cat("Generating expected result of Pt.arr ...\n")
     set.seed(1)    # 給定亂數生成種子
     runs <- 10   # 模擬次數
