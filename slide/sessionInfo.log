@@ -1,17 +1,22 @@
-R version 3.2.4 (2016-03-10)
+R version 3.2.3 (2015-12-10)
 Platform: x86_64-apple-darwin13.4.0 (64-bit)
-Running under: OS X 10.11.1 (El Capitan)
+Running under: OS X 10.11.3 (El Capitan)
 
 locale:
 [1] zh_TW.UTF-8/zh_TW.UTF-8/zh_TW.UTF-8/C/zh_TW.UTF-8/zh_TW.UTF-8
 
 attached base packages:
-[1] stats     graphics  grDevices utils     datasets  methods   base     
+[1] methods   stats     graphics  grDevices utils     datasets  base     
 
 other attached packages:
-[1] dplyr_0.4.3      data.table_1.9.6 knitr_1.12.3    
+ [1] binom_1.1-1      jsonlite_0.9.19  quantmod_0.4-5   TTR_0.23-0      
+ [5] xts_0.9-7        zoo_1.7-12       ggplot2_2.0.0    dplyr_0.4.3     
+ [9] data.table_1.9.6 magrittr_1.5     knitr_1.12      
 
 loaded via a namespace (and not attached):
- [1] R6_2.1.2       assertthat_0.1 magrittr_1.5   formatR_1.3   
- [5] parallel_3.2.4 DBI_0.3.1      tools_3.2.4    Rcpp_0.12.4   
- [9] stringi_1.0-1  stringr_1.0.0  chron_2.3-47   evaluate_0.8.3
+ [1] Rcpp_0.12.3      slidify_0.5      whisker_0.3-2    munsell_0.4.2   
+ [5] colorspace_1.2-6 lattice_0.20-33  R6_2.1.1         stringr_1.0.0   
+ [9] plyr_1.8.3       tools_3.2.3      parallel_3.2.3   grid_3.2.3      
+[13] gtable_0.1.2     DBI_0.3.1        yaml_2.1.13      assertthat_0.1  
+[17] formatR_1.2.1    evaluate_0.8     stringi_1.0-1    scales_0.3.0    
+[21] markdown_0.7.7   chron_2.3-47    
