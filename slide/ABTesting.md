@@ -78,7 +78,6 @@ geometry: margin=0in
   <img width='80%' src='./assets/img/abt-principle.png'/>
 </div>
 
-
 --- &vcenter .largecontent
 ## 如何證明「烏鴉都是黑的」(Hempel 1945)
 這個假設不會因為看見一隻黑色的烏鴉而獲得證明,    
