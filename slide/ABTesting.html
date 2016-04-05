@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>R語言與AB測試</title>
+  <meta charset="utf-8">
+  <meta name="description" content="R語言與AB測試">
+  <meta name="author" content="Power by R語言翻轉教室團隊">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012-wush/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012-wush/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012-wush/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/zenburn.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="./assets/css/custom.css"></link>
+<link rel=stylesheet href="./assets/css/ribbons.css"></link>
+
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="libraries/frameworks/io2012-wush/js/jquery-1.7.min.js"></script>
+  <!-- <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> -->
+  <script data-main="libraries/frameworks/io2012-wush/js/slides" 
+    src="libraries/frameworks/io2012-wush/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>R語言與AB測試</h1>
+    <h2>Wush Wu</h2>
+    <p>Power by R語言翻轉教室團隊<br/></p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;">
+  <hgroup>
+    <h2>歐巴馬競選網站主視覺實驗</h2>
+  </hgroup>
+  <article data-timings="">
+    <div style='text-align: center;'>
+<h3>如何優化會員註冊率？</h3>
+</div>
+
+<div style="float:left;width:48%;" class="">
+  <br>  
+  <div style='text-align: center;'>
+    <img width='90%' src='./assets/img/original-trial.png' />
+  </div>
+  <div style='text-align: center;'><h3>Original trial</h3></div>
+
+</div>
+
+<div style="float:right;width:48%;" class="">
+  <br>
+  <div style='text-align: center;'>
+    <img width='90%' src='./assets/img/family-trial.png' />
+  </div>
+  <div style='text-align: center;'><h3>Family trial</h3></div>
+</div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-2" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;">
+  <hgroup>
+    <h2>歐巴馬競選網站主視覺實驗 - 原始資料 (示意)</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><div style='text-align: center;'>
+  <img width='90%' src='./assets/img/obama-election-data.png'/>
+<div></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-3" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;">
+  <hgroup>
+    <h2>歐巴馬競選網站主視覺實驗 - 實驗結果</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><div style='text-align: center;'>
+  <img width='90%' src='./assets/img/obama-result.png'/>
+<div></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="largecontent" id="slide-4" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
+<hgroup>
+  <h2>關於A/B Testing</h2>
+</hgroup>
+<article class = 'flexbox vcenter'>
+<ul>
+<li>何謂AB測試?</li>
+<li>AB測試如何運作?</li>
+<li>AB測試為什麼該做？</li>
+</ul>
+
+</article>
+<!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-5" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
+<hgroup>
+  <h2>何謂AB測試</h2>
+</hgroup>
+<article class = 'flexbox vcenter'>
+<p><br></p>
+
+<div style='text-align: center;'>
+  <img width='80%' src='./assets/img/what-is-abtesting.png'/>
+</div>
+
+<p><small><a href="http://www.optimizely.com">www.optimizely.com</a></small></p>
+
+</article>
+<!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-6" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
+<hgroup>
+  <h2>AB測試如何運作</h2>
+</hgroup>
+<article class = 'flexbox vcenter'>
+<p><img src="./assets/fig/abtesting-abt-value-1.png" alt="plot of chunk abt-value"></p>
+
+</article>
+<!-- Presenter Notes -->
+</slide>
+<slide class="largecontent" id="slide-7" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
+<hgroup>
+  <h2>AB測試為什麼該做</h2>
+</hgroup>
+<article class = 'flexbox vcenter'>
+<ul>
+<li>免窮理：don&#39;t necessarily know &#39;what works&#39;</li>
+<li>講證據：don&#39;t guess anymore</li>
+<li>很簡單：don&#39;t have to be complicated or difficult to run</li>
+<li>更經濟：don&#39;t have to cost a lot of money</li>
+</ul>
+
+</article>
+<!-- Presenter Notes -->
+</slide>
+<slide class="largecontent" id="slide-8" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
+<hgroup>
+  <h2>AB測試基本原則</h2>
+</hgroup>
+<article class = 'flexbox vcenter'>
+<p><br></p>
+
+<div style='text-align: center;'>
+  <img width='80%' src='./assets/img/abt-principle.png'/>
+</div>
+
+</article>
+<!-- Presenter Notes -->
+</slide>
+<slide class="dark segue" id="slide-9" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;">
+  <hgroup>
+    <h2>更多實務案例</h2>
+  </hgroup>
+  <article data-timings="">
+    
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="dark segue" id="slide-10" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;">
+  <hgroup>
+    <h2>商品陳列也有A/B Testing</h2>
+  </hgroup>
+  <article data-timings="">
+    
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-11" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;">
+  <hgroup>
+    <h2>陳列畫面影響商品價值實驗</h2>
+  </hgroup>
+  <article data-timings="">
+    <div style='text-align: center;'>
+<h3>情境1. 用來裝飾房間的中國結</h3>
+<small>http://goo.gl/qxijE8</small>
+</div>
+
+<div style="float:left;width:48%;" class="">
+  <br>  
+  <div style='text-align: center;'>
+    <img width='90%' src='./assets/img/knot-left.png' />
+  </div>
+  <div style='text-align: center;'><h3>整齊的中國結</h3></div>
+
+</div>
+
+<div style="float:right;width:48%;" class="">
+  <br>
+  <div style='text-align: center;'>
+    <img width='90%' src='./assets/img/knot-right.png' />
+  </div>
+  <div style='text-align: center;'><h3>凌亂的中國結</h3></div>
+</div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-12" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;">
+  <hgroup>
+    <h2>陳列畫面影響商品價值實驗</h2>
+  </hgroup>
+  <article data-timings="">
+    <div style='text-align: center;'>
+<h3>情境2. 用來做課堂拆解練習的中國結</h3>
+<small>http://goo.gl/qxijE8</small>
+</div>
+
+<div style="float:left;width:48%;" class="">
+  <br>  
+  <div style='text-align: center;'>
+    <img width='90%' src='./assets/img/knot-left.png' />
+  </div>
+  <div style='text-align: center;'><h3>整齊的中國結</h3></div>
+
+</div>
+
+<div style="float:right;width:48%;" class="">
+  <br>
+  <div style='text-align: center;'>
+    <img width='90%' src='./assets/img/knot-right.png' />
+  </div>
+  <div style='text-align: center;'><h3>凌亂的中國結</h3></div>
+</div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="dark segue" id="slide-13" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;">
+  <hgroup>
+    <h2>提升慈善捐款的A/B Testing</h2>
+  </hgroup>
+  <article data-timings="">
+    
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-14" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
+<hgroup>
+  <h2>哪種策略更能刺激捐款？</h2>
+</hgroup>
+<article class = 'flexbox vcenter'>
+<div style='text-align: center;'>
+  <img width='90%' src='./assets/img/smiletrain.png'/>
+</div>
+
+</article>
+<!-- Presenter Notes -->
+</slide>
+<slide class="dark segue" id="slide-15" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;">
+  <hgroup>
+    <h2>幫助法院討債的A/B Testing</h2>
+  </hgroup>
+  <article data-timings="">
+    
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-16" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;">
+  <hgroup>
+    <h2>討債簡訊如信寫？</h2>
+  </hgroup>
+  <article data-timings="">
+    <div style='text-align: center;'>
+  <img width='80%' src='./assets/img/abt-text.png'/>
+  <small>https://goo.gl/yMe9jO</small>
+</div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="largecontent" id="slide-17" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
+<hgroup>
+  <h2>Advanced A/B Testing</h2>
+</hgroup>
+<article class = 'flexbox vcenter'>
+<ul>
+<li>檢定水準</li>
+<li>樣本數 / 測試時程</li>
+<li>多重檢定</li>
+<li>統計顯著 vs. 物理顯著 (商業顯著)</li>
+</ul>
+
+</article>
+<!-- Presenter Notes -->
+</slide>
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='歐巴馬競選網站主視覺實驗'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='歐巴馬競選網站主視覺實驗 - 原始資料 (示意)'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='歐巴馬競選網站主視覺實驗 - 實驗結果'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='關於A/B Testing'>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title='何謂AB測試'>
+         5
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=6 title='AB測試如何運作'>
+         6
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=7 title='AB測試為什麼該做'>
+         7
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=8 title='AB測試基本原則'>
+         8
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=9 title='更多實務案例'>
+         9
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=10 title='商品陳列也有A/B Testing'>
+         10
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=11 title='陳列畫面影響商品價值實驗'>
+         11
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=12 title='陳列畫面影響商品價值實驗'>
+         12
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=13 title='提升慈善捐款的A/B Testing'>
+         13
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=14 title='哪種策略更能刺激捐款？'>
+         14
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=15 title='幫助法院討債的A/B Testing'>
+         15
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=16 title='討債簡訊如信寫？'>
+         16
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=17 title='Advanced A/B Testing'>
+         17
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>
