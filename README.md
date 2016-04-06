@@ -21,7 +21,7 @@ tryCatch({
 - 載入swirl，並且安裝課程
 ```
 library(swirl)
-install_course_github("JohnsonHsieh", "StatMLDM", "tm")
+install_course_github("wush978", "StatMLDM", "course")
 ```
 
 - 如果安裝有問題，請清空過往課程
@@ -29,7 +29,7 @@ install_course_github("JohnsonHsieh", "StatMLDM", "tm")
 library(swirl)
 delete_progress("user_name") # 修該user_name成為同學的暱稱
 uninstall_all_courses() # 移除所有舊課程
-install_course_github("JohnsonHsieh", "StatMLDM", "tm")
+install_course_github("wush978", "StatMLDM", "course")
 ```
 
 ## 課程筆記(版本：fd25508a)
