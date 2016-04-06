@@ -32,6 +32,10 @@ uninstall_all_courses() # 移除所有舊課程
 install_course_github("wush978", "StatMLDM", "course")
 ```
 
+## 課程投影片
+
+- [Statistics](http://wush978.github.io/StatMLDM/slide/Statistics.html)
+
 ## 課程筆記(版本：fd25508a)
 
 - [RDataMining-01-Association-Rule](note/RDataMining-01-Association-Rule.html)
