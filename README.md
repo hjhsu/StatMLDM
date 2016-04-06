@@ -32,7 +32,19 @@ uninstall_all_courses() # 移除所有舊課程
 install_course_github("JohnsonHsieh", "StatMLDM", "tm")
 ```
 
-## 課程筆記
-- [TM-RStatistics-01-EDA](https://JohnsonHsieh.github.io/StatMLDM/note/TM-RStatistics-01-EDA.html)
-- [TM-RStatistics-02-MonteCarlo](https://JohnsonHsieh.github.io/StatMLDM/note/TM-RStatistics-02-MonteCarlo.html)
-- [TM-RStatistics-03-AB-Testing](https://JohnsonHsieh.github.io/StatMLDM/note/TM-RStatistics-03-AB-Testing.html)
+## 課程筆記(版本：fd25508a)
+
+- [RDataMining-01-Association-Rule](note/RDataMining-01-Association-Rule.html)
+- [RDataMining-02-Clustering](note/RDataMining-02-Clustering.html)
+- [RDataMining-03-Classification](note/RDataMining-03-Classification.html)
+- [RDataMining-04-Text-Mining](note/RDataMining-04-Text-Mining.html)
+- [RMachineLearning-01-Linear-Model](note/RMachineLearning-01-Linear-Model.html)
+- [RMachineLearning-02-Generalized-Linear-Model](note/RMachineLearning-02-Generalized-Linear-Model.html)
+- [RMachineLearning-03-Regularization](note/RMachineLearning-03-Regularization.html)
+- [RMachineLearning-04-Support-Vector-Machine](note/RMachineLearning-04-Support-Vector-Machine.html)
+- [RMachineLearning-05-Decision-Tree](note/RMachineLearning-05-Decision-Tree.html)
+- [RMachineLearning-06-Gradient-Boosted-Decision-Tree](note/RMachineLearning-06-Gradient-Boosted-Decision-Tree.html)
+- [RMachineLearning-07-Challenge](note/RMachineLearning-07-Challenge.html)
+- [RStatistics-01-EDA](note/RStatistics-01-EDA.html)
+- [RStatistics-02-MonteCarlo](note/RStatistics-02-MonteCarlo.html)
+- [RStatistics-03-AB-Testing](note/RStatistics-03-AB-Testing.html)
