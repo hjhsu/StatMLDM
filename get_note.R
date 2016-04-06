@@ -100,7 +100,7 @@ for(i in seq_along(course_list)) {
 
 readme.src <- readLines("README-src.md")
 readme.src <- 
-  sprintf("- [%s](%s)", basename(htmls) %>% tools::file_path_sans_ext(), file.path("note", basename(htmls))) %>%
+  sprintf("- [%s](http://%s)", basename(htmls) %>% tools::file_path_sans_ext(), file.path("wush978.github.io", "StatMLDM", "note", basename(htmls))) %>%
   paste(collapse = "\n") %>%
   gsub(pattern = "<r-note>", x = readme.src, fixed = TRUE)
 
