@@ -487,6 +487,16 @@
 
   </article>
   <!-- Presenter Notes -->
+  <aside class="note" id="">
+    <section>
+      <p>這裡是實驗的差距</p>
+
+<p>實際上線後照比率估計則是6000萬美元的差距</p>
+
+<p>Reference: <a href="https://blog.optimizely.com/2010/11/29/how-obama-raised-60-million-by-running-a-simple-experiment/">https://blog.optimizely.com/2010/11/29/how-obama-raised-60-million-by-running-a-simple-experiment/</a></p>
+
+    </section>
+  </aside>
 </slide>
 <slide class="largecontent" id="slide-30" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
 <hgroup>
@@ -572,14 +582,49 @@
 </article>
 <!-- Presenter Notes -->
 </slide>
-<slide class="largecontent" id="slide-36" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;">
+<slide class="largecontent" id="slide-36" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
+<hgroup>
+  <h2>與犯錯妥協</h2>
+</hgroup>
+<article class = 'flexbox vcenter'>
+<p><center><img src='assets/img/accept-mistake.jpg' style='max-width: 100%;max-height: 100%'></img></center>
+<small><a href="http://www.jhak.com/shidian/xqgw/2014-02/14/content_9397.html">http://www.jhak.com/shidian/xqgw/2014-02/14/content_9397.html</a></small></p>
+
+</article>
+<!-- Presenter Notes -->
+</slide>
+<slide class="largecontent" id="slide-37" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
+<hgroup>
+  <h2>處理犯錯</h2>
+</hgroup>
+<article class = 'flexbox vcenter'>
+<ul>
+<li>控制犯錯的機率
+
+<ul>
+<li>「事前」決定接受5%、1%或更小的犯錯機率</li>
+</ul></li>
+<li>計算「出現觀測值（或更糟）的機率」
+
+<ul>
+<li>「更糟」的定義取決於假設與檢定目標</li>
+</ul></li>
+<li>如果機率值比我們設定的犯錯機率更低 =&gt; 表示當初的假設是錯誤的</li>
+</ul>
+
+<p><img src="./assets/fig/rstatistics-testing2-1.png" alt="plot of chunk testing2"></p>
+
+</article>
+<!-- Presenter Notes -->
+</slide>
+<slide class="largecontent" id="slide-38" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;">
   <hgroup>
     <h2>假設檢定的觀念 (testing hypothesis)</h2>
   </hgroup>
   <article data-timings="">
     <p>引進機率的概念,以「絕大部份」取代「所有」。<br>
 假設黑烏鴉跟其他顏色的烏鴉比例是 99 : 1,<br>
-你已經觀察到1000隻黑色烏鴉了, 在99:1的假設下,連續看到1000隻黑色烏鴉的機率是0.99<sup>1000</sup> = 0.00043,這個機率稱 p值。</p>
+你已經觀察到1000隻黑色烏鴉了, 在99:1的假設下,連續看到1000隻黑色烏鴉的機率是\(0.99^{1000} < 0.0001\),這個機率稱 p值。</p>
 
 <div style='text-align: center;'>
   <img width='80%' src='./assets/img/abt-pvalue.png'/>
@@ -588,7 +633,7 @@
   </article>
   <!-- Presenter Notes -->
 </slide>
-<slide class="largecontent" id="slide-37" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
+<slide class="largecontent" id="slide-39" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
 <hgroup>
   <h2>檢定統計量(Ｔ值)</h2>
 </hgroup>
@@ -602,7 +647,7 @@
 </article>
 <!-- Presenter Notes -->
 </slide>
-<slide class="" id="slide-38" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
+<slide class="" id="slide-40" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
 <hgroup>
   <h2>T統計量與P值</h2>
 </hgroup>
@@ -616,7 +661,23 @@
 </article>
 <!-- Presenter Notes -->
 </slide>
-<slide class="dark segue" id="slide-39" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;">
+<slide class="largecontent" id="slide-41" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
+<hgroup>
+  <h2>假設檢定的限制</h2>
+</hgroup>
+<article class = 'flexbox vcenter'>
+<ul>
+<li>只能證明$H_0$為假, 不能證明$H_1$為真
+
+<ul>
+<li>當不拒絕時，不代表$H_1$為錯</li>
+</ul></li>
+</ul>
+
+</article>
+<!-- Presenter Notes -->
+</slide>
+<slide class="dark segue" id="slide-42" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;">
   <hgroup>
     <h2>更多實務案例</h2>
   </hgroup>
@@ -625,7 +686,7 @@
   </article>
   <!-- Presenter Notes -->
 </slide>
-<slide class="dark segue" id="slide-40" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;">
+<slide class="dark segue" id="slide-43" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;">
   <hgroup>
     <h2>商品陳列也有A/B Testing</h2>
   </hgroup>
@@ -634,7 +695,7 @@
   </article>
   <!-- Presenter Notes -->
 </slide>
-<slide class="" id="slide-41" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;">
+<slide class="" id="slide-44" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;">
   <hgroup>
     <h2>陳列畫面影響商品價值實驗</h2>
   </hgroup>
@@ -664,7 +725,7 @@
   </article>
   <!-- Presenter Notes -->
 </slide>
-<slide class="" id="slide-42" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;">
+<slide class="" id="slide-45" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;">
   <hgroup>
     <h2>陳列畫面影響商品價值實驗</h2>
   </hgroup>
@@ -694,7 +755,7 @@
   </article>
   <!-- Presenter Notes -->
 </slide>
-<slide class="dark segue" id="slide-43" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;">
+<slide class="dark segue" id="slide-46" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;">
   <hgroup>
     <h2>提升慈善捐款的A/B Testing</h2>
   </hgroup>
@@ -703,7 +764,7 @@
   </article>
   <!-- Presenter Notes -->
 </slide>
-<slide class="" id="slide-44" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
+<slide class="" id="slide-47" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
 <hgroup>
   <h2>哪種策略更能刺激捐款？</h2>
 </hgroup>
@@ -715,7 +776,7 @@
 </article>
 <!-- Presenter Notes -->
 </slide>
-<slide class="dark segue" id="slide-45" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;">
+<slide class="dark segue" id="slide-48" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;">
   <hgroup>
     <h2>幫助法院討債的A/B Testing</h2>
   </hgroup>
@@ -724,7 +785,7 @@
   </article>
   <!-- Presenter Notes -->
 </slide>
-<slide class="" id="slide-46" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;">
+<slide class="" id="slide-49" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;">
   <hgroup>
     <h2>討債簡訊如信寫？</h2>
   </hgroup>
@@ -737,17 +798,249 @@
   </article>
   <!-- Presenter Notes -->
 </slide>
-<slide class="largecontent" id="slide-47" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
+<slide class="largecontent" id="slide-50" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
 <hgroup>
-  <h2>Advanced A/B Testing</h2>
+  <h2>練習時間</h2>
 </hgroup>
 <article class = 'flexbox vcenter'>
 <ul>
-<li>檢定水準</li>
-<li>樣本數 / 測試時程</li>
-<li>多重檢定</li>
-<li>統計顯著 vs. 物理顯著 (商業顯著)</li>
+<li>請同學跟著老師完成：
+
+<ul>
+<li>RStatistics-02-MonteCarlo</li>
+<li>RStatistics-03-AB-Testing</li>
+</ul></li>
 </ul>
+
+</article>
+<!-- Presenter Notes -->
+</slide>
+<slide class="dark segue" id="slide-51" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;">
+  <hgroup>
+    <h2>A/B Test 不只這樣...</h2>
+  </hgroup>
+  <article data-timings="">
+    
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="largecontent" id="slide-52" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
+<hgroup>
+  <h2>實驗的成本</h2>
+</hgroup>
+<article class = 'flexbox vcenter'>
+<ul>
+<li>時間成本（實驗要多久？）</li>
+<li>金錢成本（要多少樣本？）</li>
+</ul>
+
+</article>
+<!-- Presenter Notes -->
+</slide>
+<slide class="largecontent" id="slide-53" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
+<hgroup>
+  <h2>多重檢定</h2>
+</hgroup>
+<article class = 'flexbox vcenter'>
+<ul>
+<li>提早結束條款會影響準確度
+
+<ul>
+<li>如果預期一次實驗犯錯的機率是<code>5%</code></li>
+<li>多次實驗犯錯的機率會超過<code>5%</code></li>
+</ul></li>
+</ul>
+
+</article>
+<!-- Presenter Notes -->
+<aside class="note">
+  <section>
+    <h2>First Law of Software Quality</h2>
+
+<p><center><img src='assets/img/first-law-of-software-quality.png' style='max-width: 100%;max-height: 100%'></img></center></p>
+
+  </section>
+</aside>
+</slide>
+<slide class="largecontent" id="slide-54" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
+<hgroup>
+  <h2>正常檢定：控制犯錯的機會</h2>
+</hgroup>
+<article class = 'flexbox vcenter'>
+<pre><code class="r">result &lt;- 
+  sapply(1:1000, function(i) {
+    x &lt;- rnorm(100)
+    y &lt;- rnorm(100)
+    t.test(x, y)$p.value &lt; 0.05
+  })
+table(result)
+</code></pre>
+
+<pre><code>result
+FALSE  TRUE 
+  962    38 
+</code></pre>
+
+</article>
+<!-- Presenter Notes -->
+</slide>
+<slide class="largecontent" id="slide-55" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
+<hgroup>
+  <h2>提早拒絕：犯錯的機會失控</h2>
+</hgroup>
+<article class = 'flexbox vcenter'>
+<pre><code class="r">result &lt;- 
+  sapply(1:1000, function(i) {
+    x &lt;- rnorm(100)
+    y &lt;- rnorm(100)
+    for(j in 20:100) {
+      if (t.test(head(x, j), head(y, j))$p.value &lt; 0.05) return(TRUE)
+    }
+    FALSE
+  })
+table(result)
+</code></pre>
+
+<pre><code>result
+FALSE  TRUE 
+  736   264 
+</code></pre>
+
+</article>
+<!-- Presenter Notes -->
+</slide>
+<slide class="largecontent" id="slide-56" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
+<hgroup>
+  <h2>檢定水準怎麼訂？</h2>
+</hgroup>
+<article class = 'flexbox vcenter'>
+<ul>
+<li><code>5%</code>是常用的門檻，但是合理嗎？</li>
+<li>重要性很大、不容易被推翻的實驗，顯著水準應該更小</li>
+<li>需要快速結果的實驗、能夠一直review的實驗，顯著水準可能可以大一點</li>
+</ul>
+
+</article>
+<!-- Presenter Notes -->
+</slide>
+<slide class="largecontent" id="slide-57" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
+<hgroup>
+  <h2>實驗會出錯</h2>
+</hgroup>
+<article class = 'flexbox vcenter'>
+<p><img src="./assets/fig/rstatistics-game-1.png" alt="plot of chunk game"></p>
+
+</article>
+<!-- Presenter Notes -->
+</slide>
+<slide class="largecontent" id="slide-58" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
+<hgroup>
+  <h2>我們能接受錯誤嗎？</h2>
+</hgroup>
+<article class = 'flexbox vcenter'>
+<p><center><img src='assets/img/accept-mistake.jpg' style='max-width: 100%;max-height: 100%'></img></center>
+<small><a href="http://www.jhak.com/shidian/xqgw/2014-02/14/content_9397.html">http://www.jhak.com/shidian/xqgw/2014-02/14/content_9397.html</a></small></p>
+
+</article>
+<!-- Presenter Notes -->
+</slide>
+<slide class="largecontent" id="slide-59" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
+<hgroup>
+  <h2>我們能接受這樣的錯誤嗎？</h2>
+</hgroup>
+<article class = 'flexbox vcenter'>
+<ul>
+<li><a href="http://www.sec.gov/litigation/admin/2013/34-70694.pdf">Knight Capital的故事：在45分鐘之內，每一秒燒17萬美元的程式錯誤</a></li>
+<li>城市一定會寫錯，但是我們如何處理這件事情？（就如同投影片一定會寫錯字）</li>
+</ul>
+
+</article>
+<!-- Presenter Notes -->
+</slide>
+<slide class="largecontent" id="slide-60" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
+<hgroup>
+  <h2>錯誤的影響</h2>
+</hgroup>
+<article class = 'flexbox vcenter'>
+<ul>
+<li>浪費成本（金錢與時間）</li>
+<li>降低產出</li>
+<li>丟工作</li>
+</ul>
+
+</article>
+<!-- Presenter Notes -->
+</slide>
+<slide class="dark segue" id="slide-61" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;">
+  <hgroup>
+    <h2>如何避免錯誤</h2>
+  </hgroup>
+  <article data-timings="">
+    
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="largecontent" id="slide-62" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
+<hgroup>
+  <h2>外在：由小而大</h2>
+</hgroup>
+<article class = 'flexbox vcenter'>
+<ul>
+<li>先從小資料開始做</li>
+<li>資料量越大、分析量越大、錯誤的成本就越大</li>
+<li>大量實驗</li>
+</ul>
+
+</article>
+<!-- Presenter Notes -->
+</slide>
+<slide class="largecontent" id="slide-63" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
+<hgroup>
+  <h2>外在：紀律</h2>
+</hgroup>
+<article class = 'flexbox vcenter'>
+<ul>
+<li>程式碼的錯誤可以透過軟體工程方法來降低</li>
+<li>有大發現之前要檢查三遍</li>
+<li>所有報告都是互相討論而出
+
+<ul>
+<li>溝通、溝通、溝通</li>
+</ul></li>
+<li>多多review
+
+<ul>
+<li>接受同事間的質疑</li>
+</ul></li>
+</ul>
+
+</article>
+<!-- Presenter Notes -->
+</slide>
+<slide class="largecontent" id="slide-64" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
+<hgroup>
+  <h2>內在：自我要求</h2>
+</hgroup>
+<article class = 'flexbox vcenter'>
+<ul>
+<li>我們都是<a href="https://zh.wikipedia.org/zh-tw/%E5%BD%BC%E5%BE%97%C2%B7%E5%BE%B7%E9%B2%81%E5%85%8B">彼得杜拉克</a>口中的知識工作者
+
+<ul>
+<li>實際的工作細節，只有我們自己才能管理</li>
+</ul></li>
+<li>為自己的信用負責</li>
+<li>一次錯誤不代表什麼</li>
+<li>多次錯誤代表某些事情...</li>
+</ul>
+
+</article>
+<!-- Presenter Notes -->
+</slide>
+<slide class="largecontent" id="slide-65" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
+<hgroup>
+  <h2>Q&amp;A</h2>
+</hgroup>
+<article class = 'flexbox vcenter'>
 
 </article>
 <!-- Presenter Notes -->
@@ -968,74 +1261,182 @@
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=36 title='假設檢定的觀念 (testing hypothesis)'>
+        data-slide=36 title='與犯錯妥協'>
          36
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=37 title='檢定統計量(Ｔ值)'>
+        data-slide=37 title='處理犯錯'>
          37
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=38 title='T統計量與P值'>
+        data-slide=38 title='假設檢定的觀念 (testing hypothesis)'>
          38
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=39 title='更多實務案例'>
+        data-slide=39 title='檢定統計量(Ｔ值)'>
          39
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=40 title='商品陳列也有A/B Testing'>
+        data-slide=40 title='T統計量與P值'>
          40
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=41 title='陳列畫面影響商品價值實驗'>
+        data-slide=41 title='假設檢定的限制'>
          41
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=42 title='陳列畫面影響商品價值實驗'>
+        data-slide=42 title='更多實務案例'>
          42
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=43 title='提升慈善捐款的A/B Testing'>
+        data-slide=43 title='商品陳列也有A/B Testing'>
          43
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=44 title='哪種策略更能刺激捐款？'>
+        data-slide=44 title='陳列畫面影響商品價值實驗'>
          44
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=45 title='幫助法院討債的A/B Testing'>
+        data-slide=45 title='陳列畫面影響商品價值實驗'>
          45
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=46 title='討債簡訊如信寫？'>
+        data-slide=46 title='提升慈善捐款的A/B Testing'>
          46
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=47 title='Advanced A/B Testing'>
+        data-slide=47 title='哪種策略更能刺激捐款？'>
          47
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=48 title='幫助法院討債的A/B Testing'>
+         48
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=49 title='討債簡訊如信寫？'>
+         49
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=50 title='練習時間'>
+         50
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=51 title='A/B Test 不只這樣...'>
+         51
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=52 title='實驗的成本'>
+         52
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=53 title='多重檢定'>
+         53
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=54 title='正常檢定：控制犯錯的機會'>
+         54
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=55 title='提早拒絕：犯錯的機會失控'>
+         55
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=56 title='檢定水準怎麼訂？'>
+         56
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=57 title='實驗會出錯'>
+         57
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=58 title='我們能接受錯誤嗎？'>
+         58
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=59 title='我們能接受這樣的錯誤嗎？'>
+         59
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=60 title='錯誤的影響'>
+         60
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=61 title='如何避免錯誤'>
+         61
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=62 title='外在：由小而大'>
+         62
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=63 title='外在：紀律'>
+         63
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=64 title='內在：自我要求'>
+         64
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=65 title='Q&amp;A'>
+         65
       </a>
     </li>
   </ul>
