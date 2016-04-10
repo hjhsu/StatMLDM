@@ -491,9 +491,9 @@ plot(cl, lwd = 2, xlab = "", ylab = "", sub = "", cex.main = 2, cex = 1.5, cex.a
 iris2 <- iris[c(1:4, 51:54, 101:104),1:2]
 d <- dist(iris2)
 cl <- hclust(d)
-plot(cl)
+plot(cl, lwd = 2, xlab = "", ylab = "", sub = "", cex.main = 2, cex = 1.5, cex.axis = 2)
 abline(h = tail(cl$height, 3)[1] + 0.05, lty = 2)
-text(5, tail(cl$height, 3)[1] + 0.15, "k = 3")
+text(5, tail(cl$height, 3)[1] + 0.15, "k = 3", cex = 1.5)
 ```
 
 --- .dark .segue
