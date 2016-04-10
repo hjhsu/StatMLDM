@@ -364,6 +364,112 @@ Source: <http://www.laits.utexas.edu/~anorman/BUS.FOR/course.mat/Alex>
 - 決定Cluster與Cluster之間的距離
 - 由近到遠依序合併資料點與Clusters...
 
+```{r hclust-figs, fig.show = "hide", warning = FALSE, cache = TRUE}
+m <- cl$merge
+d.m <- as.matrix(dist(iris2))
+row_group <- list()
+draw_group <- function(node, col, df = iris2) {
+  node.m <- apply(df[node,], 2, mean)
+  points(Sepal.Width ~ Sepal.Length, df[node,], col = col)
+  points(node.m[1], node.m[2], col = col, pch = 16)
+}
+draw_line <- function(node, col, df = iris2) {
+  lines(df[node,1], df[node,2], lty = 2, col = col, lwd = 3)
+  line.dist <- sqrt(diff(df[node,1])^2 + diff(df[node,2])^2)
+  line.center <- c(mean(df[node,1]), mean(df[node,2]))
+  text.location <- line.center
+  text.location[2] <- text.location[2] + diff(par()$usr[3:4]) / 25
+  title(sub = sprintf("Distance: %0.3f", line.dist))
+}
+col.set <- rainbow(11)
+plot(Sepal.Width ~ Sepal.Length, iris2, pch = 16)
+y.label.offset <- rep(-diff(par()$usr[3:4]) / 25, nrow(iris2))
+y.label.offset[8] <- -y.label.offset[8]
+text(
+  iris2$Sepal.Length, 
+  iris2$Sepal.Width + y.label.offset,
+  rownames(iris2))
+
+node.closest <- local({
+  diag(d.m) <- Inf
+  which(d.m == min(d.m), arr.ind = TRUE)[1,]
+}) %>%
+  draw_line(col = col.set[2])
+for(i in 1:11) {
+  lhs <- m[i,1]
+  rhs <- m[i,2]
+  lnode <- if (lhs < 0) -lhs else {
+    tmp <- row_group[[lhs]]
+    row_group[[lhs]] <- integer(0)
+    tmp
+  }
+  rnode <- if (rhs < 0) -rhs else {
+    tmp <- row_group[[rhs]]
+    row_group[[rhs]] <- integer(0)
+    tmp
+  }
+  node <- c(lnode, rnode)
+  row_group[[i]] <- node
+  bnode <- setdiff(1:12, Reduce(union, row_group[1:i]))
+  plot(Sepal.Width ~ Sepal.Length, iris2, type = "n")
+  points(Sepal.Width ~ Sepal.Length, iris2[bnode,], pch = 16)
+  text(
+    iris2$Sepal.Length, 
+    iris2$Sepal.Width + y.label.offset,
+    rownames(iris2))
+  lapply(seq_len(i-1), function(j) {
+    if (length(j) > 0) draw_group(row_group[[j]], col.set[j])
+  }) %>% 
+    invisible()
+  draw_group(node, col = col.set[i])
+  if (i < 11) {
+    plot(Sepal.Width ~ Sepal.Length, iris2, type = "n")
+    points(Sepal.Width ~ Sepal.Length, iris2[bnode,], pch = 16)
+  text(
+    iris2$Sepal.Length, 
+    iris2$Sepal.Width + y.label.offset,
+    rownames(iris2))
+    lapply(seq_len(i), function(j) {
+      if (length(j) > 0) draw_group(row_group[[j]], col.set[j])
+    }) %>% 
+      invisible()
+    local({
+      d.m <- 
+        (df <- rbind(
+          iris2[bnode,],
+          Filter(function(x) length(row_group[[x]]) > 0, seq_len(i)) %>%
+            (function(df, i) df[i])(df = row_group) %>%
+          lapply(function(j) {
+            iris2[j,] %>% apply(2, mean)
+          }) %>% do.call(what = rbind))) %>%
+        dist() %>%
+        as.matrix()
+      diag(d.m) <- Inf
+      which(d.m == min(d.m), arr.ind = TRUE)[1,] %>%
+        draw_line(col = col.set[i], df = df)
+    }) 
+  }
+}
+```
+
+```{r hclust-figs-display, dependson="hclust-figs", results = "asis"}
+fig.list <- dir("assets/fig", "rdata-mining-hclust-figs-.*.png$")
+fig.id <- 
+  regmatches(fig.list, 
+           regexec("^rdata-mining-hclust-figs-(\\d+).png$",
+                   fig.list)) %>%
+  sapply("[", 2) %>%
+  as.integer()
+fig.order <- order(fig.id)
+lapply(
+  fig.list[fig.order], 
+  function(fig.path) {
+    fig.path <- file.path("..", "fig", fig.path)
+    sprintf("\n--- &fullimg %s\n", bg(fig.path)) %>% cat()
+  }
+) %>% invisible()
+```
+
 --- &vcenter .largecontent
 
 ## Dendrogram
@@ -372,90 +478,8 @@ Source: <http://www.laits.utexas.edu/~anorman/BUS.FOR/course.mat/Alex>
 iris2 <- iris[c(1:4, 51:54, 101:104),1:2]
 d <- dist(iris2)
 cl <- hclust(d)
-plot(cl)
+plot(cl, lwd = 2, xlab = "", ylab = "", sub = "", cex.main = 2, cex = 1.5, cex.axis = 2)
 ```
-
-```{r hclust, results = "hide", warning = FALSE, cache = TRUE}
-gif.name <- "hclust.gif"
-suppressMessages(
-  saveGIF({
-    m <- cl$merge
-    d.m <- as.matrix(dist(iris2))
-    row_group <- list()
-    draw_group <- function(node, col, df = iris2) {
-      node.m <- apply(df[node,], 2, mean)
-      points(Sepal.Width ~ Sepal.Length, df[node,], col = col)
-      points(node.m[1], node.m[2], col = col, pch = 16)
-    }
-    draw_line <- function(node, col, df = iris2) {
-      lines(df[node,1], df[node,2], lty = 2, col = col, lwd = 3)
-    }
-    col.set <- rainbow(11)
-    dev.hold()
-    plot(Sepal.Width ~ Sepal.Length, iris2, pch = 16)
-    node.closest <- local({
-      diag(d.m) <- Inf
-      which(d.m == min(d.m), arr.ind = TRUE)[1,]
-    }) %>%
-      draw_line(col = col.set[2])
-    ani.pause()
-    for(i in 1:11) {
-      lhs <- m[i,1]
-      rhs <- m[i,2]
-      lnode <- if (lhs < 0) -lhs else {
-        tmp <- row_group[[lhs]]
-        row_group[[lhs]] <- integer(0)
-        tmp
-      }
-      rnode <- if (rhs < 0) -rhs else {
-        tmp <- row_group[[rhs]]
-        row_group[[rhs]] <- integer(0)
-        tmp
-      }
-      node <- c(lnode, rnode)
-      row_group[[i]] <- node
-      bnode <- setdiff(1:12, Reduce(union, row_group[1:i]))
-      dev.hold()
-      plot(Sepal.Width ~ Sepal.Length, iris2, type = "n")
-      points(Sepal.Width ~ Sepal.Length, iris2[bnode,], pch = 16)
-      lapply(seq_len(i-1), function(j) {
-        if (length(j) > 0) draw_group(row_group[[j]], col.set[j])
-      }) %>% 
-        invisible()
-      draw_group(node, col = col.set[i])
-      ani.pause()
-      if (i < 11) {
-        dev.hold()
-        plot(Sepal.Width ~ Sepal.Length, iris2, type = "n")
-        points(Sepal.Width ~ Sepal.Length, iris2[bnode,], pch = 16)
-        lapply(seq_len(i), function(j) {
-          if (length(j) > 0) draw_group(row_group[[j]], col.set[j])
-        }) %>% 
-          invisible()
-        local({
-          d.m <- 
-            (df <- rbind(
-              iris2[bnode,],
-              Filter(function(x) length(row_group[[x]]) > 0, seq_len(i)) %>%
-                (function(df, i) df[i])(df = row_group) %>%
-              lapply(function(j) {
-                iris2[j,] %>% apply(2, mean)
-              }) %>% do.call(what = rbind))) %>%
-            dist() %>%
-            as.matrix()
-          diag(d.m) <- Inf
-          which(d.m == min(d.m), arr.ind = TRUE)[1,] %>%
-            draw_line(col = col.set[i], df = df)
-        }) 
-        ani.pause()
-      }
-    }
-  }, movie.name = gif.name))
-if (file.exists(file.path("assets", "img", gif.name))) file.remove(file.path("assets", "img", gif.name))
-file.rename(gif.name, file.path("assets", "img", gif.name))
-```
-
---- &fullimg `r bg("hclust.gif")`
 
 --- &vcenter .largecontent
 
