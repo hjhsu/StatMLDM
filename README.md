@@ -35,6 +35,7 @@ install_course_github("wush978", "StatMLDM", "course")
 ## 課程投影片
 
 - [Statistics](http://wush978.github.io/StatMLDM/slide/Statistics.html)
+- [Data Mining](http://wush978.github.io/StatMLDM/slide/DataMining.html)
 
 ## 課程筆記(版本：fd25508a)
 
