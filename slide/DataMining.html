@@ -14,6 +14,7 @@
   <link rel="stylesheet" href="libraries/frameworks/io2012-wush/css/slidify.css" >
   <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/zenburn.css" />
   <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="./assets/css/custom.css"></link>
+<link rel=stylesheet href="./assets/css/ribbons.css"></link>
 
   
   <!-- Grab CDN jQuery, fall back to local if offline -->
@@ -397,11 +398,10 @@
 </article>
 <!-- Presenter Notes -->
 </slide>
-<slide class="" id="slide-24" style="background:url(assets/img/1341639767-4160490196.jpg); background-size: 100% 100%;">
+<slide class="" id="slide-24" style="background:url(assets/img/company-cluster.png); background-size: 100% 100%;">
   <article data-timings="" style="display: table;">
     <div style="display: table-cell;vertical-align: bottom;">
-      <p><a href="http://unafang.pixnet.net/album/photo/35371216-%E9%81%A0%E8%B7%9D%E9%9B%A2%E6%88%80%E6%84%9B">http://unafang.pixnet.net/album/photo/35371216-%E9%81%A0%E8%B7%9D%E9%9B%A2%E6%88%80%E6%84%9B</a></p>
-
+      
     </div>
   </article>
   <!-- Presenter Notes -->
@@ -415,23 +415,37 @@
   </article>
   <!-- Presenter Notes -->
 </slide>
-<slide class="" id="slide-26" style="background:url(assets/img/euclid3.gif); background-size: 100% 100%;">
-  <article data-timings="" style="display: table;">
-    <div style="display: table-cell;vertical-align: bottom;">
-      <p><a href="https://hlab.stanford.edu/brian/euclidean_distance_in.html">https://hlab.stanford.edu/brian/euclidean_distance_in.html</a></p>
-
-    </div>
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-<slide class="dark segue" id="slide-27" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;">
+<slide class="dark segue" id="slide-26" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;">
   <hgroup>
-    <h2>如何定義距離？</h2>
+    <h2>「相似度」與「相異度」</h2>
   </hgroup>
   <article data-timings="">
     
   </article>
   <!-- Presenter Notes -->
+</slide>
+<slide class="largecontent" id="slide-27" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
+<hgroup>
+  <h2>相似度(Similarity)與相異度(Dissimilarity)</h2>
+</hgroup>
+<article class = 'flexbox vcenter'>
+<ul>
+<li>相似度：越大越像</li>
+<li>相異度：越小越像
+
+<ul>
+<li>距離</li>
+</ul></li>
+<li>兩者可以用數學運算做變換
+
+<ul>
+<li>常見的相似度常常介於0與1之間</li>
+<li>定義相異度： 1 - 相似度</li>
+</ul></li>
+</ul>
+
+</article>
+<!-- Presenter Notes -->
 </slide>
 <slide class="largecontent" id="slide-28" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
 <hgroup>
@@ -642,6 +656,25 @@
 </slide>
 <slide class="largecontent" id="slide-36" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
 <hgroup>
+  <h2>距離（相異度）</h2>
+</hgroup>
+<article class = 'flexbox vcenter'>
+<ul>
+<li>\(d(x, y)\)
+
+<ul>
+<li>$d(x, y) \geq 0$：距離一定是正的</li>
+<li>$d(x, y) = 0 \Leftrightarrow x = y$：相同的物品 $\Leftrightarrow$距離為0</li>
+<li>$d(x, y) = d(y, x)$：距離是對稱的</li>
+<li>$d(x, z) \leq d(x, y) + d(y, z)$：三角不等式</li>
+</ul></li>
+</ul>
+
+</article>
+<!-- Presenter Notes -->
+</slide>
+<slide class="largecontent" id="slide-37" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
+<hgroup>
   <h2>數值型變數： $L_p$距離</h2>
 </hgroup>
 <article class = 'flexbox vcenter'>
@@ -654,37 +687,173 @@
 </article>
 <!-- Presenter Notes -->
 </slide>
-<slide class="" id="slide-37" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;">
+<slide class="largecontent" id="slide-38" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;">
   <hgroup>
-    <h2>數值型變數： $L_p$距離</h2>
+    <h2>數值型變數： Manhattan Distance, \(L_1\)</h2>
   </hgroup>
   <article data-timings="">
-    
-<div style='float:left;width:48%;' class='centered'>
-  <p><img src='assets/img/140px-Vector_norms.svg.png' style='max-width: 100%;max-height: 100%'></img></p>
+    <p>\[d(i,j) = 
+  \left\lVert x_{i,1} - x_{j,1} \right\rVert +
+  \left\lVert x_{i,2} - x_{j,2} \right\rVert +
+  \dots +
+  \left\lVert x_{i,p} - x_{j,p} \right\rVert\]</p>
 
-</div>
-<div style='float:right;width:48%;' class='centered'>
-  <p><img src='assets/img/400px-Superellipse_rounded_diamond.svg.png' style='max-width: 100%;max-height: 100%'></img></p>
+<p><center>
+<img src="./assets/fig/rdata-mining-L1-1.png" alt="plot of chunk L1">
+</center></p>
 
-</div>
   </article>
   <!-- Presenter Notes -->
 </slide>
-<slide class="largecontent" id="slide-38" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
+<slide class="largecontent" id="slide-39" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;">
+  <hgroup>
+    <h2>數值型變數： Euclidean Distance, \(L_2\)</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>\[d(i,j) = \sqrt{
+  \left( x_{i,1} - x_{j,1} \right)^2 +
+  \left( x_{i,2} - x_{j,2} \right)^2 +
+  \dots +
+  \left( x_{i,p} - x_{j,p} \right)^2
+}\]</p>
+
+<p><center>
+<img src="./assets/fig/rdata-mining-L2-1.png" alt="plot of chunk L2">
+</center></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="largecontent" id="slide-40" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;">
+  <hgroup>
+    <h2>數值型變數： Maximum Distance, \(L_{\infty}\)</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>\[d(i, j) = max_{k=1}^p {
+  \left\lVert x_{i,k} - x_{j,k} \right\rVert
+}\]</p>
+
+<p><center>
+<img src="./assets/fig/rdata-mining-Linfty-1.png" alt="plot of chunk Linfty">
+</center></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="largecontent" id="slide-41" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
 <hgroup>
-  <h2>如何挑選Similarity</h2>
+  <h2>數值型變數 Minkowski Distance</h2>
+</hgroup>
+<article class = 'flexbox vcenter'>
+<p>\[d(i,j) =
+\left(
+  \left\lVert x_{i,1} - x_{j,1} \right\rVert^q +
+  \left\lVert x_{i,2} - x_{j,2} \right\rVert^q +
+  \dots +
+  \left\lVert x_{i,p} - x_{j,p} \right\rVert^q
+\right)\]</p>
+
+<p><center></p>
+
+<p><img src="minkowski.gif"/>
+</center></p>
+
+</article>
+<!-- Presenter Notes -->
+</slide>
+<slide class="largecontent" id="slide-42" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
+<hgroup>
+  <h2>Gower&#39;s Dissimilarity coefficient</h2>
 </hgroup>
 <article class = 'flexbox vcenter'>
 <ul>
-<li>視目標與應用而定</li>
-<li>利用相似度解釋資料（主觀）</li>
+<li>\(x_i = (x_{i,1}, x_{i,2}, x_{i,3}, ..., x_{i,p})\)</li>
+<li>\(x_j = (x_{j,1}, x_{j,2}, x_{j,3}, ..., x_{j,p})\)</li>
+<li>如果第一個變數是順序尺度或數值變數
+
+<ul>
+<li>\(s_{i,j,1} = \frac{\left\lVert x_{i,1} - x_{j,1} \right\rVert}{r_1}\)
+
+<ul>
+<li>$r_1$代表第一個變數的range</li>
+</ul></li>
+<li>\(0 \leq s_{i,j,1} \leq 1\)</li>
+</ul></li>
 </ul>
 
 </article>
 <!-- Presenter Notes -->
 </slide>
-<slide class="dark segue" id="slide-39" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;">
+<slide class="largecontent" id="slide-43" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
+<hgroup>
+  <h2>Gower&#39;s Dissimilarity Coefficient</h2>
+</hgroup>
+<article class = 'flexbox vcenter'>
+<ul>
+<li>\(x_i = (x_{i,1}, x_{i,2}, x_{i,3}, ..., x_{i,p})\)</li>
+<li>\(x_j = (x_{j,1}, x_{j,2}, x_{j,3}, ..., x_{j,p})\)</li>
+<li>如果第二個變數是類別變數
+
+<ul>
+<li>\(s_{i,j,2}\) 則是 $1 - $Jaccard Index</li>
+<li>\(0 \leq s_{i,j,2} \leq 1\)</li>
+</ul></li>
+</ul>
+
+</article>
+<!-- Presenter Notes -->
+</slide>
+<slide class="largecontent" id="slide-44" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
+<hgroup>
+  <h2>Gower&#39;s Dissimilarity Coefficient</h2>
+</hgroup>
+<article class = 'flexbox vcenter'>
+<ul>
+<li>\(s_{i,j} = \frac{\sum_{k=1}^p {w_k s_{i,j,p}}}{\sum_{k=1}^p {w_k}}\)
+
+<ul>
+<li>Gower&#39;s Similarity coefficient 就是這些similarity指標的weighted sum</li>
+</ul></li>
+</ul>
+
+</article>
+<!-- Presenter Notes -->
+</slide>
+<slide class="largecontent" id="slide-45" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
+<hgroup>
+  <h2>Gower&#39;s Dissimilarity Coefficient</h2>
+</hgroup>
+<article class = 'flexbox vcenter'>
+<pre><code class="r">library(cluster)
+d &lt;- daisy(iris, metric = &quot;gower&quot;)
+</code></pre>
+
+</article>
+<!-- Presenter Notes -->
+</slide>
+<slide class="largecontent" id="slide-46" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
+<hgroup>
+  <h2>如何挑選Similarity</h2>
+</hgroup>
+<article class = 'flexbox vcenter'>
+<ul>
+<li>視目標與應用而定
+
+<ul>
+<li>利用1NN 分類的結果來評估Similarity的品質(後述)</li>
+</ul></li>
+<li>數值變數的baseline：
+
+<ul>
+<li>先標準化</li>
+<li>$L_2$距離</li>
+</ul></li>
+</ul>
+
+</article>
+<!-- Presenter Notes -->
+</slide>
+<slide class="dark segue" id="slide-47" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;">
   <hgroup>
     <h2>Hierarchical Clustering</h2>
   </hgroup>
@@ -693,7 +862,7 @@
   </article>
   <!-- Presenter Notes -->
 </slide>
-<slide class="largecontent" id="slide-40" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
+<slide class="largecontent" id="slide-48" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
 <hgroup>
   <h2>Dendrogram</h2>
 </hgroup>
@@ -712,7 +881,103 @@
 </article>
 <!-- Presenter Notes -->
 </slide>
-<slide class="largecontent" id="slide-41" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
+<slide class="" id="slide-49" style="background:url(assets/img/../fig/rdata-mining-hclust-figs-1.png); background-size: 100% 100%;">
+  <article data-timings="" style="display: table;">
+    <div style="display: table-cell;vertical-align: bottom;">
+      
+    </div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-50" style="background:url(assets/img/../fig/rdata-mining-hclust-figs-2.png); background-size: 100% 100%;">
+  <article data-timings="" style="display: table;">
+    <div style="display: table-cell;vertical-align: bottom;">
+      
+    </div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-51" style="background:url(assets/img/../fig/rdata-mining-hclust-figs-3.png); background-size: 100% 100%;">
+  <article data-timings="" style="display: table;">
+    <div style="display: table-cell;vertical-align: bottom;">
+      
+    </div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-52" style="background:url(assets/img/../fig/rdata-mining-hclust-figs-4.png); background-size: 100% 100%;">
+  <article data-timings="" style="display: table;">
+    <div style="display: table-cell;vertical-align: bottom;">
+      
+    </div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-53" style="background:url(assets/img/../fig/rdata-mining-hclust-figs-5.png); background-size: 100% 100%;">
+  <article data-timings="" style="display: table;">
+    <div style="display: table-cell;vertical-align: bottom;">
+      
+    </div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-54" style="background:url(assets/img/../fig/rdata-mining-hclust-figs-6.png); background-size: 100% 100%;">
+  <article data-timings="" style="display: table;">
+    <div style="display: table-cell;vertical-align: bottom;">
+      
+    </div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-55" style="background:url(assets/img/../fig/rdata-mining-hclust-figs-7.png); background-size: 100% 100%;">
+  <article data-timings="" style="display: table;">
+    <div style="display: table-cell;vertical-align: bottom;">
+      
+    </div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-56" style="background:url(assets/img/../fig/rdata-mining-hclust-figs-8.png); background-size: 100% 100%;">
+  <article data-timings="" style="display: table;">
+    <div style="display: table-cell;vertical-align: bottom;">
+      
+    </div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-57" style="background:url(assets/img/../fig/rdata-mining-hclust-figs-9.png); background-size: 100% 100%;">
+  <article data-timings="" style="display: table;">
+    <div style="display: table-cell;vertical-align: bottom;">
+      
+    </div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-58" style="background:url(assets/img/../fig/rdata-mining-hclust-figs-10.png); background-size: 100% 100%;">
+  <article data-timings="" style="display: table;">
+    <div style="display: table-cell;vertical-align: bottom;">
+      
+    </div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-59" style="background:url(assets/img/../fig/rdata-mining-hclust-figs-11.png); background-size: 100% 100%;">
+  <article data-timings="" style="display: table;">
+    <div style="display: table-cell;vertical-align: bottom;">
+      
+    </div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-60" style="background:url(assets/img/../fig/rdata-mining-hclust-figs-12.png); background-size: 100% 100%;">
+  <article data-timings="" style="display: table;">
+    <div style="display: table-cell;vertical-align: bottom;">
+      
+    </div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="largecontent" id="slide-61" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
 <hgroup>
   <h2>Dendrogram</h2>
 </hgroup>
@@ -722,15 +987,7 @@
 </article>
 <!-- Presenter Notes -->
 </slide>
-<slide class="" id="slide-42" style="background:url(assets/img/hclust.gif); background-size: 100% 100%;">
-  <article data-timings="" style="display: table;">
-    <div style="display: table-cell;vertical-align: bottom;">
-      
-    </div>
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-<slide class="largecontent" id="slide-43" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
+<slide class="largecontent" id="slide-62" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
 <hgroup>
   <h2>Hierarchical Clustering</h2>
 </hgroup>
@@ -744,7 +1001,33 @@
 </article>
 <!-- Presenter Notes -->
 </slide>
-<slide class="dark segue" id="slide-44" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;">
+<slide class="largecontent" id="slide-63" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
+<hgroup>
+  <h2>如何評斷Clustering結果的好壞？</h2>
+</hgroup>
+<article class = 'flexbox vcenter'>
+<ul>
+<li>Cluster之內的距離要短</li>
+<li>Cluster之間的距離要長</li>
+</ul>
+
+</article>
+<!-- Presenter Notes -->
+</slide>
+<slide class="largecontent" id="slide-64" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
+<hgroup>
+  <h2>如何挑選Cluster的個數?</h2>
+</hgroup>
+<article class = 'flexbox vcenter'>
+<ul>
+<li>挑選Clustering結果好的Cluster個數</li>
+<li>透過dendrogram的高度差距來比較</li>
+</ul>
+
+</article>
+<!-- Presenter Notes -->
+</slide>
+<slide class="dark segue" id="slide-65" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;">
   <hgroup>
     <h2>Center-based Clustering</h2>
   </hgroup>
@@ -753,7 +1036,47 @@
   </article>
   <!-- Presenter Notes -->
 </slide>
-<slide class="largecontent" id="slide-45" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
+<slide class="" id="slide-66" style="background:url(assets/img/../fig/rdata-mining-kmeans-figs-1.png); background-size: 100% 100%;">
+  <article data-timings="" style="display: table;">
+    <div style="display: table-cell;vertical-align: bottom;">
+      
+    </div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-67" style="background:url(assets/img/../fig/rdata-mining-kmeans-figs-2.png); background-size: 100% 100%;">
+  <article data-timings="" style="display: table;">
+    <div style="display: table-cell;vertical-align: bottom;">
+      
+    </div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-68" style="background:url(assets/img/../fig/rdata-mining-kmeans-figs-3.png); background-size: 100% 100%;">
+  <article data-timings="" style="display: table;">
+    <div style="display: table-cell;vertical-align: bottom;">
+      
+    </div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-69" style="background:url(assets/img/../fig/rdata-mining-kmeans-figs-4.png); background-size: 100% 100%;">
+  <article data-timings="" style="display: table;">
+    <div style="display: table-cell;vertical-align: bottom;">
+      
+    </div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-70" style="background:url(assets/img/../fig/rdata-mining-kmeans-figs-5.png); background-size: 100% 100%;">
+  <article data-timings="" style="display: table;">
+    <div style="display: table-cell;vertical-align: bottom;">
+      
+    </div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="largecontent" id="slide-71" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
 <hgroup>
   <h2>K-Means Clustering</h2>
 </hgroup>
@@ -766,15 +1089,37 @@
 </article>
 <!-- Presenter Notes -->
 </slide>
-<slide class="" id="slide-46" style="background:url(assets/img/kmeans.gif); background-size: 100% 100%;">
-  <article data-timings="" style="display: table;">
-    <div style="display: table-cell;vertical-align: bottom;">
-      
-    </div>
-  </article>
-  <!-- Presenter Notes -->
+<slide class="largecontent" id="slide-72" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
+<hgroup>
+  <h2>如何評估k-means的分群結果好壞？</h2>
+</hgroup>
+<article class = 'flexbox vcenter'>
+<p><img src="./assets/fig/rdata-mining-withinss-1.png" alt="plot of chunk withinss"></p>
+
+</article>
+<!-- Presenter Notes -->
 </slide>
-<slide class="dark segue" id="slide-47" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;">
+<slide class="largecontent" id="slide-73" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
+<hgroup>
+  <h2>Within-Cluster Sum of Squares</h2>
+</hgroup>
+<article class = 'flexbox vcenter'>
+<p><img src="./assets/fig/rdata-mining-withinss-display-1.png" alt="plot of chunk withinss-display"></p>
+
+</article>
+<!-- Presenter Notes -->
+</slide>
+<slide class="largecontent" id="slide-74" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
+<hgroup>
+  <h2>Gap Statistic for Estimating the Number of Clusters</h2>
+</hgroup>
+<article class = 'flexbox vcenter'>
+<p><img src="./assets/fig/rdata-mining-gap-cluster-1.png" alt="plot of chunk gap-cluster"></p>
+
+</article>
+<!-- Presenter Notes -->
+</slide>
+<slide class="dark segue" id="slide-75" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;">
   <hgroup>
     <h2>Density-based Clustering</h2>
   </hgroup>
@@ -783,7 +1128,303 @@
   </article>
   <!-- Presenter Notes -->
 </slide>
-<slide class="largecontent" id="slide-48" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
+<slide class="" id="slide-76" style="background:url(assets/img/../fig/rdata-mining-fpc-figs-1.png); background-size: 100% 100%;">
+  <article data-timings="" style="display: table;">
+    <div style="display: table-cell;vertical-align: bottom;">
+      
+    </div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-77" style="background:url(assets/img/../fig/rdata-mining-fpc-figs-2.png); background-size: 100% 100%;">
+  <article data-timings="" style="display: table;">
+    <div style="display: table-cell;vertical-align: bottom;">
+      
+    </div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-78" style="background:url(assets/img/../fig/rdata-mining-fpc-figs-3.png); background-size: 100% 100%;">
+  <article data-timings="" style="display: table;">
+    <div style="display: table-cell;vertical-align: bottom;">
+      
+    </div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-79" style="background:url(assets/img/../fig/rdata-mining-fpc-figs-4.png); background-size: 100% 100%;">
+  <article data-timings="" style="display: table;">
+    <div style="display: table-cell;vertical-align: bottom;">
+      
+    </div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-80" style="background:url(assets/img/../fig/rdata-mining-fpc-figs-5.png); background-size: 100% 100%;">
+  <article data-timings="" style="display: table;">
+    <div style="display: table-cell;vertical-align: bottom;">
+      
+    </div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-81" style="background:url(assets/img/../fig/rdata-mining-fpc-figs-6.png); background-size: 100% 100%;">
+  <article data-timings="" style="display: table;">
+    <div style="display: table-cell;vertical-align: bottom;">
+      
+    </div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-82" style="background:url(assets/img/../fig/rdata-mining-fpc-figs-7.png); background-size: 100% 100%;">
+  <article data-timings="" style="display: table;">
+    <div style="display: table-cell;vertical-align: bottom;">
+      
+    </div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-83" style="background:url(assets/img/../fig/rdata-mining-fpc-figs-8.png); background-size: 100% 100%;">
+  <article data-timings="" style="display: table;">
+    <div style="display: table-cell;vertical-align: bottom;">
+      
+    </div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-84" style="background:url(assets/img/../fig/rdata-mining-fpc-figs-9.png); background-size: 100% 100%;">
+  <article data-timings="" style="display: table;">
+    <div style="display: table-cell;vertical-align: bottom;">
+      
+    </div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-85" style="background:url(assets/img/../fig/rdata-mining-fpc-figs-10.png); background-size: 100% 100%;">
+  <article data-timings="" style="display: table;">
+    <div style="display: table-cell;vertical-align: bottom;">
+      
+    </div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-86" style="background:url(assets/img/../fig/rdata-mining-fpc-figs-11.png); background-size: 100% 100%;">
+  <article data-timings="" style="display: table;">
+    <div style="display: table-cell;vertical-align: bottom;">
+      
+    </div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-87" style="background:url(assets/img/../fig/rdata-mining-fpc-figs-12.png); background-size: 100% 100%;">
+  <article data-timings="" style="display: table;">
+    <div style="display: table-cell;vertical-align: bottom;">
+      
+    </div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-88" style="background:url(assets/img/../fig/rdata-mining-fpc-figs-13.png); background-size: 100% 100%;">
+  <article data-timings="" style="display: table;">
+    <div style="display: table-cell;vertical-align: bottom;">
+      
+    </div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-89" style="background:url(assets/img/../fig/rdata-mining-fpc-figs-14.png); background-size: 100% 100%;">
+  <article data-timings="" style="display: table;">
+    <div style="display: table-cell;vertical-align: bottom;">
+      
+    </div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-90" style="background:url(assets/img/../fig/rdata-mining-fpc-figs-15.png); background-size: 100% 100%;">
+  <article data-timings="" style="display: table;">
+    <div style="display: table-cell;vertical-align: bottom;">
+      
+    </div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-91" style="background:url(assets/img/../fig/rdata-mining-fpc-figs-16.png); background-size: 100% 100%;">
+  <article data-timings="" style="display: table;">
+    <div style="display: table-cell;vertical-align: bottom;">
+      
+    </div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-92" style="background:url(assets/img/../fig/rdata-mining-fpc-figs-17.png); background-size: 100% 100%;">
+  <article data-timings="" style="display: table;">
+    <div style="display: table-cell;vertical-align: bottom;">
+      
+    </div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-93" style="background:url(assets/img/../fig/rdata-mining-fpc-figs-18.png); background-size: 100% 100%;">
+  <article data-timings="" style="display: table;">
+    <div style="display: table-cell;vertical-align: bottom;">
+      
+    </div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-94" style="background:url(assets/img/../fig/rdata-mining-fpc-figs-19.png); background-size: 100% 100%;">
+  <article data-timings="" style="display: table;">
+    <div style="display: table-cell;vertical-align: bottom;">
+      
+    </div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-95" style="background:url(assets/img/../fig/rdata-mining-fpc-figs-20.png); background-size: 100% 100%;">
+  <article data-timings="" style="display: table;">
+    <div style="display: table-cell;vertical-align: bottom;">
+      
+    </div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-96" style="background:url(assets/img/../fig/rdata-mining-fpc-figs-21.png); background-size: 100% 100%;">
+  <article data-timings="" style="display: table;">
+    <div style="display: table-cell;vertical-align: bottom;">
+      
+    </div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-97" style="background:url(assets/img/../fig/rdata-mining-fpc-figs-22.png); background-size: 100% 100%;">
+  <article data-timings="" style="display: table;">
+    <div style="display: table-cell;vertical-align: bottom;">
+      
+    </div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-98" style="background:url(assets/img/../fig/rdata-mining-fpc-figs-23.png); background-size: 100% 100%;">
+  <article data-timings="" style="display: table;">
+    <div style="display: table-cell;vertical-align: bottom;">
+      
+    </div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-99" style="background:url(assets/img/../fig/rdata-mining-fpc-figs-24.png); background-size: 100% 100%;">
+  <article data-timings="" style="display: table;">
+    <div style="display: table-cell;vertical-align: bottom;">
+      
+    </div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-100" style="background:url(assets/img/../fig/rdata-mining-fpc-figs-25.png); background-size: 100% 100%;">
+  <article data-timings="" style="display: table;">
+    <div style="display: table-cell;vertical-align: bottom;">
+      
+    </div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-101" style="background:url(assets/img/../fig/rdata-mining-fpc-figs-26.png); background-size: 100% 100%;">
+  <article data-timings="" style="display: table;">
+    <div style="display: table-cell;vertical-align: bottom;">
+      
+    </div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-102" style="background:url(assets/img/../fig/rdata-mining-fpc-figs-27.png); background-size: 100% 100%;">
+  <article data-timings="" style="display: table;">
+    <div style="display: table-cell;vertical-align: bottom;">
+      
+    </div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-103" style="background:url(assets/img/../fig/rdata-mining-fpc-figs-28.png); background-size: 100% 100%;">
+  <article data-timings="" style="display: table;">
+    <div style="display: table-cell;vertical-align: bottom;">
+      
+    </div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-104" style="background:url(assets/img/../fig/rdata-mining-fpc-figs-29.png); background-size: 100% 100%;">
+  <article data-timings="" style="display: table;">
+    <div style="display: table-cell;vertical-align: bottom;">
+      
+    </div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-105" style="background:url(assets/img/../fig/rdata-mining-fpc-figs-30.png); background-size: 100% 100%;">
+  <article data-timings="" style="display: table;">
+    <div style="display: table-cell;vertical-align: bottom;">
+      
+    </div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-106" style="background:url(assets/img/../fig/rdata-mining-fpc-figs-31.png); background-size: 100% 100%;">
+  <article data-timings="" style="display: table;">
+    <div style="display: table-cell;vertical-align: bottom;">
+      
+    </div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-107" style="background:url(assets/img/../fig/rdata-mining-fpc-figs-32.png); background-size: 100% 100%;">
+  <article data-timings="" style="display: table;">
+    <div style="display: table-cell;vertical-align: bottom;">
+      
+    </div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-108" style="background:url(assets/img/../fig/rdata-mining-fpc-figs-33.png); background-size: 100% 100%;">
+  <article data-timings="" style="display: table;">
+    <div style="display: table-cell;vertical-align: bottom;">
+      
+    </div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-109" style="background:url(assets/img/../fig/rdata-mining-fpc-figs-34.png); background-size: 100% 100%;">
+  <article data-timings="" style="display: table;">
+    <div style="display: table-cell;vertical-align: bottom;">
+      
+    </div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-110" style="background:url(assets/img/../fig/rdata-mining-fpc-figs-35.png); background-size: 100% 100%;">
+  <article data-timings="" style="display: table;">
+    <div style="display: table-cell;vertical-align: bottom;">
+      
+    </div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-111" style="background:url(assets/img/../fig/rdata-mining-fpc-figs-36.png); background-size: 100% 100%;">
+  <article data-timings="" style="display: table;">
+    <div style="display: table-cell;vertical-align: bottom;">
+      
+    </div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-112" style="background:url(assets/img/../fig/rdata-mining-fpc-figs-37.png); background-size: 100% 100%;">
+  <article data-timings="" style="display: table;">
+    <div style="display: table-cell;vertical-align: bottom;">
+      
+    </div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="largecontent" id="slide-113" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
 <hgroup>
   <h2>DBSCAN</h2>
 </hgroup>
@@ -797,15 +1438,7 @@
 </article>
 <!-- Presenter Notes -->
 </slide>
-<slide class="" id="slide-49" style="background:url(assets/img/fpc.gif); background-size: 100% 100%;">
-  <article data-timings="" style="display: table;">
-    <div style="display: table-cell;vertical-align: bottom;">
-      
-    </div>
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-<slide class="largecontent" id="slide-50" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
+<slide class="largecontent" id="slide-114" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
 <hgroup>
   <h2>分群總結</h2>
 </hgroup>
@@ -822,7 +1455,7 @@
 </article>
 <!-- Presenter Notes -->
 </slide>
-<slide class="largecontent" id="slide-51" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
+<slide class="largecontent" id="slide-115" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
 <hgroup>
   <h2>分群比較</h2>
 </hgroup>
@@ -832,7 +1465,7 @@
 </article>
 <!-- Presenter Notes -->
 </slide>
-<slide class="largecontent" id="slide-52" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
+<slide class="largecontent" id="slide-116" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
 <hgroup>
   <h2>練習</h2>
 </hgroup>
@@ -844,7 +1477,7 @@
 </article>
 <!-- Presenter Notes -->
 </slide>
-<slide class="dark segue" id="slide-53" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;">
+<slide class="dark segue" id="slide-117" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;">
   <hgroup>
     <h2>Similarity and Classification</h2>
   </hgroup>
@@ -853,7 +1486,7 @@
   </article>
   <!-- Presenter Notes -->
 </slide>
-<slide class="largecontent" id="slide-54" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
+<slide class="largecontent" id="slide-118" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
 <hgroup>
   <h2>Classification</h2>
 </hgroup>
@@ -875,7 +1508,7 @@
 </article>
 <!-- Presenter Notes -->
 </slide>
-<slide class="largecontent" id="slide-55" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
+<slide class="largecontent" id="slide-119" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
 <hgroup>
   <h2>Nearest-Neighborhood</h2>
 </hgroup>
@@ -890,7 +1523,7 @@
 </article>
 <!-- Presenter Notes -->
 </slide>
-<slide class="largecontent" id="slide-56" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
+<slide class="largecontent" id="slide-120" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
 <hgroup>
   <h2>K Nearest-Neighborhood (k-NN)</h2>
 </hgroup>
@@ -903,7 +1536,7 @@
 </article>
 <!-- Presenter Notes -->
 </slide>
-<slide class="" id="slide-57" style="background:url(assets/img/279px-KnnClassification.png); background-size: 100% 100%;">
+<slide class="" id="slide-121" style="background:url(assets/img/279px-KnnClassification.png); background-size: 100% 100%;">
   <article data-timings="" style="display: table;">
     <div style="display: table-cell;vertical-align: bottom;">
       
@@ -911,7 +1544,7 @@
   </article>
   <!-- Presenter Notes -->
 </slide>
-<slide class="largecontent" id="slide-58" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
+<slide class="largecontent" id="slide-122" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
 <hgroup>
   <h2>k-NN 常用於評量Similarity</h2>
 </hgroup>
@@ -930,7 +1563,7 @@
 </article>
 <!-- Presenter Notes -->
 </slide>
-<slide class="largecontent" id="slide-59" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
+<slide class="largecontent" id="slide-123" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
 <hgroup>
   <h2>練習</h2>
 </hgroup>
@@ -942,7 +1575,7 @@
 </article>
 <!-- Presenter Notes -->
 </slide>
-<slide class="dark segue" id="slide-60" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;">
+<slide class="dark segue" id="slide-124" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;">
   <hgroup>
     <h2>Text Mining</h2>
   </hgroup>
@@ -951,7 +1584,7 @@
   </article>
   <!-- Presenter Notes -->
 </slide>
-<slide class="largecontent" id="slide-61" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
+<slide class="largecontent" id="slide-125" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
 <hgroup>
   <h2>文字資料範例：ptt 笨版文章</h2>
 </hgroup>
@@ -981,7 +1614,7 @@ http://i.imgur.com/2u4GMKb.jpg
 </article>
 <!-- Presenter Notes -->
 </slide>
-<slide class="largecontent" id="slide-62" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
+<slide class="largecontent" id="slide-126" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
 <hgroup>
   <h2>文字資料的特色</h2>
 </hgroup>
@@ -1001,7 +1634,7 @@ http://i.imgur.com/2u4GMKb.jpg
 </article>
 <!-- Presenter Notes -->
 </slide>
-<slide class="largecontent" id="slide-63" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
+<slide class="largecontent" id="slide-127" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
 <hgroup>
   <h2>文字資料的結構化</h2>
 </hgroup>
@@ -1014,7 +1647,7 @@ http://i.imgur.com/2u4GMKb.jpg
 </article>
 <!-- Presenter Notes -->
 </slide>
-<slide class="largecontent" id="slide-64" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
+<slide class="largecontent" id="slide-128" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
 <hgroup>
   <h2>文字資料的清理</h2>
 </hgroup>
@@ -1037,7 +1670,7 @@ http://i.imgur.com/2u4GMKb.jpg
 </article>
 <!-- Presenter Notes -->
 </slide>
-<slide class="largecontent" id="slide-65" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
+<slide class="largecontent" id="slide-129" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
 <hgroup>
   <h2>Term Document Matrix (TDM)</h2>
 </hgroup>
@@ -1059,7 +1692,7 @@ http://i.imgur.com/2u4GMKb.jpg
 </article>
 <!-- Presenter Notes -->
 </slide>
-<slide class="largecontent" id="slide-66" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
+<slide class="largecontent" id="slide-130" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
 <hgroup>
   <h2>Feature Hashing</h2>
 </hgroup>
@@ -1078,7 +1711,7 @@ http://i.imgur.com/2u4GMKb.jpg
 </article>
 <!-- Presenter Notes -->
 </slide>
-<slide class="largecontent" id="slide-67" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
+<slide class="largecontent" id="slide-131" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
 <hgroup>
   <h2>範例：Large Movie Review Dataset</h2>
 </hgroup>
@@ -1098,7 +1731,7 @@ http://i.imgur.com/2u4GMKb.jpg
 </article>
 <!-- Presenter Notes -->
 </slide>
-<slide class="largecontent" id="slide-68" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
+<slide class="largecontent" id="slide-132" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
 <hgroup>
   <h2>TDM</h2>
 </hgroup>
@@ -1110,7 +1743,7 @@ http://i.imgur.com/2u4GMKb.jpg
 </article>
 <!-- Presenter Notes -->
 </slide>
-<slide class="largecontent" id="slide-69" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
+<slide class="largecontent" id="slide-133" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
 <hgroup>
   <h2>Sentiment Analysis via R, FeatureHashing and XGBoost</h2>
 </hgroup>
@@ -1123,7 +1756,7 @@ http://i.imgur.com/2u4GMKb.jpg
 </article>
 <!-- Presenter Notes -->
 </slide>
-<slide class="largecontent" id="slide-70" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
+<slide class="largecontent" id="slide-134" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
 <hgroup>
   <h2>n-gram</h2>
 </hgroup>
@@ -1136,7 +1769,7 @@ http://i.imgur.com/2u4GMKb.jpg
 </article>
 <!-- Presenter Notes -->
 </slide>
-<slide class="largecontent" id="slide-71" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
+<slide class="largecontent" id="slide-135" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
 <hgroup>
   <h2>n-gram 範例</h2>
 </hgroup>
@@ -1174,7 +1807,7 @@ http://i.imgur.com/2u4GMKb.jpg
 </article>
 <!-- Presenter Notes -->
 </slide>
-<slide class="largecontent" id="slide-72" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
+<slide class="largecontent" id="slide-136" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
 <hgroup>
   <h2>n-gram 範例</h2>
 </hgroup>
@@ -1212,7 +1845,107 @@ http://i.imgur.com/2u4GMKb.jpg
 </article>
 <!-- Presenter Notes -->
 </slide>
-<slide class="largecontent" id="slide-73" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
+<slide class="largecontent" id="slide-137" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
+<hgroup>
+  <h2>GloVe Algorithm</h2>
+</hgroup>
+<article class = 'flexbox vcenter'>
+<ul>
+<li>給定大量的文章與單字
+
+<ul>
+<li>利用機器學習的技術學習文章的結構</li>
+<li>將每一個單字轉換成一個數值向量</li>
+</ul></li>
+<li>可能是目前相關演算法中最好的成果</li>
+</ul>
+
+</article>
+<!-- Presenter Notes -->
+</slide>
+<slide class="largecontent" id="slide-138" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
+<hgroup>
+  <h2>GloVe Algorithm</h2>
+</hgroup>
+<article class = 'flexbox vcenter'>
+<ul>
+<li>可以到 <a href="http://nlp.stanford.edu/projects/glove/">http://nlp.stanford.edu/projects/glove/</a> 下載 GloVe 的學習結果</li>
+<li>使用Data Engineer的技巧讀取資料後，計算：
+
+<ol>
+<li>找出&quot;paris&quot;, &quot;french&quot;, &quot;roman&quot;的向量</li>
+<li>計算<code>paris - french + roman</code></li>
+<li>尋找和計算結果最接近的點：</li>
+</ol></li>
+</ul>
+
+</article>
+<!-- Presenter Notes -->
+</slide>
+<slide class="largecontent" id="slide-139" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
+<hgroup>
+  <h2>GloVe Algorithm</h2>
+</hgroup>
+<article class = 'flexbox vcenter'>
+<pre><code class="r"># m 是讀取GloVe專案的學習成果後的矩陣
+library(FNN)
+paris &lt;- m[&quot;paris&quot;,]
+french &lt;- m[&quot;french&quot;,]
+italy &lt;- m[&quot;italy&quot;,]
+query &lt;- matrix(paris - french + italy, nrow = 1)
+r &lt;- get.knnx(m, query, k = 10)
+rownames(m)[r$nn.index]
+</code></pre>
+
+<pre><code> [1] &quot;italy&quot;     &quot;rome&quot;      &quot;turin&quot;     &quot;genoa&quot;     &quot;milan&quot;    
+ [6] &quot;lisbon&quot;    &quot;madrid&quot;    &quot;venice&quot;    &quot;seville&quot;   &quot;amsterdam&quot;
+</code></pre>
+
+</article>
+<!-- Presenter Notes -->
+</slide>
+<slide class="largecontent" id="slide-140" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
+<hgroup>
+  <h2>GloVe Algorithm</h2>
+</hgroup>
+<article class = 'flexbox vcenter'>
+<ul>
+<li>我們可以做一些奇怪的事情...</li>
+</ul>
+
+<pre><code class="r"># m 是讀取GloVe專案的學習成果後的矩陣
+library(FNN)
+r &lt;- get.knnx(m, m[&quot;gun&quot;,,drop = FALSE], k = 10)
+rownames(m)[r$nn.index]
+</code></pre>
+
+<pre><code> [1] &quot;gun&quot;     &quot;guns&quot;    &quot;weapon&quot;  &quot;assault&quot; &quot;machine&quot; &quot;firing&quot;  &quot;crack&quot;  
+ [8] &quot;rifle&quot;   &quot;carry&quot;   &quot;shoot&quot;  
+</code></pre>
+
+<pre><code class="r">r &lt;- get.knnx(m, m[&quot;warrior&quot;,,drop = FALSE], k = 10)
+rownames(m)[r$nn.index]
+</code></pre>
+
+<pre><code> [1] &quot;warrior&quot;   &quot;dragon&quot;    &quot;brave&quot;     &quot;hero&quot;      &quot;beast&quot;    
+ [6] &quot;nicknamed&quot; &quot;mythical&quot;  &quot;beloved&quot;   &quot;immortal&quot;  &quot;heroic&quot;   
+</code></pre>
+
+<pre><code class="r">query &lt;- matrix(
+  m[&quot;gun&quot;,] - m[&quot;police&quot;,] + m[&quot;warrior&quot;,]
+  , nrow = 1)
+r &lt;- get.knnx(m, query, k = 10)
+rownames(m)[r$nn.index]
+</code></pre>
+
+<pre><code> [1] &quot;warrior&quot;   &quot;sword&quot;     &quot;colt&quot;      &quot;valiant&quot;   &quot;comicbook&quot;
+ [6] &quot;deceiver&quot;  &quot;swallower&quot; &quot;immortal&quot;  &quot;clipper&quot;   &quot;arrow&quot;    
+</code></pre>
+
+</article>
+<!-- Presenter Notes -->
+</slide>
+<slide class="largecontent" id="slide-141" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
 <hgroup>
   <h2>練習</h2>
 </hgroup>
@@ -1224,7 +1957,7 @@ http://i.imgur.com/2u4GMKb.jpg
 </article>
 <!-- Presenter Notes -->
 </slide>
-<slide class="largecontent" id="slide-74" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
+<slide class="largecontent" id="slide-142" style="background-image: url('libraries/frameworks/io2012-wush/images/background.png'); background-repeat:no-repeat; background-position:center; background-size: 100% 100%;" >
 <hgroup>
   <h2>Q&amp;A</h2>
 </hgroup>
@@ -1389,13 +2122,13 @@ http://i.imgur.com/2u4GMKb.jpg
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=26 title='NA'>
+        data-slide=26 title='「相似度」與「相異度」'>
          26
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=27 title='如何定義距離？'>
+        data-slide=27 title='相似度(Similarity)與相異度(Dissimilarity)'>
          27
       </a>
     </li>
@@ -1449,7 +2182,7 @@ http://i.imgur.com/2u4GMKb.jpg
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=36 title='數值型變數： $L_p$距離'>
+        data-slide=36 title='距離（相異度）'>
          36
       </a>
     </li>
@@ -1461,67 +2194,67 @@ http://i.imgur.com/2u4GMKb.jpg
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=38 title='如何挑選Similarity'>
+        data-slide=38 title='數值型變數： Manhattan Distance, \(L_1\)'>
          38
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=39 title='Hierarchical Clustering'>
+        data-slide=39 title='數值型變數： Euclidean Distance, \(L_2\)'>
          39
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=40 title='Dendrogram'>
+        data-slide=40 title='數值型變數： Maximum Distance, \(L_{\infty}\)'>
          40
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=41 title='Dendrogram'>
+        data-slide=41 title='數值型變數 Minkowski Distance'>
          41
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=42 title='NA'>
+        data-slide=42 title='Gower&#39;s Dissimilarity coefficient'>
          42
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=43 title='Hierarchical Clustering'>
+        data-slide=43 title='Gower&#39;s Dissimilarity Coefficient'>
          43
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=44 title='Center-based Clustering'>
+        data-slide=44 title='Gower&#39;s Dissimilarity Coefficient'>
          44
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=45 title='K-Means Clustering'>
+        data-slide=45 title='Gower&#39;s Dissimilarity Coefficient'>
          45
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=46 title='NA'>
+        data-slide=46 title='如何挑選Similarity'>
          46
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=47 title='Density-based Clustering'>
+        data-slide=47 title='Hierarchical Clustering'>
          47
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=48 title='DBSCAN'>
+        data-slide=48 title='Dendrogram'>
          48
       </a>
     </li>
@@ -1533,43 +2266,43 @@ http://i.imgur.com/2u4GMKb.jpg
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=50 title='分群總結'>
+        data-slide=50 title='NA'>
          50
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=51 title='分群比較'>
+        data-slide=51 title='NA'>
          51
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=52 title='練習'>
+        data-slide=52 title='NA'>
          52
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=53 title='Similarity and Classification'>
+        data-slide=53 title='NA'>
          53
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=54 title='Classification'>
+        data-slide=54 title='NA'>
          54
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=55 title='Nearest-Neighborhood'>
+        data-slide=55 title='NA'>
          55
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=56 title='K Nearest-Neighborhood (k-NN)'>
+        data-slide=56 title='NA'>
          56
       </a>
     </li>
@@ -1581,104 +2314,512 @@ http://i.imgur.com/2u4GMKb.jpg
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=58 title='k-NN 常用於評量Similarity'>
+        data-slide=58 title='NA'>
          58
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=59 title='練習'>
+        data-slide=59 title='NA'>
          59
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=60 title='Text Mining'>
+        data-slide=60 title='NA'>
          60
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=61 title='文字資料範例：ptt 笨版文章'>
+        data-slide=61 title='Dendrogram'>
          61
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=62 title='文字資料的特色'>
+        data-slide=62 title='Hierarchical Clustering'>
          62
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=63 title='文字資料的結構化'>
+        data-slide=63 title='如何評斷Clustering結果的好壞？'>
          63
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=64 title='文字資料的清理'>
+        data-slide=64 title='如何挑選Cluster的個數?'>
          64
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=65 title='Term Document Matrix (TDM)'>
+        data-slide=65 title='Center-based Clustering'>
          65
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=66 title='Feature Hashing'>
+        data-slide=66 title='NA'>
          66
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=67 title='範例：Large Movie Review Dataset'>
+        data-slide=67 title='NA'>
          67
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=68 title='TDM'>
+        data-slide=68 title='NA'>
          68
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=69 title='Sentiment Analysis via R, FeatureHashing and XGBoost'>
+        data-slide=69 title='NA'>
          69
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=70 title='n-gram'>
+        data-slide=70 title='NA'>
          70
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=71 title='n-gram 範例'>
+        data-slide=71 title='K-Means Clustering'>
          71
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=72 title='n-gram 範例'>
+        data-slide=72 title='如何評估k-means的分群結果好壞？'>
          72
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=73 title='練習'>
+        data-slide=73 title='Within-Cluster Sum of Squares'>
          73
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=74 title='Q&amp;A'>
+        data-slide=74 title='Gap Statistic for Estimating the Number of Clusters'>
          74
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=75 title='Density-based Clustering'>
+         75
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=76 title='NA'>
+         76
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=77 title='NA'>
+         77
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=78 title='NA'>
+         78
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=79 title='NA'>
+         79
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=80 title='NA'>
+         80
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=81 title='NA'>
+         81
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=82 title='NA'>
+         82
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=83 title='NA'>
+         83
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=84 title='NA'>
+         84
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=85 title='NA'>
+         85
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=86 title='NA'>
+         86
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=87 title='NA'>
+         87
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=88 title='NA'>
+         88
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=89 title='NA'>
+         89
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=90 title='NA'>
+         90
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=91 title='NA'>
+         91
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=92 title='NA'>
+         92
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=93 title='NA'>
+         93
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=94 title='NA'>
+         94
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=95 title='NA'>
+         95
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=96 title='NA'>
+         96
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=97 title='NA'>
+         97
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=98 title='NA'>
+         98
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=99 title='NA'>
+         99
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=100 title='NA'>
+         100
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=101 title='NA'>
+         101
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=102 title='NA'>
+         102
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=103 title='NA'>
+         103
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=104 title='NA'>
+         104
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=105 title='NA'>
+         105
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=106 title='NA'>
+         106
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=107 title='NA'>
+         107
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=108 title='NA'>
+         108
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=109 title='NA'>
+         109
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=110 title='NA'>
+         110
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=111 title='NA'>
+         111
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=112 title='NA'>
+         112
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=113 title='DBSCAN'>
+         113
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=114 title='分群總結'>
+         114
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=115 title='分群比較'>
+         115
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=116 title='練習'>
+         116
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=117 title='Similarity and Classification'>
+         117
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=118 title='Classification'>
+         118
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=119 title='Nearest-Neighborhood'>
+         119
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=120 title='K Nearest-Neighborhood (k-NN)'>
+         120
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=121 title='NA'>
+         121
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=122 title='k-NN 常用於評量Similarity'>
+         122
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=123 title='練習'>
+         123
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=124 title='Text Mining'>
+         124
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=125 title='文字資料範例：ptt 笨版文章'>
+         125
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=126 title='文字資料的特色'>
+         126
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=127 title='文字資料的結構化'>
+         127
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=128 title='文字資料的清理'>
+         128
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=129 title='Term Document Matrix (TDM)'>
+         129
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=130 title='Feature Hashing'>
+         130
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=131 title='範例：Large Movie Review Dataset'>
+         131
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=132 title='TDM'>
+         132
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=133 title='Sentiment Analysis via R, FeatureHashing and XGBoost'>
+         133
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=134 title='n-gram'>
+         134
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=135 title='n-gram 範例'>
+         135
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=136 title='n-gram 範例'>
+         136
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=137 title='GloVe Algorithm'>
+         137
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=138 title='GloVe Algorithm'>
+         138
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=139 title='GloVe Algorithm'>
+         139
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=140 title='GloVe Algorithm'>
+         140
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=141 title='練習'>
+         141
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=142 title='Q&amp;A'>
+         142
       </a>
     </li>
   </ul>

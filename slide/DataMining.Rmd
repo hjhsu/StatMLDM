@@ -226,21 +226,26 @@ Source: <http://www.laits.utexas.edu/~anorman/BUS.FOR/course.mat/Alex>
 - 近朱者赤、近墨者黑
 - 叢集分析的基礎：資料之間的距離、資料之間的相似度
 
---- &fullimg `r bg("1341639767-4160490196.jpg")`
-
-<http://unafang.pixnet.net/album/photo/35371216-%E9%81%A0%E8%B7%9D%E9%9B%A2%E6%88%80%E6%84%9B>
+--- &fullimg `r bg("company-cluster.png")`
 
 --- &fullimg `r bg("evolutionary_tree.jpg")`
 
 <http://www.bio.miami.edu/dana/160/160S13_5.html>
 
---- &fullimg `r bg("euclid3.gif")`
-
-<https://hlab.stanford.edu/brian/euclidean_distance_in.html>
-
 --- .dark .segue
 
-## 如何定義距離？
+## 「相似度」與「相異度」
+
+--- &vcenter .largecontent
+
+## 相似度(Similarity)與相異度(Dissimilarity)
+
+- 相似度：越大越像
+- 相異度：越小越像
+    - 距離
+- 兩者可以用數學運算做變換
+    - 常見的相似度常常介於0與1之間
+    - 定義相異度： 1 - 相似度
 
 --- &vcenter .largecontent
 
@@ -325,30 +330,207 @@ Source: <http://www.laits.utexas.edu/~anorman/BUS.FOR/course.mat/Alex>
 
 --- &vcenter .largecontent
 
+## 距離（相異度）
+
+- $d(x, y)$
+    - $d(x, y) \geq 0$：距離一定是正的
+    - $d(x, y) = 0 \Leftrightarrow x = y$：相同的物品 $\Leftrightarrow$距離為0
+    - $d(x, y) = d(y, x)$：距離是對稱的
+    - $d(x, z) \leq d(x, y) + d(y, z)$：三角不等式
+
+--- &vcenter .largecontent
+
 ## 數值型變數： $L_p$距離
 
 - $X_1 = (x_{1,1}, x_{1, 2}, ..., x_{1, d})  \in \mathbb{R}^d$
 - $X_2 = (x_{2, 1}, x_{2, 2}, ..., x_{2, d}) \in \mathbb{R}^d$
 - $L_p(X_1, X_2) = \left( \sum_{k = 1}^d {\left| x_{1, k} - x_{2, k} \right|^p} \right)^{1/p}$
 
---- &twocol 
+--- .largecontent
 
-## 數值型變數： $L_p$距離
+## 數值型變數： Manhattan Distance, $L_1$
 
-*** =left
+$$d(i,j) = 
+  \left\lVert x_{i,1} - x_{j,1} \right\rVert +
+  \left\lVert x_{i,2} - x_{j,2} \right\rVert +
+  \dots +
+  \left\lVert x_{i,p} - x_{j,p} \right\rVert$$
 
-`r fig("140px-Vector_norms.svg.png")`
+<center>
+```{r L1, fig.width = 7, fig.height = 7}
+xlim <- ylim <- c(-1.2, 1.2)
+plot(0, 0, type = "n", xlim = xlim, ylim = ylim,
+     xlab = "", ylab = "", xaxt = "n", yaxt = "n", 
+     bty = "n")
+f <- function(x) 1 - abs(x)
+curve(f, -1, 1, add = TRUE, lwd = 2)
+f <- function(x) - (1 - abs(x))
+curve(f, -1, 1, add = TRUE, lwd = 2)
+arrows(
+  c(0,xlim[1]),
+  c(ylim[1],0),
+  c(0,xlim[2]),
+  c(ylim[2],0),
+  0.10)
+```
+</center>
 
-*** =right
+--- .largecontent
 
-`r fig("400px-Superellipse_rounded_diamond.svg.png")`
+## 數值型變數： Euclidean Distance, $L_2$
+
+$$d(i,j) = \sqrt{
+  \left( x_{i,1} - x_{j,1} \right)^2 +
+  \left( x_{i,2} - x_{j,2} \right)^2 +
+  \dots +
+  \left( x_{i,p} - x_{j,p} \right)^2
+}$$
+
+<center>
+```{r L2, fig.width = 7, fig.height = 7}
+xlim <- ylim <- c(-1.2, 1.2)
+plot(0, 0, type = "n", xlim = xlim, ylim = ylim,
+     xlab = "", ylab = "", xaxt = "n", yaxt = "n", 
+     bty = "n")
+f <- function(x) sqrt(1 - x^2)
+curve(f, -1, 1, add = TRUE, lwd = 2)
+f <- function(x) - sqrt(1 - x^2)
+curve(f, -1, 1, add = TRUE, lwd = 2)
+arrows(
+  c(0,xlim[1]),
+  c(ylim[1],0),
+  c(0,xlim[2]),
+  c(ylim[2],0),
+  0.10)
+```
+</center>
+
+--- .largecontent
+
+## 數值型變數： Maximum Distance, $L_{\infty}$
+
+$$d(i, j) = max_{k=1}^p {
+  \left\lVert x_{i,k} - x_{j,k} \right\rVert
+}$$
+
+<center>
+```{r Linfty, fig.width = 7, fig.height = 7}
+xlim <- ylim <- c(-1.2, 1.2)
+plot(0, 0, type = "n", xlim = xlim, ylim = ylim,
+     xlab = "", ylab = "", xaxt = "n", yaxt = "n", 
+     bty = "n")
+lines(c(-1, 1), c(1, 1), lwd = 2)
+lines(c(-1, 1), c(-1, -1), lwd = 2)
+lines(c(1, 1), c(-1, 1), lwd = 2)
+lines(c(-1, -1), c(-1, 1), lwd = 2)
+arrows(
+  c(0,xlim[1]),
+  c(ylim[1],0),
+  c(0,xlim[2]),
+  c(ylim[2],0),
+  0.10)
+```
+</center>
+
+--- &vcenter .largecontent
+
+## 數值型變數 Minkowski Distance
+
+$$d(i,j) =
+\left(
+  \left\lVert x_{i,1} - x_{j,1} \right\rVert^q +
+  \left\lVert x_{i,2} - x_{j,2} \right\rVert^q +
+  \dots +
+  \left\lVert x_{i,p} - x_{j,p} \right\rVert^q
+\right)$$
+
+<center>
+```{r Minkowski, fig.width = 7, fig.height = 7, fig.show = "hide", results = "hide"}
+xlim <- ylim <- c(-1.2, 1.2)
+q.list <- c(seq(0.2, 2, by = 0.2),
+            seq(2.4, 4, by = 0.4),
+            8, 16, 32)
+out <- "minkowski.gif"
+suppressMessages(saveGIF({
+  for(i in seq_along(q.list)) {
+    q <- q.list[i]
+    dev.hold()
+    plot(0, 0, type = "n", xlim = xlim, ylim = ylim,
+         xlab = "", ylab = "", xaxt = "n", yaxt = "n", 
+         bty = "n", main = sprintf("q = %0.1f", q),
+         cex.main = 4)
+    arrows(c(0,xlim[1]), c(ylim[1],0),
+           c(0,xlim[2]), c(ylim[2],0),
+           0.10)
+    f1 <- function(x) (1 - abs(x)^q)^(1/q)
+    curve(f1, -1, 1, add = TRUE, lwd = 2, n = 1001)
+    f2 <- function(x) -f1(x)
+    curve(f2, -1, 1, add = TRUE, lwd = 2, n = 1001)
+    ani.pause()
+  }
+  plot(0, 0, type = "n", xlim = xlim, ylim = ylim,
+       xlab = "", ylab = "", xaxt = "n", yaxt = "n", 
+       bty = "n", main = sprintf("q = Inf"),
+       cex.main = 4)
+  arrows(c(0,xlim[1]), c(ylim[1],0),
+         c(0,xlim[2]), c(ylim[2],0),
+         0.10)
+  lines(c(-1, 1), c(1, 1), lwd = 2)
+  lines(c(-1, 1), -c(1, 1), lwd = 2)
+  lines(c(1, 1), c(-1, 1), lwd = 2)
+  lines(-c(1, 1), c(-1, 1), lwd = 2)
+  ani.pause()
+}, out))
+```
+<img src="minkowski.gif"/>
+</center>
+
+--- &vcenter .largecontent
+
+## Gower's Dissimilarity coefficient
+
+- $x_i = (x_{i,1}, x_{i,2}, x_{i,3}, ..., x_{i,p})$
+- $x_j = (x_{j,1}, x_{j,2}, x_{j,3}, ..., x_{j,p})$
+- 如果第一個變數是順序尺度或數值變數
+    - $s_{i,j,1} = \frac{\left\lVert x_{i,1} - x_{j,1} \right\rVert}{r_1}$
+        - $r_1$代表第一個變數的range
+    - $0 \leq s_{i,j,1} \leq 1$
+
+--- &vcenter .largecontent
+
+## Gower's Dissimilarity Coefficient
+
+- $x_i = (x_{i,1}, x_{i,2}, x_{i,3}, ..., x_{i,p})$
+- $x_j = (x_{j,1}, x_{j,2}, x_{j,3}, ..., x_{j,p})$
+- 如果第二個變數是類別變數
+    - $s_{i,j,2}$ 則是 $1 - $Jaccard Index
+    - $0 \leq s_{i,j,2} \leq 1$
+
+--- &vcenter .largecontent
+
+## Gower's Dissimilarity Coefficient
+
+- $s_{i,j} = \frac{\sum_{k=1}^p {w_k s_{i,j,p}}}{\sum_{k=1}^p {w_k}}$
+    - Gower's Similarity coefficient 就是這些similarity指標的weighted sum
+
+--- &vcenter .largecontent
+
+## Gower's Dissimilarity Coefficient
+
+```{r gower, echo = TRUE, eval = FALSE}
+library(cluster)
+d <- daisy(iris, metric = "gower")
+```
 
 --- &vcenter .largecontent
 
 ## 如何挑選Similarity
 
 - 視目標與應用而定
-- 利用相似度解釋資料（主觀）
+    - 利用1NN 分類的結果來評估Similarity的品質(後述)
+- 數值變數的baseline：
+    - 先標準化
+    - $L_2$距離
 
 --- .dark .segue
 
@@ -496,43 +678,68 @@ abline(h = tail(cl$height, 3)[1] + 0.05, lty = 2)
 text(5, tail(cl$height, 3)[1] + 0.15, "k = 3", cex = 1.5)
 ```
 
+--- &vcenter .largecontent
+
+## 如何評斷Clustering結果的好壞？
+
+- Cluster之內的距離要短
+- Cluster之間的距離要長
+
+--- &vcenter .largecontent
+
+## 如何挑選Cluster的個數?
+
+- 挑選Clustering結果好的Cluster個數
+- 透過dendrogram的高度差距來比較
+
 --- .dark .segue
 
 ## Center-based Clustering
 
-```{r kmeans, results="hide", warning=FALSE, cache = TRUE}
-suppressMessages(
-  saveGIF({
-    x <- model.matrix(Species ~ Sepal.Length + Sepal.Width - 1, iris)
-    centers <- 3
-    d <- dist(x)
-    gr.center <- sample(seq_len(nrow(x)), centers, FALSE)
-    gr <- sample(seq_len(centers), nrow(x), TRUE)
-    x.center <- x[gr.center,]
-    dst <- matrix(nrow = nrow(x), ncol = centers)
-    j <- 1
-    pch <- as.integer(iris$Species)
-    col <- 1:3
-    is.continue <- TRUE
-    while(is.continue) {
-      dev.hold()
-      plot(x, pch = pch, col = col[gr], main = "k-means")
-      points(x.center, pch = 16, col = 1:3,
-             cex = 3, lwd = 2)
-      ani.pause()
-      knn <- get.knnx(x.center, x, k = 1)
-      gr.last <- gr
-      gr <- as.vector(knn$nn.index)
-      if (isTRUE(all.equal(gr, gr.last))) is.continue <- FALSE
-      x.center <- split(seq_len(nrow(x)), gr) %>%
-        lapply(function(k) {
-          apply(x[k,], 2, mean)
-        }) %>%
-        do.call(what = rbind)
-    }
-  }, movie.name = "kmeans.gif"))
-if (file.exists("assets/img/kmeans.gif")) file.remove("assets/img/kmeans.gif")
-file.rename("kmeans.gif", "assets/img/kmeans.gif")
+```{r kmeans-figs, fig.show = "hide", warning = FALSE, cache = TRUE}
+x <- model.matrix(Species ~ Sepal.Length + Sepal.Width - 1, iris)
+centers <- 3
+d <- dist(x)
+gr.center <- sample(seq_len(nrow(x)), centers, FALSE)
+gr <- sample(seq_len(centers), nrow(x), TRUE)
+x.center <- x[gr.center,]
+dst <- matrix(nrow = nrow(x), ncol = centers)
+j <- 1
+pch <- as.integer(iris$Species)
+col <- 1:3
+is.continue <- TRUE
+while(is.continue) {
+  plot(x, pch = pch, col = col[gr], main = "k-means")
+  points(x.center, pch = 16, col = 1:3,
+         cex = 3, lwd = 2)
+  knn <- get.knnx(x.center, x, k = 1)
+  gr.last <- gr
+  gr <- as.vector(knn$nn.index)
+  if (isTRUE(all.equal(gr, gr.last))) is.continue <- FALSE
+  x.center <- split(seq_len(nrow(x)), gr) %>%
+    lapply(function(k) {
+      apply(x[k,], 2, mean)
+    }) %>%
+    do.call(what = rbind)
+}
+```
+
+```{r kmeans-figs-display, dependson="kmeans-figs", results="asis"}
+fig.list <- dir("assets/fig", "rdata-mining-kmeans-figs-.*.png$")
+fig.id <- 
+  regmatches(fig.list, 
+           regexec("^rdata-mining-kmeans-figs-(\\d+).png$",
+                   fig.list)) %>%
+  sapply("[", 2) %>%
+  as.integer()
+fig.order <- order(fig.id)
+lapply(
+  fig.list[fig.order], 
+  function(fig.path) {
+    fig.path <- file.path("..", "fig", fig.path)
+    sprintf("\n--- &fullimg %s\n", bg(fig.path)) %>% cat()
+  }
+) %>% invisible()
 ```
 
 --- &vcenter .largecontent
@@ -542,55 +749,112 @@ file.rename("kmeans.gif", "assets/img/kmeans.gif")
 - 資料間的距離
 - 中心點的個數(與起始值)
 
---- &fullimg `r bg("kmeans.gif")`
+--- &vcenter .largecontent
+
+## 如何評估k-means的分群結果好壞？
+
+```{r withinss}
+d <- dist(iris[,-5])
+result <- 
+  lapply(2:10, function(i) {
+    .x <- sapply(1:20, function(j) {
+      cl <- kmeans(d, i)
+      sum(cl$withinss)
+    })
+    data.frame(withinss = mean(.x), k = i)
+  }) %>%
+  do.call(what = rbind)
+plot(withinss ~ k, result, cex.lab = 1.8)
+lines(withinss ~ k, result)
+```
+
+--- &vcenter .largecontent
+
+## Within-Cluster Sum of Squares
+
+```{r withinss-display}
+iris2 <- iris[c(1,2,51,52,101,102),1:2]
+cl <- kmeans(iris2, centers = 2)
+plot(iris2, main = "Within-Cluster Sum of Squares", col = cl$cluster, pch = cl$cluster)
+points(cl$centers, col = 1:2, pch = 16:17)
+for(i in seq_len(nrow(iris2))) {
+  start <- iris2[i,]
+  end <- cl$centers[cl$cluster[i],]
+  tmp <- rbind(start, end)
+  lines(tmp[,1], tmp[,2], col = cl$cluster[i])
+}
+```
+
+--- &vcenter .largecontent
+
+## Gap Statistic for Estimating the Number of Clusters
+
+```{r gap-cluster}
+library(cluster)
+gap <- clusGap(iris[,-5], kmeans, 10, B = 100, verbose = interactive())
+plot(gap, cex.lab = 1.5)
+```
 
 --- .dark .segue
 
 ## Density-based Clustering
 
-```{r fpc, results="hide", warning=FALSE, cache = TRUE}
-suppressMessages(
-  saveGIF({
-    x <- model.matrix(Species ~ Sepal.Length + Sepal.Width - 1, iris)
-    d <- as.matrix(dist(x))
-    g <- dbscan(x, 0.2)
-    cl <- integer(nrow(iris))
-    i.all <- seq_len(nrow(iris))
-    i.next <- c()
-    i.done <- c()
-    get_next_i <- function(i.next, i.done) {
-      cat(sprintf("i.next: %s i.done: %s \n", paste(i.next, collapse = ","), paste(i.done, collapse = ",")))
-      if (length(i.next) == 0) setdiff(i.all, i.done) %>% head(1) else i.next[1]
+```{r fpc-figs, results="hide", warning=FALSE, cache = TRUE, fig.show="hide"}
+x <- model.matrix(Species ~ Sepal.Length + Sepal.Width - 1, iris)
+d <- as.matrix(dist(x))
+g <- dbscan(x, 0.2)
+cl <- integer(nrow(iris))
+i.all <- seq_len(nrow(iris))
+i.next <- c()
+i.done <- c()
+get_next_i <- function(i.next, i.done) {
+  cat(sprintf("i.next: %s i.done: %s \n", paste(i.next, collapse = ","), paste(i.done, collapse = ",")))
+  if (length(i.next) == 0) setdiff(i.all, i.done) %>% head(1) else i.next[1]
+}
+i <- get_next_i(i.next, i.done)
+while(length(i) == 1) {
+  if (length(targets <- which(d[i,] < g$eps)) >= g$MinPts) {
+    if (cl[i] != 0 & all(cl[targets] == cl[i])) {
+    } else {
+      dev.hold()
+      plot(x[,1], x[,2], pch = pch, col = cl + 1, main = "dbscan", type = "p")
+      ani.pause()
+      dev.hold()
+      plot(x[,1], x[,2], pch = pch, col = cl + 1, main = "dbscan", type = "p")
+      draw.circle(x[i,1], x[i,2], radius = g$eps, col = rgb(0.5, 0.5, 0.5, 0.5), lty = 2)
+      ani.pause()
     }
+    if (cl[i] == 0) cl[i] <- max(cl) + 1
+    if (cl[i] == 4) stop("")
+    cl[targets] <- cl[i]
+    i.done <- append(i.done, i)
+    i.next <- union(i.next, targets) %>% setdiff(i.done)
     i <- get_next_i(i.next, i.done)
-    while(length(i) == 1) {
-      if (length(targets <- which(d[i,] < g$eps)) >= g$MinPts) {
-        if (cl[i] != 0 & all(cl[targets] == cl[i])) {
-        } else {
-          dev.hold()
-          plot(x[,1], x[,2], pch = pch, col = cl + 1, main = "dbscan", type = "p")
-          ani.pause()
-          dev.hold()
-          plot(x[,1], x[,2], pch = pch, col = cl + 1, main = "dbscan", type = "p")
-          draw.circle(x[i,1], x[i,2], radius = g$eps, col = rgb(0.5, 0.5, 0.5, 0.5), lty = 2)
-          ani.pause()
-        }
-        if (cl[i] == 0) cl[i] <- max(cl) + 1
-        if (cl[i] == 4) stop("")
-        cl[targets] <- cl[i]
-        i.done <- append(i.done, i)
-        i.next <- union(i.next, targets) %>% setdiff(i.done)
-        i <- get_next_i(i.next, i.done)
-        i.next <- setdiff(i.next, i)
-      } else {
-        i.done <- append(i.done, i)
-        i <- get_next_i(i.next, i.done)
-        i.next <- setdiff(i.next, i)
-      }
-    }
-  }, movie.name = "fpc.gif"))
-if (file.exists("assets/img/fpc.gif")) file.remove("assets/img/fpc.gif")
-file.rename("fpc.gif", "assets/img/fpc.gif")
+    i.next <- setdiff(i.next, i)
+  } else {
+    i.done <- append(i.done, i)
+    i <- get_next_i(i.next, i.done)
+    i.next <- setdiff(i.next, i)
+  }
+}
+```
+
+```{r fpc-figs-display, dependson="fpc-figs", results="asis"}
+fig.list <- dir("assets/fig", "rdata-mining-fpc-figs-.*.png$")
+fig.id <- 
+  regmatches(fig.list, 
+           regexec("^rdata-mining-fpc-figs-(\\d+).png$",
+                   fig.list)) %>%
+  sapply("[", 2) %>%
+  as.integer()
+fig.order <- order(fig.id)
+lapply(
+  fig.list[fig.order], 
+  function(fig.path) {
+    fig.path <- file.path("..", "fig", fig.path)
+    sprintf("\n--- &fullimg %s\n", bg(fig.path)) %>% cat()
+  }
+) %>% invisible()
 ```
 
 --- &vcenter .largecontent
@@ -600,8 +864,6 @@ file.rename("fpc.gif", "assets/img/fpc.gif")
 - 資料間的距離
 - Reachability distance（判斷有沒有連接）
 - Reachability minimum number of points （判斷是不是雜訊）
-
---- &fullimg `r bg("fpc.gif")`
 
 --- &vcenter .largecontent
 
@@ -863,6 +1125,69 @@ x2 <-
 df <- matrix(1, ncol = 8)
 colnames(df) <- head(x2, 8)
 kable(df)
+```
+
+--- &vcenter .largecontent
+
+## GloVe Algorithm
+
+- 給定大量的文章與單字
+    - 利用機器學習的技術學習文章的結構
+    - 將每一個單字轉換成一個數值向量
+- 可能是目前相關演算法中最好的成果
+
+--- &vcenter .largecontent
+
+## GloVe Algorithm
+
+- 可以到 <http://nlp.stanford.edu/projects/glove/> 下載 GloVe 的學習結果
+- 使用Data Engineer的技巧讀取資料後，計算：
+    1. 找出"paris", "french", "roman"的向量
+    2. 計算`paris - french + roman`
+    3. 尋找和計算結果最接近的點：
+
+--- &vcenter .largecontent
+
+## GloVe Algorithm
+
+```{r import-glove, cache = TRUE, results="hide"}
+library(data.table)
+glove <- fread("glove.6B.50d.txt", header = FALSE, sep = " ", stringsAsFactors = FALSE, data.table = FALSE)
+m <- glove[,-1] %>% as.matrix()
+colnames(m) <- NULL
+rownames(m) <- glove$V1
+rm(glove);gc()
+```
+
+```{r glove, echo = TRUE, dependson="import-glove", cache = TRUE}
+# m 是讀取GloVe專案的學習成果後的矩陣
+library(FNN)
+paris <- m["paris",]
+french <- m["french",]
+italy <- m["italy",]
+query <- matrix(paris - french + italy, nrow = 1)
+r <- get.knnx(m, query, k = 10)
+rownames(m)[r$nn.index]
+```
+
+--- &vcenter .largecontent
+
+## GloVe Algorithm
+
+- 我們可以做一些奇怪的事情...
+
+```{r glove-play, echo = TRUE, dependson="import-glove", cache = TRUE}
+# m 是讀取GloVe專案的學習成果後的矩陣
+library(FNN)
+r <- get.knnx(m, m["gun",,drop = FALSE], k = 10)
+rownames(m)[r$nn.index]
+r <- get.knnx(m, m["warrior",,drop = FALSE], k = 10)
+rownames(m)[r$nn.index]
+query <- matrix(
+  m["gun",] - m["police",] + m["warrior",]
+  , nrow = 1)
+r <- get.knnx(m, query, k = 10)
+rownames(m)[r$nn.index]
 ```
 
 --- &vcenter .largecontent
