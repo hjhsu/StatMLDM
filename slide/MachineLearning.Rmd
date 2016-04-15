@@ -28,6 +28,7 @@ library(plotmo)
 library(rpart.plot)
 library(ggplot2)
 library(gridExtra)
+library(animation)
 
 opts_chunk$set(echo = FALSE, cache=TRUE, comment="",
                cache.path = "cache-MachineLearning/",
@@ -44,6 +45,7 @@ fig2 <- function(path, size = 100) {
 }
 sys_name <- Sys.info()["sysname"] %>% tolower
 sys_encode <- c("utf8", "utf8", "big5")[pmatch(sys_name, c("linux", "darwin", "windows"))]
+bg <- function(path) sprintf("bg:url(assets/img/%s)", path)
 ```
 
 ## 課程大綱
@@ -101,6 +103,16 @@ sys_encode <- c("utf8", "utf8", "big5")[pmatch(sys_name, c("linux", "darwin", "w
 
 --- &vcenter .largecontent
 
+## 課堂中的機器學習
+
+<center>`r fig("Machine Learning2.png")`</center>
+
+--- &fullimg `r bg("microsoft-machine-learning-algorithm-cheat-sheet-v6.png")`
+
+<https://azure.microsoft.com/en-us/documentation/articles/machine-learning-algorithm-cheat-sheet/>
+
+--- &vcenter .largecontent
+
 ## 為什麼我們要讓機器去學習？
 
 - 機器學習不能解決所有的問題
@@ -113,12 +125,26 @@ sys_encode <- c("utf8", "utf8", "big5")[pmatch(sys_name, c("linux", "darwin", "w
 
 ## 實際的問題 $\Rightarrow$ 機器學習問題
 
+- 機器學習能解決的問題：
+    - 預測數值
+    - 分類
 - 我們想要增加廣告的營收
 - 廣告的營收和點擊率相關
 - 在每次推播廣告給瀏覽者前，考慮「該瀏覽者點擊每種廣告的機率」
 - 預測瀏覽者點擊每種廣告的機率
 
+--- &fullimg `r bg("display-ad.png")`
+
 --- &vcenter .largecontent
+
+## 實際的問題 $\Rightarrow$ 機器學習問題
+
+- 我們想要了解詞彙的結構
+- 利用每個詞彙前後的詞彙，來預測各個詞彙的機率
+
+--- &fullimg `r bg("GloVe-frog.png")`
+
+--- .dark .segue
 
 ## 使用機器學習的好處
 
@@ -126,7 +152,7 @@ sys_encode <- c("utf8", "utf8", "big5")[pmatch(sys_name, c("linux", "darwin", "w
 
 ## 人的主流意見可能出錯
 
-- 範例：廣告播放
+- 範例：
     - 我們以為女生不喜歡遊戲類廣告
     - 有些手機遊戲是針對女生設計
 
@@ -135,7 +161,7 @@ sys_encode <- c("utf8", "utf8", "big5")[pmatch(sys_name, c("linux", "darwin", "w
 ## 「模型」可能複雜到人無法處理
 
 - $Y = f(X)$ 的 $f$ 可能複雜到人無法一開始就設計出好的答案
-- 範例：廣告播放
+- 範例：
     - 瀏覽者有數十種標籤
     - 有數百個網站與廣告
 
@@ -144,7 +170,7 @@ sys_encode <- c("utf8", "utf8", "big5")[pmatch(sys_name, c("linux", "darwin", "w
 ## 環境的特性一直在改變
 
 - 人無法跟上環境的改變
-- 範例：廣告播放
+- 範例：
     - 簽約的網站與廣告會一直更換
     - 瀏覽者的喜好也會一直更換
 
@@ -183,7 +209,7 @@ sys_encode <- c("utf8", "utf8", "big5")[pmatch(sys_name, c("linux", "darwin", "w
 
 --- &vcenter .largecontent
 
-## 機器學習領域常用名詞
+## 研究機器學習時的常用名詞
 
 - $Y$：目標變數、應變變數、response
 - $X$：解釋變數、獨立變數、covariates
@@ -226,22 +252,13 @@ sys_encode <- c("utf8", "utf8", "big5")[pmatch(sys_name, c("linux", "darwin", "w
 
 ## 機器學習技術較常用應用於預測
 
-- 鑑往知來
-
---- &vcenter .largecontent
-
-## 預測型分析
-
-- 在事件發生之前，預測事件的結果
+- 預測型分析
+    - 在事件發生之前，預測事件的結果
     - 利用預測結果，決定動作
 
---- &vcenter .largecontent
+--- &fullimg `r bg("stock-price.jpg")`
 
-## 股價
-
-- 預測未來股價的漲跌，決定行動
-    - 漲：買進
-    - 跌：賣出
+<http://www.businessinsider.com.au>
 
 --- &vcenter .largecontent
 
@@ -276,20 +293,119 @@ sys_encode <- c("utf8", "utf8", "big5")[pmatch(sys_name, c("linux", "darwin", "w
 - 分析師必須要能夠透過模型尋找出價值
     - 例：透過分析資安數據，發現特定作業系統比較脆弱，容易發生資安事件
 
+--- .dark .segue
+
+## 機器學習的原理
+
+--- &vcenter .largecontent
+
+## 機器如何學習
+
+- 相信過去的資料能夠代表未來
+- 找到代表過去的特徵
+    - 該特徵會維持到未來
+- 「資料具有代表性」
+
+--- &vcenter .largecontent
+ 
+## 請同學預測六年甲班的數學考試的平均成績
+
+- 請選擇：
+    - 10分
+    - 50分
+    - 100分
+    - 200分
+
+--- &vcenter .largecontent
+
+## 請同學預測六年甲班的數學考試的平均成績
+
+- 已知上次考試中，四位同學的成績是：220, 240, 235, 225
+- 請選擇
+    - 10分
+    - 50分
+    - 100分
+    - 200分
+
+--- &vcenter .largecontent
+
+## 機器如何學習
+
+- 相信過去的資料能夠代表未來
+- 找到代表過去的特徵
+    - 該特徵會維持到未來
+- 「資料具有代表性」
+
+--- &vcenter .largecontent
+
+## 代表性很重要
+
+- 如果六年甲班許多同學不同
+- 如果上次的出題老師與這次的出題老師不同
+- 如果上次的數學考試滿分為240, 這次的滿分為1000
+
 --- &vcenter .largecontent
 
 ## 機器如何學習
 
 - 尋找訊號
 - 評分（Loss Function）
-    - 評量預測結果
-    - 調整預測的方向
-    - 常常牽涉到統計模型
-    - 實務上努力的方向
 - 優化
-    - 找出合理的方法讓預測越來越準
-    - 常常牽涉到數值方法
-    - 實務上，交給套件去處理
+
+--- &vcenter .largecontent
+
+## 評分 ==> 預測
+
+- 四位同學的成績是：220, 240, 235, 225
+- 定義：「準」
+    - 可依據各種距離公式定義「準」
+    - 我們計算差距的平方和作為Loss（越低越好）
+- 請選擇
+    - 10分 (Loss: 193850)
+    - 50分 (Loss: 129850)
+    - 100分 (Loss: 67850)
+    - 200分 (Loss: 3850)
+
+--- &vcenter .largecontent
+
+## 評分 ==> 優化 ==> 預測
+
+- 四位同學的成績是：220, 240, 235, 225
+- 我們計算差距的平方和作為Loss
+- 猜230分的loss最小 (250)
+
+--- &vcenter .largecontent
+
+## 這種方法的預測結果真的會好嗎？
+
+- 如果六年甲班許多同學不同
+- 如果上次的出題老師與這次的出題老師不同
+- 如果上次的數學考試滿分為240, 這次的滿分為1000
+- `...`
+
+--- &vcenter .largecontent
+
+## 這種方法的預測結果真的會好嗎？
+
+- 「假設」數學考試的分數出自常態分佈
+- 該常態分佈的中心點是未知的
+- 看到四個樣本點：$x_1, x_2, x_3, x_4$
+- 研究若干個樣本點與中心點的數學性質：
+    - 如果有$n$個點：$x_1, ..., x_n$
+    - $n$ 個觀測點的平均 $\bar{x}_n$
+    - 當$n$ 趨近於無限大： $\bar{x}_n$會收斂到中心點
+    - 差距大約和$\sqrt{n}$成反比
+
+--- &vcenter .largecontent
+
+## 不同學科對這個問題的看法不同
+
+- 統計：假設 ==> 推導數學性質 ==> 會收斂 ==> 收斂速度
+- 資訊：評分 ==> 優化 ==> 實驗實驗實驗
+
+--- .dark .segue
+
+## 預測的原理
 
 --- &vcenter .largecontent
 
@@ -314,32 +430,30 @@ knitr::kable(local({
 }))
 df.train <- dplyr::filter(df, type == "2")
 df.test <- dplyr::filter(df, type == "1")
+thm <- theme(legend.position = "none", plot.title = element_text(size=22),
+        axis.title.x = element_text(size = 20, family = "STKaiti"), axis.title.y = element_text(size = 20),
+        axis.text.x = element_text(size = 20), axis.text.y = element_text(size = 20))
 ```
 
 --- &vcenter .largecontent
 
-## 用平均數猜
+## 只有觀察`y`
 
 ```{r ml-principle-avg, dependson="ml-principle1"}
-thm <- theme(legend.position = "none", plot.title = element_text(size=22),
-        axis.title.x = element_text(size = 20), axis.title.y = element_text(size = 20),
-        axis.text.x = element_text(size = 20), axis.text.y = element_text(size = 20))
-g <- 
-  ggplot(df.train, aes(x = y)) + 
-  geom_histogram() + 
-  theme_bw() + 
-  guides(fill=FALSE) + 
-  ggtitle(label = sprintf("Training Loss: %0.4f Testing Loss: %0.4f", 
-                          mean(abs(df.train$y - mean(df.train$y))),
-                          mean(abs(df.test$y - mean(df.train$y)))
-                          )) +
-  thm
-suppressMessages(print(g))
+score <- function(y.hat, y.value) {
+  sum((y.value - y.hat)^2)
+}
+f.train <- Vectorize(function(y) score(y, df.train$y))
+curve(f.train, -6, 6, xlab = "y", ylab = "Loss(SSE)", lwd = 3, cex.lab = 1.5, cex.axis = 1.5)
+f.test <- Vectorize(function(y) score(y, df.test$y))
+curve(f.test, add = TRUE, col = 2, lwd = 3)
+points(mean(df.train$y), score(mean(df.train$y), df.train$y), pch = 16)
+legend("top", c("training loss", "testing loss"), lty = 1, col = 1:2, lwd = 3, cex = 2, bty = "n")
 ```
 
 --- &vcenter .largecontent
 
-## 機器學習的原理 - 只看到x
+## 機器學習的原理 - 看到`x`與`y`
 
 ```{r ml-principle-x, dependson="ml-principle-avg"}
 f2 <- local({
@@ -357,8 +471,8 @@ result_x_y <- function(.f, print = TRUE) {
     stat_function(fun = .f, colour = "gray", lwd = 2) +
     guides(fill=FALSE) + 
     ggtitle(label = sprintf("Training Loss: %0.4f Testing Loss: %0.4f", 
-                            mean(abs(df.train$y - .f(df.train$x))),
-                            mean(abs(df.test$y - .f(df.test$x)))
+                            sum((df.train$y - .f(df.train$x))^2),
+                            sum((df.test$y - .f(df.test$x))^2)
                             )) +
     thm  
   if (print) suppressMessages(print(g))
@@ -369,31 +483,182 @@ result_x_y(f2)
 
 --- &vcenter .largecontent
 
-## 機器學習的原理 - 只看到x - 複雜化
+## 看到`x`與`y`
+
+```{r ml-principle-x-optimization, dependson="ml-principle-avg"}
+line_loss <- Vectorize(function(a, b) {
+  sum((df.train$y - (a + b * df.train$x))^2)
+})
+z <- outer(
+  a <- seq(-2, 6, length.out = 100),
+  b <- seq(-2, 6, length.out = 100),
+  line_loss
+)
+par(family = "STKaiti")
+image(a, b, z, col = topo.colors(100, alpha = 0.5), axes = TRUE,
+      cex.lab = 1.5, xlab = "截距", ylab = "斜率")
+contour(a, b, z, add = TRUE, drawlabels = TRUE, 
+        nlevels = 5, labcex = 1.2)
+.g <- lm(y ~ x, df.train)
+points(.g$coef[1], .g$coef[2], pch = 16, cex = 3)
+```
+
+--- &vcenter .largecontent
+
+## 優化
+
+```{r ml-principle-x-optimization-animation, dependson="ml-principle-avg", fig.show = "hide", results = "hide", include = FALSE, cache = TRUE}
+line_loss <- Vectorize(function(a, b) {
+  sum((df.train$y - (a + b * df.train$x))^2)
+})
+dline_loss <- function(a, b) {
+  c(
+    2 * sum((a + b * df.train$x) - df.train$y),
+    2 * sum(((a + b * df.train$x) - df.train$y) * df.train$x)
+  )
+}
+z <- outer(
+  a <- seq(-2, 6, length.out = 100),
+  b <- seq(-2, 6, length.out = 100),
+  line_loss
+)
+line_loss.trace <- list()
+line_loss2 <- function(x) {
+  line_loss.trace <<- c(line_loss.trace, list(x))
+  line_loss(x[1], x[2])
+}
+dline_loss2 <- function(x) dline_loss(x[1], x[2])
+optim(par = c(5, -1), fn = line_loss2, gr = dline_loss2)
+saveGIF({
+  for(i in min(15, length(line_loss.trace) - 1) %>% seq_len) {
+    dev.hold()
+    par(family = "STKaiti")
+    image(a, b, z, col = topo.colors(100, alpha = 0.5), axes = TRUE,
+          cex.lab = 1.5, xlab = "截距", ylab = "斜率")
+    contour(a, b, z, add = TRUE, drawlabels = TRUE, 
+            nlevels = 5, labcex = 1.2)
+    .g <- lm(y ~ x, df.train)
+    points(.g$coef[1], .g$coef[2], pch = 16, cex = 3, 
+           col = rgb(0, 0, 0, 0.5))
+    for(j in seq_len(i - 1)) {
+      start <- line_loss.trace[[j]]
+      end <- line_loss.trace[[j + 1]]
+      arrows(start[1], start[2], end[1], end[2], lwd = 3,
+             length = sqrt(sum((start - end)^2)) / 10,
+             col = rgb(0.5, 0.5, 0.5))
+    }
+    start <- line_loss.trace[[i]]
+    end <- line_loss.trace[[i + 1]]
+    arrows(start[1], start[2], end[1], end[2], lwd = 3,
+           length = sqrt(sum((start - end)^2)) / 10)
+    ani.pause()
+  }
+}, movie.name = src.path <- "ml-principle-x-optimization.gif")
+dst.path <- file.path("assets", "img", src.path)
+if (file.exists(dst.path)) file.remove(dst.path)
+file.rename(src.path, dst.path)
+```
+
+`r fig("ml-principle-x-optimization.gif")`
+
+--- &vcenter .largecontent
+
+## 大「量」數據的機器學習挑戰：優化
+
+`r fig("sgd-survey.gif")`
+
+<small><http://hduongtrong.github.io/2015/11/23/coordinate-descent/></small>
+
+--- &vcenter .largecontent
+
+## Testing Dataset的Loss
+
+```{r line-training-testing}
+line_loss.train <- Vectorize(function(a, b) {
+  sum((df.train$y - (a + b * df.train$x))^2)
+})
+line_loss.test <- Vectorize(function(a, b) {
+  sum((df.test$y - (a + b * df.test$x))^2)
+})
+z.train <- outer(
+  a <- seq(-2, 6, length.out = 100),
+  b <- seq(-2, 6, length.out = 100),
+  line_loss.train
+)
+z.test <- outer(
+  a, b, line_loss.test
+)
+par(family = "STKaiti")
+contour(a, b, z.train, drawlabels = TRUE, 
+        nlevels = 5, labcex = 1.2, cex.lab = 1.5, 
+        xlab = "截距", ylab = "斜率")
+contour(a, b, z.test, add = TRUE, drawlabels = TRUE, 
+        nlevels = 5, labcex = 1.2, cex.lab = 1.5, 
+        col = 2, xlab = "截距", ylab = "斜率", lty = 2)
+```
+
+--- &vcenter .largecontent
+
+## 複雜化`x`與`y`的關係
 
 ```{r ml-principle-smooth.x, dependson="ml-principle-x"}
-f3 <- local({
+get_f <- function(k) {
   .x <- seq(min(df.train$y) - 1, max(df.train$y) + 1, length.out = 1000)
-  m <- smooth.spline(df.train$x, df.train$y)
+  m <- smooth.spline(df.train$x, df.train$y, df = k)
   approxfun(.x, predict(m, .x)$y)
-})
+}
+f3 <- get_f(10)
 result_x_y(f3)
 ```
 
 --- &vcenter .largecontent
 
-## 機器學習的原理 - 只看到x - 過度複雜化
+## 複雜化`x`與`y`的關係
 
-```{r ml-principle-interp.x, dependson="ml-principle-smooth.x"}
-f4 <- local({
-  splinefun(df.train$x, df.train$y, "monoH.FC")
+```{r ml-principle-overfitting, dependson="ml-principle-smooth.x"}
+k.list <- 2:20
+train.loss <- sapply(k.list, function(i) {
+  f <- get_f(i)
+  sum((df.train$y - f(df.train$x))^2)
 })
+test.loss <- sapply(k.list, function(i) {
+  f <- get_f(i)
+  sum((df.test$y - f(df.test$x))^2)
+})
+data.frame(
+  type = rep(c("training loss", "testing loss"), each = length(k.list)),
+  "參數個數" = rep(k.list, 2),
+  loss = c(train.loss, test.loss)
+) %>%
+  ggplot(aes(x = 參數個數, y = loss, colour = type)) +
+  geom_line() +
+  geom_point() + 
+  thm
+```
+
+--- &vcenter .largecontent
+
+## 複雜化`x`與`y`的關係
+
+```{r ml-principle-interp, dependson="ml-principle-smooth.x"}
+f4 <- get_f(20)
 result_x_y(f4)
 ```
 
 --- &vcenter .largecontent
 
-## 機器學習的原理 - 只看到z
+## 從`y`到`x`與`y`
+
+- 只有`y` => 用常數做預測
+- 有`x`與`y` => 用`f(x)`做預測
+    - `f`越複雜，結果不一定越好
+    - 通常是一個開口向上的曲線
+- `f(x)`如果不夠複雜：lack of fit
+- `f(x)`如果過度複雜：overfitting
+
+--- &vcenter .largecontent
+
+## `z`與`y`
 
 ```{r ml-principle-z, dependson="ml-principle-avg"}
 g1 <- local({
@@ -411,8 +676,8 @@ result_z_y <- function(.f) {
     stat_function(fun = .f, colour = "gray", lwd = 2) +
     guides(fill=FALSE) + 
     ggtitle(label = sprintf("Training Loss: %0.4f Testing Loss: %0.4f", 
-                            mean(abs(df.train$y - .f(df.train$z))),
-                            mean(abs(df.test$y - .f(df.test$z)))
+                            sum((df.train$y - .f(df.train$z))^2),
+                            sum((df.test$y - .f(df.test$z))^2)
                             )) +
     thm  
   suppressMessages(print(g))
@@ -422,7 +687,48 @@ result_z_y(g1)
 
 --- &vcenter .largecontent
 
-## 機器學習的原理 - 看到x與z
+## `z`與`y`
+
+```{r ml-principle-z-overfitting, dependson="ml-principle-z"}
+get_g <- function(k) {
+  .x <- seq(min(df.train$y) - 1, max(df.train$y) + 1, length.out = 1000)
+  m <- smooth.spline(df.train$z, df.train$y, df = k)
+  approxfun(.x, predict(m, .x)$y)
+}
+k.list <- 2:20
+train.loss <- sapply(k.list, function(i) {
+  f <- get_g(i)
+  sum((df.train$y - f(df.train$z))^2)
+})
+test.loss <- sapply(k.list, function(i) {
+  f <- get_g(i)
+  sum((df.test$y - f(df.test$z))^2)
+})
+data.frame(
+  type = rep(c("training loss", "testing loss"), each = length(k.list)),
+  "參數個數" = rep(k.list, 2),
+  loss = c(train.loss, test.loss)
+) %>%
+  ggplot(aes(x = 參數個數, y = loss, colour = type)) +
+  geom_line() +
+  geom_point() + 
+  thm
+```
+
+--- &vcenter .largecontent
+
+## `y` => `z`與`y`
+
+- 單獨看`z`並沒有包含太多`y`的資訊
+    - 從`z` v.s. `y`的圖可以看出
+
+```{r ml-principle-z-overfitting2, dependson="ml-principle-z-overfitting"}
+result_z_y(get_g(20))
+```
+
+--- &vcenter .largecontent
+
+## `x`、`z`與`y`
 
 ```{r ml-principle-xz, dependson="ml-principle-smooth.x"}
 i1 <- result_x_y(f3, FALSE)
@@ -442,8 +748,8 @@ i2 <-
       geom_point(size = 4) +
       stat_function(fun = f5.1, colour = "gray", lwd = 2) + 
       ggtitle(label = sprintf("Training Loss: %0.4f Testing Loss: %0.4f", 
-                              mean(abs(df.train$y - f5.2(df.train$x, df.train$z))),
-                              mean(abs(df.test$y - f5.2(df.test$x, df.test$z)))
+                              sum((df.train$y - f5.2(df.train$x, df.train$z))^2),
+                              sum((df.test$y - f5.2(df.test$x, df.test$z))^2)
                               )) +
       thm
   })
@@ -452,39 +758,13 @@ grid.arrange(i1, i2)
 
 --- &vcenter .largecontent
 
-## 機器學習的原理 - Training v.s. Testing(Validating)
+## 如何做出好模型？
 
-```{r ml-principle-summary, dependson=c("ml-principle-interp.x", "ml-principle-z", "principle-xz")}
-result <- data.frame(
-  "Type" = c("Average", "Line-x", "Smooth-x", "Interpolation-x", "Line-z", "Smooth-x-Line-z"),
-  "Training Loss" = c(
-    mean(abs(df.train$y - mean(df.train$y))), 
-    mean(abs(df.train$y - f2(df.train$x))),
-    mean(abs(df.train$y - f3(df.train$x))),
-    mean(abs(df.train$y - f4(df.train$x))),
-    mean(abs(df.train$y - g1(df.train$z))),
-    mean(abs(df.train$y - f5.2(df.train$x, df.train$z)))
-    ),
-  "Testing Loss" = c(
-    mean(abs(df.test$y - mean(df.train$y))),
-    mean(abs(df.test$y - f2(df.test$x))),
-    mean(abs(df.test$y - f3(df.test$x))),
-    mean(abs(df.test$y - f4(df.test$x))),
-    mean(abs(df.test$y - g1(df.test$z))),
-    mean(abs(df.test$y - f5.2(df.test$x, df.test$z)))
-  )
-)
-knitr::kable(result)
-```
-
-<http://lossfunctions.tumblr.com/>
-
---- &vcenter .largecontent
-
-## 總結
-
-- 了解機器學習的目的與優點
-- 了解機器學習能解決的問題
+- 模型要複雜又不能太複雜
+- 找到有資訊的相依變數
+    - x-y plot可以檢查單一解釋變數與目標變數的關係
+    - x-y plot無法檢查多變數間的交互關係
+    - 尋找相依變數是藝術
 
 --- .dark .segue
 
@@ -1033,25 +1313,7 @@ plotmo(g, type = "class", type2 = "image", degree1 = FALSE,
 $$(y - \beta_0 - \beta_1 x_1 - \beta_2 x_2 - ...)^2$$
 - Regularization
     - 我們要找到參數$\beta_0, \beta_1, ...$ 來最小化:
-$$(y - \beta_0 - \beta_1 x_1 - \beta_2 x_2 - ...)^2 + \left\Vert \beta_1 \right\Vert + \left\Vert \beta_2 \right\Vert + ...$$
-
---- &vcenter .largecontent
-
-## Regularization是一種逼近
-
-- 選解釋變數是個$L_0$的問題
-- Regularization透過 $L_1$ 或 $L_2$ 來逼近選解釋變數的問題
-- $L_1$ 會讓不重要的解釋變數係數變成0
-
-<center>`r fig("Sparsityl1.png")`</center>
-
---- &vcenter .largecontent
-
-## Elastic Net
-
-- 同時考慮 $L_1$ 與 $L_2$ Regularization
-
-<center>`r fig("Sparsityen.png")`</center>
+$$(y - \beta_0 - \beta_1 x_1 - \beta_2 x_2 - ...)^2 + \lambda (\left\Vert \beta_1 \right\Vert + \left\Vert \beta_2 \right\Vert + ...)$$
 
 --- &vcenter .largecontent
 
@@ -1059,6 +1321,7 @@ $$(y - \beta_0 - \beta_1 x_1 - \beta_2 x_2 - ...)^2 + \left\Vert \beta_1 \right\
 
 - 大部分狀況，可以提昇模型的準確度
     - 提昇模型的穩定性
+    - 降低優化的難度
 - $L_0$ Regularization 可以用於挑選重要的解釋變數
 - 資料需要標準化
 - 多了一個（或多個）需要調整的參數
@@ -1357,6 +1620,12 @@ plot(g)
 ```
 
 ![]("assets/fig/plot-nn.png")
+
+--- &vcenter .largecontent
+
+## Neuron Network Online Demo
+
+<http://playground.tensorflow.org>
 
 --- &vcenter .largecontent
 
